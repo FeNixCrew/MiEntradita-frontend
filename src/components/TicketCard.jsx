@@ -39,9 +39,9 @@ const useStyles = makeStyles({
 
 
   
-export default function Ticket(props) {
+export default function Ticket({ticket}) {
     const classes = useStyles();
-    const _horario = new Date(props.ticket.gameTime);
+    const _horario = new Date(ticket.gameTime);
     const horarioFormateado = `${_horario.toLocaleDateString()}, ${_horario.toLocaleTimeString().slice(0,-3)} hs`;
 
     const onImageCownload = () => {
@@ -56,7 +56,7 @@ export default function Ticket(props) {
             ctx.drawImage(img, 0, 0);
             const pngFile = canvas.toDataURL("image/png");
             const downloadLink = document.createElement("a");
-            downloadLink.download = `${props.ticket.home} vs ${props.ticket.away}- ${horarioFormateado}`;
+            downloadLink.download = `${ticket.home} vs ${ticket.away}- ${horarioFormateado}`;
             downloadLink.href = `${pngFile}`;
             downloadLink.click();
         };
@@ -65,12 +65,12 @@ export default function Ticket(props) {
 
     return (
         <Card className={classes.mainContainer}>
-            <h2><span img={props.ticket.homeSpan} />{props.ticket.home} vs {props.ticket.away}</h2>
+            <h2><span img={ticket.homeSpan} />{ticket.home} vs {ticket.away}</h2>
             <h4>{horarioFormateado}</h4>
                 <QRCode
                   id="QRCodeGen"
                   className={classes.qr} 
-                  value={(props.ticket.userId.toString()) + (props.ticket.matchId.toString())} />
+                  value={(ticket.userId.toString()) + (ticket.matchId.toString())} />
             <Button 
             className={classes.downloadButton} 
             variant="contained"  
@@ -78,7 +78,7 @@ export default function Ticket(props) {
             startIcon={<GetAppIcon />} 
             onClick={() => onImageCownload()}>
           </Button>
-            {console.log((props.ticket.userId.toString()) + (props.ticket.matchId.toString()))}
+            {console.log((ticket.userId.toString()) + (ticket.matchId.toString()))}
         </Card>
     )
 }
