@@ -8,12 +8,8 @@ export default function QrScan() {
   const history = useHistory();
 
   const handleScan = data => {
-    setResult(data)
-    if(result === null) return 0;
-    if (result === codigoCorrecto) {
-      history.push('/green')
-    } else {
-      history.push('/red')
+    if(data){
+      setResult(data)
     }
   }
   const handleError = err => {
@@ -22,10 +18,11 @@ export default function QrScan() {
   return (
     <div>
       <QrReader
-        onError={(err) => handleError(err)}
-        onScan={(data) => handleScan(data)}
+        onError={handleError}
+        onScan={handleScan}
         style={{ width: '50%' }}
       />
+      <a>{result}</a>
     </div>
   )
 }

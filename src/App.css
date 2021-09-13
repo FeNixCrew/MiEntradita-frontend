@@ -10,13 +10,6 @@
   padding: 20px;
 }
 
-.mainContainer{
-  background-color:  #27ae60 ;
-  display: grid;
-  border-radius: 5px;
-  justify-content: center;
-}
-
 .qrscancontainer{
   padding-top: 20px;
   margin-left: 500px;

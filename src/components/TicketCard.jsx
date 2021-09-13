@@ -20,14 +20,29 @@ const useStyles = makeStyles({
     pos: {
       marginBottom: 12,
     },
+    downloadButton: {
+      display: 'block',
+      'margin': '2vh'
+    },
+    qr: {
+      'margin-left': '5vh',
+      'margin-right': '5vh'
+    },
+    mainContainer: {
+      'background-color':  '#27ae60',
+      'display': 'grid',
+      'border-radius': '5px',
+      'justify-content': 'center'
+    }
   });
 
 
 
   
 export default function Ticket(props) {
-    const [show, setShow] = useState(false);
     const classes = useStyles();
+    const _horario = new Date(props.ticket.gameTime);
+    const horarioFormateado = `${_horario.toLocaleDateString()}, ${_horario.toLocaleTimeString().slice(0,-3)} hs`;
 
     const onImageCownload = () => {
         const svg = document.getElementById("QRCodeGen");
@@ -41,7 +56,7 @@ export default function Ticket(props) {
             ctx.drawImage(img, 0, 0);
             const pngFile = canvas.toDataURL("image/png");
             const downloadLink = document.createElement("a");
-            downloadLink.download = "QRCode";
+            downloadLink.download = `${props.ticket.home} vs ${props.ticket.away}- ${horarioFormateado}`;
             downloadLink.href = `${pngFile}`;
             downloadLink.click();
         };
@@ -49,20 +64,20 @@ export default function Ticket(props) {
     };
 
     return (
-        <Card class="mainContainer">
+        <Card className={classes.mainContainer}>
             <h2><span img={props.ticket.homeSpan} />{props.ticket.home} vs {props.ticket.away}</h2>
-            <h4>Fecha: {new Date(props.ticket.gameTime).toLocaleDateString()}</h4>
-
-
-            <div className="buttonContainer">
-                <Button variant="contained" color="primary" onClick={() => setShow(!show)} startIcon={<VisibilityIcon />}>See QR</Button>
-            </div>
-
-            <div className="qrContainer">
-                {show && <QRCode id="QRCodeGen" value={(props.ticket.userId.toString()) + (props.ticket.matchId.toString())} />}
-                {show && <Button variant="contained" color="primary" startIcon={<GetAppIcon />} onClick={() => onImageCownload()}>Download QR</Button>}
-            </div>
-
+            <h4>{horarioFormateado}</h4>
+                <QRCode
+                  id="QRCodeGen"
+                  className={classes.qr} 
+                  value={(props.ticket.userId.toString()) + (props.ticket.matchId.toString())} />
+            <Button 
+            className={classes.downloadButton} 
+            variant="contained"  
+            color="primary" 
+            startIcon={<GetAppIcon />} 
+            onClick={() => onImageCownload()}>
+          </Button>
             {console.log((props.ticket.userId.toString()) + (props.ticket.matchId.toString()))}
         </Card>
     )
