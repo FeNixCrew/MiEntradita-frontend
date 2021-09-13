@@ -36,13 +36,15 @@ const useStyles = makeStyles({
     }
   });
 
-
-
   
 export default function Ticket({ticket}) {
     const classes = useStyles();
     const _horario = new Date(ticket.gameTime);
     const horarioFormateado = `${_horario.toLocaleDateString()}, ${_horario.toLocaleTimeString().slice(0,-3)} hs`;
+    const ticketQr = {
+      userId: ticket.userId,
+      matchId: ticket.matchId
+    }
 
     const onImageCownload = () => {
         const svg = document.getElementById("QRCodeGen");
@@ -70,7 +72,7 @@ export default function Ticket({ticket}) {
                 <QRCode
                   id="QRCodeGen"
                   className={classes.qr} 
-                  value={(ticket.userId.toString()) + (ticket.matchId.toString())} />
+                  value={JSON.stringify(ticketQr)} />
             <Button 
             className={classes.downloadButton} 
             variant="contained"  
@@ -78,7 +80,7 @@ export default function Ticket({ticket}) {
             startIcon={<GetAppIcon />} 
             onClick={() => onImageCownload()}>
           </Button>
-            {console.log((ticket.userId.toString()) + (ticket.matchId.toString()))}
+            {console.log(JSON.stringify(ticketQr))}
         </Card>
     )
 }

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import QrReader from 'react-qr-reader'
 import { useHistory } from 'react-router'
+import { tickets } from '../datos';
 
 export default function QrScan() {
-  const [result,setResult] = useState(null);
-  let codigoCorrecto = "1234";
-  const history = useHistory();
+  const [game, setGame] = useState(null);
 
   const handleScan = data => {
     if(data){
-      setResult(data)
+      const result = JSON.parse(data);
+      setGame(tickets.find(ticket => ticket.matchId === result.matchId && ticket.userId === result.userId));
     }
   }
   const handleError = err => {
@@ -22,7 +22,8 @@ export default function QrScan() {
         onScan={handleScan}
         style={{ width: '50%' }}
       />
-      <a>{result}</a>
+      <h2>Id Usuario: {game && game.userId}</h2>
+      <h3>Partido: {game && `${game.home} vs ${game.away}`}</h3>
     </div>
   )
 }
