@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Card, Button } from '@material-ui/core'
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import QRCode from 'react-qr-code';
 import { makeStyles } from '@material-ui/core/styles';
@@ -80,7 +79,6 @@ export default function Ticket({ticket}) {
             startIcon={<GetAppIcon />} 
             onClick={() => onImageCownload()}>
           </Button>
-            {console.log(JSON.stringify(ticketQr))}
         </Card>
     )
 }

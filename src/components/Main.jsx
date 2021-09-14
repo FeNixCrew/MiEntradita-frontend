@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Tickets from './TicketsCarousel';
 import '../App.css'
-import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import QrScan from './QrScan';
 
@@ -22,8 +20,8 @@ function TabPanel(props) {
         {...other}
       >
         {value === index && (
-          <Box p={3}>
-            <Typography>{children}</Typography>
+          <Box p={2}>
+            {children}
           </Box>
         )}
       </div>
@@ -38,16 +36,7 @@ function a11yProps(index) {
     };
   }
   
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-      backgroundColor: theme.palette.background.paper,
-    },
-  }));
-
-
 export default function Main() {
-    const classes = useStyles();
     const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -61,7 +50,7 @@ export default function Main() {
     return (
         <div>
             <AppBar position="static">
-                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+                <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" centered>
                     <Tab label="Tickets" {...a11yProps(0)} />
                     <Tab label="Scanner" {...a11yProps(1)} />
                 </Tabs>
