@@ -6,6 +6,7 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
+import LogIn from './components/LogIn';
 
 
 function App() {
@@ -13,9 +14,11 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          <Redirect to="/main" />
+          <Redirect to="/login" />
         </Route>
-        <Route path="/main" component={Main} />
+        <Route path="/user/main" component={Main} />
+        <Route path="/login" component={LogIn} />
+  
       </Switch>
     </Router>
 

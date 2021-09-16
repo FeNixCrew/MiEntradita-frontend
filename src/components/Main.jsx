@@ -37,7 +37,12 @@ function a11yProps(index) {
   }
   
 export default function Main() {
-    const [value, setValue] = useState(0);
+  const [value, setValue] = useState(0);
+  
+  // esto da asco solo estaba probando
+  const isAdmin = () => {
+    return localStorage.getItem('role') === 'admin'
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -52,7 +57,7 @@ export default function Main() {
             <AppBar position="static">
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" centered>
                     <Tab label="Tickets" {...a11yProps(0)} />
-                    <Tab label="Scanner" {...a11yProps(1)} />
+                    { isAdmin() && <Tab label="Scanner" {...a11yProps(1)} /> }
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
