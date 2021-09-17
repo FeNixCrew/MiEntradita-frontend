@@ -8,7 +8,6 @@ import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import ConfirmationNumber from '@mui/icons-material/ConfirmationNumber';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useHistory } from 'react-router';
 import { useForm } from "react-hook-form";
@@ -18,7 +17,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Background from '../assets/background.png'
-
 
 const theme = createTheme();
 
@@ -33,7 +31,7 @@ export default function LogIn() {
     const { register, handleSubmit } = useForm();
     const [open, setOpen] = useState(false);
     const classes = useStyles();
-
+    const history = useHistory();
 
     const handleClose = () => {
         setOpen(false)
@@ -43,11 +41,7 @@ export default function LogIn() {
         setOpen(!open);
     }
 
-
-    const history = useHistory();
-
     const onSubmit = data => {
-        // alert(JSON.stringify(data));
         handleToggle();
         setTimeout(() => {
             handleClose();
@@ -62,7 +56,6 @@ export default function LogIn() {
     };
 
     return (
-
         <ThemeProvider theme={theme}>
             <Backdrop className={classes.backdrop} open={open}>
                 <CircularProgress color="inherit" />
@@ -137,6 +130,5 @@ export default function LogIn() {
                 </Grid>
             </Grid>
         </ThemeProvider>
-
     );
 }

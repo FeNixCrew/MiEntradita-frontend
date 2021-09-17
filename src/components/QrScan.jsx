@@ -37,7 +37,6 @@ export default function QrScan() {
     setOpen(!open);
   }
 
-
   return (
     <div>
       <Backdrop className={classes.backdrop} open={open}>

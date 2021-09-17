@@ -35,7 +35,6 @@ const useStyles = makeStyles({
     }
   });
 
-  
 export default function Ticket({ticket}) {
     const classes = useStyles();
     const _horario = new Date(ticket.gameTime);
