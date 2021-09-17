@@ -15,6 +15,9 @@ import { useForm } from "react-hook-form";
 import Backdrop from '@material-ui/core/Backdrop';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Background from '../assets/background.png'
 
 
 const theme = createTheme();
@@ -61,65 +64,78 @@ export default function LogIn() {
     return (
 
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
-                <Backdrop className={classes.backdrop} open={open}>
-                    <CircularProgress color="inherit" />
-                </Backdrop>
+            <Backdrop className={classes.backdrop} open={open}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
+            <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
-                <Box
+                <Grid
+                    item
+                    xs={false}
+                    sm={4}
+                    md={7}
                     sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
+                        backgroundImage: `url(${Background})`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundColor: (t) =>
+                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
                     }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <ConfirmationNumber/>
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Bienvenido a MiEntradita
-                    </Typography>
-
-                    <Typography component="h1" variant="h6">
-                        Iniciar Sesion
-                    </Typography>
-                    <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
-                        <TextField
-                            {...register("username")}
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Username"
-                            autoComplete="username"
-                            autoFocus
-                        />
-                        <TextField
-                            {...register("password")}
-                            margin="normal"
-                            required
-                            fullWidth
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
+                />
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                    <Box
+                        sx={{
+                            my: 8,
+                            mx: 4,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Avatar sx={{ m: 1, bgcolor: '#229954' }}>
+                            <ConfirmationNumber />
+                        </Avatar>
+                        <Typography component="h1" variant="h6">
                             Iniciar Sesion
-                        </Button>
+                        </Typography>
+                        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
+                            <TextField
+                                {...register("username")}
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Username"
+                                autoComplete="username"
+                                autoFocus
+                            />
+                            <TextField
+                                {...register("password")}
+                                margin="normal"
+                                required
+                                fullWidth
+                                label="Password"
+                                type="password"
+                                id="password"
+                                autoComplete="current-password"
+                            />
+                            <FormControlLabel
+                                control={<Checkbox value="remember" color="primary" />}
+                                label="Remember me"
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Iniciar Sesion
+                            </Button>
+                        </Box>
                     </Box>
-                </Box>
-            </Container>
+                </Grid>
+            </Grid>
         </ThemeProvider>
 
     );

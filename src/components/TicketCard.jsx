@@ -28,7 +28,7 @@ const useStyles = makeStyles({
       'margin-right': '5vh'
     },
     mainContainer: {
-      'background-color':  '#27ae60',
+      'background-color':  '#229954',
       'display': 'grid',
       'border-radius': '5px',
       'justify-content': 'center'
