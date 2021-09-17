@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import LogIn from './components/LogIn';
 
-
 function App() {
   return (
     <Router>

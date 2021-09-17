@@ -7,7 +7,6 @@ import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
 import QrScan from './QrScan';
 
-
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
   
@@ -28,7 +27,6 @@ function TabPanel(props) {
     );
   }
   
-
 function a11yProps(index) {
     return {
       id: `simple-tab-${index}`,
@@ -39,7 +37,6 @@ function a11yProps(index) {
 export default function Main() {
   const [value, setValue] = useState(0);
   
-  // esto da asco solo estaba probando
   const isAdmin = () => {
     return localStorage.getItem('role') === 'admin'
   }
