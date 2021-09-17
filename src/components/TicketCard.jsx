@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 
 export default function Ticket({ticket}) {
     const classes = useStyles();
-    const _horario = new Date(ticket.gameTime);
+    const _horario = new Date(ticket.matchStartTime);
     const horarioFormateado = `${_horario.toLocaleDateString()}, ${_horario.toLocaleTimeString().slice(0,-3)} hs`;
     const ticketQr = {
       userId: ticket.userId,

@@ -17,6 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Background from '../assets/background.png'
+import * as Api from '../helpers/ApiRest.js'
 
 const theme = createTheme();
 
@@ -43,17 +44,30 @@ export default function LogIn() {
 
     const onSubmit = data => {
         handleToggle();
-        setTimeout(() => {
-            handleClose();
-            if (data.username === "admin") localStorage.setItem('role', 'admin');
-            else localStorage.setItem('role', 'user');
-
-            console.log(data);
-
-            history.push('/user/main');
-        }, 4000)
-
+        Api.login(data.username, data.password)
+            .then(response => {
+                localStorage.setItem('spectatorId', response.data.id)
+                localStorage.setItem('username', response.data.username)
+                handleMe();
+            })
+            .catch(() => console.log("Algo malio sal"))
     };
+
+    const handleMe = () => {
+        const username = localStorage.getItem('username')
+        Api.me()
+            .then(response => {
+                if (response.status === 200) {
+                    let location = {
+                        pathname: `/user/${username}`,
+                        state: { userData: response.data }
+                    }
+                    history.push(location)
+                }
+                handleClose();
+            })
+            .catch(() => console.log("Error"))
+    }
 
     return (
         <ThemeProvider theme={theme}>
