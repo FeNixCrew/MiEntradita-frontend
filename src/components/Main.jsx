@@ -56,7 +56,7 @@ export default function Main() {
         <div>
             <AppBar position="static">
                 <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" centered>
-                    <Tab label="Tickets" {...a11yProps(0)} />
+                    <Tab label="Tickets" {...a11yProps(0)} /> 
                     { isAdmin() && <Tab label="Scanner" {...a11yProps(1)} /> }
                 </Tabs>
             </AppBar>
