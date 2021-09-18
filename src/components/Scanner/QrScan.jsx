@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import QrReader from 'react-qr-reader'
-import { tickets } from '../datos';
 import Backdrop from '@material-ui/core/Backdrop';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import * as Api from '../../helpers/ApiRest'
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -12,17 +12,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function QrScan() {
+export default function QrScan({ tickets }) {
   const [game, setGame] = useState(null);
   const [open, setOpen] = useState(false);
   const classes = useStyles();
 
   const handleScan = data => {
     if (data) {
-      handleToggle();
-      setTimeout(() => {handleClose();},400);
       const result = JSON.parse(data);
-      setGame(tickets.find(ticket => ticket.matchId === result.matchId && ticket.userId === result.userId));
+      handleToggle();
+      Api.comeIn(result.matchId)
+        .then(response => {
+          console.log(response)
+        })
+        .catch(() => console.log("Error"))
+      handleClose();
     }
   }
   const handleError = err => {
@@ -43,13 +47,13 @@ export default function QrScan() {
         <CircularProgress color="inherit" />
       </Backdrop>
       <QrReader
-        delay={300}
+        delay={400}
         onError={handleError}
         onScan={handleScan}
         style={{ width: '50%' }}
       />
-      <h2>Id Usuario: {game && game.userId}</h2>
-      <h3>Partido: {game && `${game.home} vs ${game.away}`}</h3>
+      {/* <h2>Id Usuario: {game && game.userId}</h2>
+      <h3>Partido: {game && `${game.home} vs ${game.away}`}</h3> */}
     </div>
   )
 }

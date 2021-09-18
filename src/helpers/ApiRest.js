@@ -1,7 +1,8 @@
 import axios from 'axios';
 
-
-const url = 'http://localhost:8081/api/spectator'
+const url = 'http://localhost:8081/api'
+const urlSpectator = url + '/spectator'
+const urlApi = url + '/match'
 
 
 export const login = async (username, password) => {
@@ -10,14 +11,24 @@ export const login = async (username, password) => {
         username: username,
         password: password
     }
-    return axios.post(url + endpoint, data);
+    return axios.post(urlSpectator + endpoint, data);
 }
 
 export const me = async () => {
     const endpoint = '/tickets';
     const spectatorId = localStorage.getItem('spectatorId');
     const params = new URLSearchParams([['spectatorId', spectatorId]]);
-    
-    return axios.get(url + endpoint, { params });
+
+    return axios.get(urlSpectator + endpoint, { params });
+}
+
+export const comeIn = async (matchId) => {
+    const endpoint = '/comeIn';
+    const spectatorId = localStorage.getItem('spectatorId');
+    const data = {
+        spectatorId: spectatorId,
+        matchId: matchId
+    }
+    return axios.post(urlApi + endpoint, data)
 }
 
