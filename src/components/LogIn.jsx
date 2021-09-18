@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+
 import Box from '@mui/material/Box';
 import ConfirmationNumber from '@mui/icons-material/ConfirmationNumber';
 import Typography from '@mui/material/Typography';
@@ -31,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 export default function LogIn() {
     const { register, handleSubmit } = useForm();
     const [open, setOpen] = useState(false);
+    const [error, setError] = useState(null)
     const classes = useStyles();
     const history = useHistory();
 
@@ -50,7 +50,12 @@ export default function LogIn() {
                 localStorage.setItem('username', response.data.username)
                 handleMe();
             })
-            .catch(() => console.log("Algo malio sal"))
+            .catch((aError) => {
+                const response = aError.response
+                if(response.status)
+                setError(response.data.message)
+                handleClose()
+            })
     };
 
     const handleMe = () => {
@@ -127,10 +132,7 @@ export default function LogIn() {
                                 id="password"
                                 autoComplete="current-password"
                             />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            />
+                            { error && <p>{error}</p>}
                             <Button
                                 type="submit"
                                 fullWidth
