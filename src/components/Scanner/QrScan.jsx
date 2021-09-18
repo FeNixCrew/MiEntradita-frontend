@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function QrScan({ tickets }) {
-  const [game, setGame] = useState(null);
+  const [game, setGame] = useState("Pendiente");
   const [open, setOpen] = useState(false);
   const classes = useStyles();
 
@@ -23,9 +23,9 @@ export default function QrScan({ tickets }) {
       handleToggle();
       Api.comeIn(result.matchId)
         .then(response => {
-          console.log(response)
+          setGame(response.data)
         })
-        .catch(() => console.log("Error"))
+        .catch(() => setGame("No podes entrar"))
       handleClose();
     }
   }
@@ -52,8 +52,7 @@ export default function QrScan({ tickets }) {
         onScan={handleScan}
         style={{ width: '50%' }}
       />
-      {/* <h2>Id Usuario: {game && game.userId}</h2>
-      <h3>Partido: {game && `${game.home} vs ${game.away}`}</h3> */}
+      <h2>Estado del escaneo: {game}</h2>
     </div>
   )
 }
