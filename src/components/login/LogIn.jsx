@@ -26,6 +26,8 @@ export default function LogIn() {
     const [error, setError] = useState(null)
     const classes = useStyles();
     const history = useHistory();
+    const username = register('username');
+    const password = register('password');
 
     const handleClose = () => {
         setOpen(false)
@@ -100,7 +102,10 @@ export default function LogIn() {
                                 label="Usuario"
                                 type="text"
                                 autoFocus
-                                onChange={resetError}
+                                onChange={(e) => {
+                                    username.onChange(e);
+                                    resetError();
+                                }}
                             />
                             <TextField
                                 {...register("password")}
@@ -108,7 +113,10 @@ export default function LogIn() {
                                 fullWidth
                                 label="Contraseña"
                                 type="password"
-                                onChange={resetError}
+                                onChange={(e) => {
+                                    password.onChange(e);
+                                    resetError();
+                                }}
                             />
                             <div className={classes.error}>
                             {error && <Alert severity="error">{error.message}</Alert>}
