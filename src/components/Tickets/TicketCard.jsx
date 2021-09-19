@@ -28,17 +28,16 @@ const useStyles = makeStyles({
       'margin-right': '5vh'
     },
     mainContainer: {
-      'background-color':  '#27ae60',
+      'background-color':  '#229954',
       'display': 'grid',
       'border-radius': '5px',
       'justify-content': 'center'
     }
   });
 
-  
 export default function Ticket({ticket}) {
     const classes = useStyles();
-    const _horario = new Date(ticket.gameTime);
+    const _horario = new Date(ticket.matchStartTime);
     const horarioFormateado = `${_horario.toLocaleDateString()}, ${_horario.toLocaleTimeString().slice(0,-3)} hs`;
     const ticketQr = {
       userId: ticket.userId,
