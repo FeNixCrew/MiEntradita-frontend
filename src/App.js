@@ -1,5 +1,4 @@
 import './App.css';
-import Main from './components/Main/Main';
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,7 +16,6 @@ function App() {
           <Redirect to="/login" />
         </Route>
         <Route path="/me" component={Home} />
-        <Route path="/user/:username" component={Main} />
         <Route path="/login" component={LogIn} />
   
       </Switch>

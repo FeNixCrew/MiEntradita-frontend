@@ -22,9 +22,8 @@ export const me = async () => {
     return axios.get(urlSpectator + endpoint, { params });
 }
 
-export const comeIn = async (matchId) => {
+export const comeIn = async (spectatorId, matchId) => {
     const endpoint = '/comeIn';
-    const spectatorId = localStorage.getItem('spectatorId');
     const data = {
         spectatorId: spectatorId,
         matchId: matchId

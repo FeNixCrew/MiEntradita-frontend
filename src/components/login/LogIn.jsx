@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router';
+import { useForm } from "react-hook-form";
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -8,12 +10,11 @@ import Box from '@mui/material/Box';
 import ConfirmationNumber from '@mui/icons-material/ConfirmationNumber';
 import Typography from '@mui/material/Typography';
 import { ThemeProvider } from '@mui/material/styles';
-import { useHistory } from 'react-router';
-import { useForm } from "react-hook-form";
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import { Alert } from '@mui/material';
 
 import Background from '../../assets/background.png'
 import * as Api from '../../helpers/ApiRest.js'
@@ -89,33 +90,28 @@ export default function LogIn() {
                             <ConfirmationNumber />
                         </Avatar>
                         <Typography component="h1" variant="h6">
-                            Iniciar Sesion
+                            Bienvenidx!
                         </Typography>
                         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
                             <TextField
                                 {...register("username")}
                                 margin="normal"
-                                required
                                 fullWidth
-                                id="email"
-                                label="Username"
-                                autoComplete="username"
+                                label="Usuario"
+                                type="text"
                                 autoFocus
                                 onChange={resetError}
                             />
                             <TextField
                                 {...register("password")}
                                 margin="normal"
-                                required
                                 fullWidth
-                                label="Password"
+                                label="Contraseña"
                                 type="password"
-                                id="password"
-                                autoComplete="current-password"
                                 onChange={resetError}
                             />
                             <div className={classes.error}>
-                            <span>{error?.message}</span>
+                            {error && <Alert severity="error">{error.message}</Alert>}
                             </div>
                             <Button
                                 className={classes.loginButton}
@@ -124,7 +120,7 @@ export default function LogIn() {
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                Iniciar Sesion
+                                Ingresar
                             </Button>
                         </Box>
                     </Box>

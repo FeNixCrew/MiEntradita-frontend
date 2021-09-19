@@ -20,13 +20,12 @@ export default function Home() {
             .then(response => {
                 setTickets(response.data);
             })
-            .catch((e) => {
-                console.log(e);
+            .catch(() => {
                 localStorage.clear();
                 history.push('/login');
             });
         setOpen(false);
-    },[]);
+    },[history]);
 
     return (
         <div>
