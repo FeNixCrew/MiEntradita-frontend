@@ -16,12 +16,18 @@ export const useStyles = makeStyles({
       marginBottom: 12,
     },
     downloadButton: {
-      display: 'block',
-      'margin': '2vh'
+      'margin': '2.5vh',
+      'margin-left': '20vh',
+      'width': 80,
+      'height': 40,
     },
     qr: {
       'margin-left': '5vh',
       'margin-right': '5vh'
+    },
+    qrContainer: {
+      display: 'grid',
+      justifyContent: 'center'
     },
     mainContainer: {
       'background-color':  '#229954',

@@ -91,7 +91,13 @@ export default function LogIn() {
                         <Avatar sx={{ m: 1, bgcolor: '#40C137' }}>
                             <ConfirmationNumber />
                         </Avatar>
-                        <Typography component="h1" variant="h6">
+                        <Typography 
+                        component="h1" 
+                        variant="h6"
+                        sx={{
+                            fontStyle: 'bold',
+                            fontFamily: 'Monospace'
+                        }}>
                             Bienvenidx!
                         </Typography>
                         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
