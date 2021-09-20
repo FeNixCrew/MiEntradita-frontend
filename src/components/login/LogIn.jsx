@@ -1,41 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useHistory } from 'react-router';
+import { useForm } from "react-hook-form";
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-
 import Box from '@mui/material/Box';
 import ConfirmationNumber from '@mui/icons-material/ConfirmationNumber';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useHistory } from 'react-router';
-import { useForm } from "react-hook-form";
+import { ThemeProvider } from '@mui/material/styles';
 import Backdrop from '@material-ui/core/Backdrop';
-import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Background from '../assets/background.png'
-import * as Api from '../helpers/ApiRest.js'
+import { Alert } from '@mui/material';
 
-const theme = createTheme();
-
-const useStyles = makeStyles((theme) => ({
-    backdrop: {
-        zIndex: theme.zIndex.drawer + 1,
-        color: '#fff',
-    },
-}));
+import Background from '../../assets/background.png';
+import * as Api from '../../helpers/ApiRest.js';
+import {theme, useStyles} from './styles';
 
 export default function LogIn() {
     const { register, handleSubmit } = useForm();
     const [open, setOpen] = useState(false);
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(null);
     const classes = useStyles();
     const history = useHistory();
+    const username = register('username');
+    const password = register('password');
 
     const handleClose = () => {
-        setOpen(false)
+        setOpen(false);
     }
 
     const handleToggle = () => {
@@ -46,33 +41,21 @@ export default function LogIn() {
         handleToggle();
         Api.login(data.username, data.password)
             .then(response => {
-                localStorage.setItem('spectatorId', response.data.id)
-                localStorage.setItem('username', response.data.username)
-                handleMe();
+                localStorage.setItem('spectatorId', response.data.id);
+                localStorage.setItem('username', response.data.username);
+                handleClose();
+                history.push('/me');
+        
             })
             .catch((aError) => {
-                const response = aError.response
-                if(response.status)
-                setError(response.data.message)
-                handleClose()
+                const response = aError.response;
+                if(response.status);
+                setError(response.data);
+                handleClose();
             })
     };
 
-    const handleMe = () => {
-        const username = localStorage.getItem('username')
-        Api.me()
-            .then(response => {
-                if (response.status === 200) {
-                    let location = {
-                        pathname: `/user/${username}`,
-                        state: { userData: response.data }
-                    }
-                    history.push(location)
-                }
-                handleClose();
-            })
-            .catch(() => console.log("Error"))
-    }
+    const resetError = () => setError('');
 
     return (
         <ThemeProvider theme={theme}>
@@ -105,41 +88,52 @@ export default function LogIn() {
                             alignItems: 'center',
                         }}
                     >
-                        <Avatar sx={{ m: 1, bgcolor: '#229954' }}>
+                        <Avatar sx={{ m: 1, bgcolor: '#40C137' }}>
                             <ConfirmationNumber />
                         </Avatar>
-                        <Typography component="h1" variant="h6">
-                            Iniciar Sesion
+                        <Typography 
+                        component="h1" 
+                        variant="h6"
+                        sx={{
+                            fontStyle: 'bold',
+                            fontFamily: 'Monospace'
+                        }}>
+                            Bienvenidx!
                         </Typography>
                         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
                             <TextField
                                 {...register("username")}
                                 margin="normal"
-                                required
                                 fullWidth
-                                id="email"
-                                label="Username"
-                                autoComplete="username"
+                                label="Usuario"
+                                type="text"
                                 autoFocus
+                                onChange={(e) => {
+                                    username.onChange(e);
+                                    resetError();
+                                }}
                             />
                             <TextField
                                 {...register("password")}
                                 margin="normal"
-                                required
                                 fullWidth
-                                label="Password"
+                                label="Contraseña"
                                 type="password"
-                                id="password"
-                                autoComplete="current-password"
+                                onChange={(e) => {
+                                    password.onChange(e);
+                                    resetError();
+                                }}
                             />
-                            { error && <p>{error}</p>}
+                            <div className={classes.error}>
+                            {error && <Alert severity="error">{error.message}</Alert>}
+                            </div>
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                Iniciar Sesion
+                                Ingresar
                             </Button>
                         </Box>
                     </Box>
