@@ -118,7 +118,7 @@ export default function QrScan() {
             onScan={handleScan}
             style={scannerStyle}
           />
-          <Alert severity="info" sx={{ m: 4 }}>Coloque el QR adentro del cuadro rojo</Alert>
+          <Alert severity="info" sx={{ m: 4 }}>Coloque su codigo QR frente a la camara y centrelo</Alert>
         </Grid>
         <div className={classes.messageContainer}>
           <Snackbar open={openSnackBarError} autoHideDuration={6000} onClose={handleCloseSnackBar}>
