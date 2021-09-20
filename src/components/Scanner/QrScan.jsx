@@ -68,10 +68,10 @@ export default function QrScan() {
         style={scannerStyle}
       />
       <div className={classes.messageContainer}>
-        <Snackbar open={openSnackBarError} autoHideDuration={3000} onClose={handleCloseSnackBar}>
+        <Snackbar open={openSnackBarError} autoHideDuration={6000} onClose={handleCloseSnackBar}>
           <Alert severity="error" onClose={handleCloseSnackBar} sx={{ width: '100%' }}>{error}</Alert>
         </Snackbar>
-        <Snackbar open={openSnackBarComeIn} autoHideDuration={3000} onClose={handleCloseSnackBar}>
+        <Snackbar open={openSnackBarComeIn} autoHideDuration={5000} onClose={handleCloseSnackBar}>
           <Alert severity="success" onClose={handleCloseSnackBar} sx={{ width: '100%' }}>{comeIn}</Alert>
         </Snackbar>
       </div>
