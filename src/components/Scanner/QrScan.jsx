@@ -1,9 +1,9 @@
-import React, { useState, forwardRef } from 'react'
-import QrReader from 'react-qr-reader'
+import React, { useState, forwardRef } from 'react';
+import QrReader from 'react-qr-reader';
 import Backdrop from '@material-ui/core/Backdrop';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import * as Api from '../../helpers/ApiRest'
+import * as Api from '../../helpers/ApiRest';
 import { scannerStyle } from './styles';
 import MuiAlert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
@@ -28,16 +28,9 @@ export default function QrScan() {
   const [open, setOpen] = useState(false);
   const [openSnackBarError, setOpenSnackBarError] = useState(false);
   const [openSnackBarComeIn, setOpenSnackBarComeIn] = useState(false);
-
   const classes = useStyles();
 
-  const resetMessages = () => {
-    setComeIn(null);
-    setError(null);
-  }
-
   const handleScan = data => {
-    resetMessages();
     if (data) {
       const { userId, matchId } = JSON.parse(data);
       setOpen(true);
@@ -46,13 +39,16 @@ export default function QrScan() {
           setComeIn(response.data);
           setOpenSnackBarComeIn(true);
         })
-        .catch((err) => { setError(err.response.data.message); setOpenSnackBarError(true) });
+        .catch((err) => {
+          setError(err.response.data.message);
+          setOpenSnackBarError(true)
+        });
       setOpen(false);
     }
   }
 
   const handleError = err => {
-    console.error(err)
+    console.error(err);
   }
 
   const handleCloseSnackBar = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button } from '@material-ui/core'
+import { Card, Button } from '@material-ui/core';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import QRCode from 'react-qr-code';
 import { useStyles } from './styles';
@@ -14,7 +14,7 @@ export default function Ticket({ ticket }) {
   const ticketQr = {
     userId: ticket.userId,
     matchId: ticket.matchId
-  }
+  };
 
   const onImageCownload = () => {
     const svg = document.getElementById("QRCodeGen");

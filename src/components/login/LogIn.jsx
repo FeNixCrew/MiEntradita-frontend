@@ -16,21 +16,21 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { Alert } from '@mui/material';
 
-import Background from '../../assets/background.png'
-import * as Api from '../../helpers/ApiRest.js'
-import {theme, useStyles} from './styles'
+import Background from '../../assets/background.png';
+import * as Api from '../../helpers/ApiRest.js';
+import {theme, useStyles} from './styles';
 
 export default function LogIn() {
     const { register, handleSubmit } = useForm();
     const [open, setOpen] = useState(false);
-    const [error, setError] = useState(null)
+    const [error, setError] = useState(null);
     const classes = useStyles();
     const history = useHistory();
     const username = register('username');
     const password = register('password');
 
     const handleClose = () => {
-        setOpen(false)
+        setOpen(false);
     }
 
     const handleToggle = () => {

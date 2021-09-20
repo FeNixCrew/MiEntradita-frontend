@@ -1,5 +1,5 @@
 import React from 'react';
-import Carousel from 'react-material-ui-carousel'
+import Carousel from 'react-material-ui-carousel';
 import Ticket from './TicketCard/TicketCard';
 
 export default function Tickets({ tickets }) {

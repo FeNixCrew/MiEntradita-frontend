@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useHistory } from 'react-router';
 import Avatar from '@mui/material/Avatar';
-import Logo from '../../assets/logo1.png'
+import Logo from '../../assets/logo1.png';
 
 
 import LogoutIcon from '@mui/icons-material/Logout';
