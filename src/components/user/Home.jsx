@@ -1,4 +1,4 @@
-import{ useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 
 import { Backdrop, CircularProgress } from '@material-ui/core';
@@ -25,22 +25,22 @@ export default function Home() {
                 history.push('/login');
             });
         setOpen(false);
-    },[history]);
+    }, [history]);
 
     return (
         <div>
-        <NavBar />
-        {( !tickets &&
-            <Backdrop open={open}>
-             <CircularProgress color="inherit" />
-            </Backdrop>) ||
-            (   username=== 'admin' &&   
-                <QrScan />
-            ) ||
-            <div>
-                <Tickets tickets={tickets} />
-            </div>
-        }
+            {(!tickets &&
+                <Backdrop open={open}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>) ||
+                (username === 'scanner' &&
+                    <QrScan />
+                ) ||
+                <div>
+                    <NavBar />
+                    <Tickets tickets={tickets} />
+                </div>
+            }
         </div>
     )
 }
