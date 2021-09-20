@@ -7,7 +7,6 @@ import { useHistory } from 'react-router';
 import Avatar from '@mui/material/Avatar';
 import Logo from '../../assets/logo1.png';
 
-
 import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function NavBar() {
@@ -19,7 +18,7 @@ export default function NavBar() {
     
     return (
         <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" sx={{ backgroundColor: '#229954'}}>
+        <AppBar position='static' sx={{bgcolor: '#229954'}}>
             <Toolbar>
             <Avatar sx={{ m: 1, mr: 3}} src={Logo}/>
             <Typography 

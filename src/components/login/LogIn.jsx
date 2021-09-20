@@ -128,7 +128,6 @@ export default function LogIn() {
                             {error && <Alert severity="error">{error.message}</Alert>}
                             </div>
                             <Button
-                                className={classes.loginButton}
                                 type="submit"
                                 fullWidth
                                 variant="contained"

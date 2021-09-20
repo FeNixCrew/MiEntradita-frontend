@@ -9,13 +9,5 @@ export const useStyles = makeStyles((theme) => ({
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
     },
-    error: {
-        backgroundColor: '#FF7575',
-        'text-align': 'center',
-        'border-radius': '5px'
-    },
-    loginButton: {
-        backgroundColor: '#44CD3A'
-    }
 }));
 
