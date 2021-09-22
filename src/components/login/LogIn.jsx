@@ -93,7 +93,7 @@ function LogIn() {
                                 fontStyle: 'bold',
                                 fontFamily: 'Monospace'
                             }}>
-                            Bienvenidx!
+                            Bienvenido!
                         </Typography>
                         <LoginForm onSubmit={onSubmit} resetError={resetError} error={error}/>
                     </Box>

@@ -15,16 +15,17 @@ export default function NavBar() {
    
     return (
         <Box sx={{ flexGrow: 1 }}>
-        <AppBar position='static' sx={{bgcolor: '#212121'}}>
+        <AppBar position='static' style={{backgroundColor: '#212121'}}>
             <Toolbar>
             <Avatar sx={{ m: 1, mr: 3}} src={Logo}/>
             <Typography 
             variant="h6" 
             component="div" 
-            sx={{ 
+            style={{ 
                 flexGrow: 1,
                 fontFamily: 'Monospace',
-                letterSpacing: 4
+                letterSpacing: 4,
+                color: 'white'
              }}>
                 Mi Entradita
             </Typography>
