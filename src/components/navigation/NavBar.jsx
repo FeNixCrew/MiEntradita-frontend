@@ -9,12 +9,13 @@ import Logo from '../../assets/logo1.png';
 import { exit } from '../../helpers/usedFunctions'
 import LogoutIcon from '@mui/icons-material/Logout';
 
+
 export default function NavBar() {
     const history = useHistory();
    
     return (
         <Box sx={{ flexGrow: 1 }}>
-        <AppBar position='static' sx={{bgcolor: '#229954'}}>
+        <AppBar position='static' sx={{bgcolor: '#212121'}}>
             <Toolbar>
             <Avatar sx={{ m: 1, mr: 3}} src={Logo}/>
             <Typography 
@@ -28,6 +29,9 @@ export default function NavBar() {
                 Mi Entradita
             </Typography>
             <Button 
+                style={{
+                    color: '#2e86c1'
+                }}
                 onClick={() => exit(history)}
                 color="inherit"
             >

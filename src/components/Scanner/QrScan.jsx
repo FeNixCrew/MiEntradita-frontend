@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router';
 import QrReader from 'react-qr-reader';
 import * as Api from '../../helpers/ApiRest';
@@ -13,7 +13,6 @@ import { Alert } from '../feedback/Alert'
 import { exit } from '../../helpers/usedFunctions'
 import BackdropInherit from '../feedback/Backdrop';
 import SnackBarScan from './SnackBarScan';
-
 
 export default function QrScan() {
   const [comeIn, setComeIn] = useState(null);
@@ -75,6 +74,9 @@ export default function QrScan() {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} sx={{ backgroundColor: '#212121' }}>
         <BackdropInherit open={open} />
         <Button
+          style={{
+            color: '#2e86c1'
+          }}
           onClick={() => exit(history)}
           color="primary"
           sx={{
@@ -102,6 +104,7 @@ export default function QrScan() {
           openSnackBarError={openSnackBarError}
           error={error}
           comeIn={comeIn}
+          handleCloseSnackBar={handleCloseSnackBar}
         />
       </Grid>
     </Grid >
