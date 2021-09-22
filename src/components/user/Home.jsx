@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-
-import { Backdrop, CircularProgress } from '@material-ui/core';
-
 import * as Api from '../../helpers/ApiRest';
-import Tickets from '../Tickets/TicketsCarousel';
-import QrScan from '../Scanner/QrScan';
+import Tickets from '../Tickets';
 import NavBar from '../navigation/NavBar';
+import BackdropInherit from '../feedback/Backdrop';
+
 
 export default function Home() {
     const [tickets, setTickets] = useState(null);
     const [open, setOpen] = useState(false);
-    const username = localStorage.getItem('username');
     const history = useHistory();
 
     useEffect(() => {
@@ -29,15 +26,12 @@ export default function Home() {
 
     return (
         <div>
-            {(!tickets &&
-                <Backdrop open={open}>
-                    <CircularProgress color="inherit" />
-                </Backdrop>) ||
-                (username === 'scanner' &&
-                    <QrScan />
-                ) ||
+            <NavBar />
+            {(tickets === null &&
+                <BackdropInherit open={open} />)
+                ||
                 <div>
-                    <NavBar />
+
                     <Tickets tickets={tickets} />
                 </div>
             }

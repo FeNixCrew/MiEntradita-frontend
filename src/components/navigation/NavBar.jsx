@@ -6,16 +6,12 @@ import Button from '@mui/material/Button';
 import { useHistory } from 'react-router';
 import Avatar from '@mui/material/Avatar';
 import Logo from '../../assets/logo1.png';
-
+import { exit } from '../../helpers/usedFunctions'
 import LogoutIcon from '@mui/icons-material/Logout';
 
 export default function NavBar() {
     const history = useHistory();
-    const logOut = () => {
-        localStorage.clear();
-        history.push('/login');
-    }
-    
+   
     return (
         <Box sx={{ flexGrow: 1 }}>
         <AppBar position='static' sx={{bgcolor: '#229954'}}>
@@ -32,7 +28,7 @@ export default function NavBar() {
                 Mi Entradita
             </Typography>
             <Button 
-                onClick={logOut}
+                onClick={() => exit(history)}
                 color="inherit"
             >
                 <LogoutIcon />
