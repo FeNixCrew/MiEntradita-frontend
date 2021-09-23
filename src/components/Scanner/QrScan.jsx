@@ -6,7 +6,6 @@ import { scannerStyle } from './styles';
 import Grid from '@mui/material/Grid';
 import Background from '../../assets/scannerBackground.png'
 import { CssBaseline } from '@material-ui/core';
-import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { Alert } from '../feedback/Alert'
@@ -15,10 +14,10 @@ import BackdropInherit from '../feedback/Backdrop';
 import SnackBarScan from './SnackBarScan';
 
 export default function QrScan() {
-  const [comeIn, setComeIn] = useState(null);
+  const [scanMessage, setScanMessage] = useState(null);
   const [resultState, setResultState] = useState(null);
   const [open, setOpen] = useState(false);
-  const [openSnackBarComeIn, setOpenSnackBarComeIn] = useState(false);
+  const [openSnackBar, setOpenSnackBar] = useState(false);
   const history = useHistory();
 
   const handleScan = data => {
@@ -28,25 +27,24 @@ export default function QrScan() {
       Api.comeIn(userId, matchId)
         .then(response => {
           setResultState('success');
-          setComeIn(response.data);
-          setOpenSnackBarComeIn(true);
+          setScanMessage(response.data);
+          setOpenSnackBar(true);
         })
         .catch((err) => {
-          console.log(err.response.data);
           setResultState('error');
-          setComeIn(err.response.data.message);
-          setOpenSnackBarComeIn(true);
+          if (err.response.status ===400){
+            setScanMessage(err.response.data.message);
+          } else {
+            setScanMessage('Hubo un error de sistema, por favor, pida asistencia')  
+          }
+          setOpenSnackBar(true);
         });
-      setOpen(false);
+        setOpen(false);
     }
   }
 
   const handleError = err => {
     console.error(err);
-  }
-
-  const handleCloseSnackBar = () => {
-    setOpenSnackBarComeIn(false);
   }
 
   return (
@@ -88,7 +86,7 @@ export default function QrScan() {
           onScan={handleScan}
           style={scannerStyle}
         />
-        <Alert severity="info" sx={{ m: 5 }}>Coloque su codigo QR frente a la camara y centrelo</Alert>
+        <Alert severity="info" sx={{ textAlign: 'center', ml: '5%', mt: '2vh', mr: '5%'}}>Coloque su codigo QR frente a la camara y centrelo</Alert>
       </Grid>
       </Grid>
       <Grid 
@@ -98,18 +96,16 @@ export default function QrScan() {
         sx={{
           backgroundImage: `url(${Background})`,
           backgroundRepeat: 'no-repeat',
-          backgroundColor: (t) =>
-            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
         <SnackBarScan
-          openSnackBarComeIn={openSnackBarComeIn}
+          openSnackBar={openSnackBar}
           state={resultState}
-          comeIn={comeIn}
-          handleCloseSnackBar={handleCloseSnackBar}
-        />
+          scanMessage={scanMessage}
+          closeSnackBar={() => setOpenSnackBar(false)}
+        /> 
       </Grid>
     </Grid >
   )
