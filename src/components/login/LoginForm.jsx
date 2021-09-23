@@ -1,6 +1,11 @@
-import { Box, Button, TextField, Alert, useForm } from './dependencies'
+import { useForm } from "react-hook-form";
+import { Alert } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
-function LoginForm({onSubmit,error,resetError}) {
+
+function LoginForm({ onSubmit, error, resetError }) {
     const { register, handleSubmit } = useForm();
     const username = register('username');
     const password = register('password');
@@ -34,6 +39,9 @@ function LoginForm({onSubmit,error,resetError}) {
                 {error && <Alert severity="error">{error.message}</Alert>}
             </div>
             <Button
+                style={{
+                    backgroundColor: '#2e86c1'
+                }}
                 type="submit"
                 fullWidth
                 variant="contained"

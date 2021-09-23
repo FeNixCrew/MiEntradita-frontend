@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import * as Api from '../../helpers/ApiRest';
 import Tickets from '../Tickets';
-import NavBar from '../navigation/NavBar';
 import BackdropInherit from '../feedback/Backdrop';
-
 
 export default function Home() {
     const [tickets, setTickets] = useState(null);
@@ -25,8 +23,7 @@ export default function Home() {
     }, [history]);
 
     return (
-        <div>
-            <NavBar />
+        <>
             {(tickets === null &&
                 <BackdropInherit open={open} />)
                 ||
@@ -35,6 +32,6 @@ export default function Home() {
                     <Tickets tickets={tickets} />
                 </div>
             }
-        </div>
+        </>
     )
 }

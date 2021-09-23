@@ -30,9 +30,9 @@ export const useStyles = makeStyles({
       justifyContent: 'center'
     },
     mainContainer: {
-      'background-color':  '#229954',
+      'background-color':  '#2e86c1',
       'display': 'grid',
-      'border-radius': '5px',
+      'border-radius': '6px',
       'justify-content': 'center'
     }
   });
