@@ -1,33 +1,23 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
-import { useForm } from "react-hook-form";
-
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import ConfirmationNumber from '@mui/icons-material/ConfirmationNumber';
 import Typography from '@mui/material/Typography';
 import { ThemeProvider } from '@mui/material/styles';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { Alert } from '@mui/material';
-
 import Background from '../../assets/background.png';
+import { theme } from './styles';
+import LoginForm from './LoginForm'
+import BackdropInherit from '../feedback/Backdrop';
 import * as Api from '../../helpers/ApiRest.js';
-import {theme, useStyles} from './styles';
 
-export default function LogIn() {
-    const { register, handleSubmit } = useForm();
+function LogIn() {
     const [open, setOpen] = useState(false);
     const [error, setError] = useState(null);
-    const classes = useStyles();
-    const history = useHistory();
-    const username = register('username');
-    const password = register('password');
+    const history = useHistory()
 
     const handleClose = () => {
         setOpen(false);
@@ -44,12 +34,11 @@ export default function LogIn() {
                 localStorage.setItem('spectatorId', response.data.id);
                 localStorage.setItem('username', response.data.username);
                 handleClose();
-                history.push('/me');
-        
+                push(response.data.username);
             })
             .catch((aError) => {
                 const response = aError.response;
-                if(response.status);
+                if (response.status);
                 setError(response.data);
                 handleClose();
             })
@@ -57,11 +46,17 @@ export default function LogIn() {
 
     const resetError = () => setError('');
 
+    const push = (username) => {
+        if (username === "scanner") {
+            history.push(`/${username}`);
+        } else {
+            history.push(`/user/${username}`);
+        }
+    }
+
     return (
         <ThemeProvider theme={theme}>
-            <Backdrop className={classes.backdrop} open={open}>
-                <CircularProgress color="inherit" />
-            </Backdrop>
+           <BackdropInherit open={open} />
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid
@@ -88,57 +83,24 @@ export default function LogIn() {
                             alignItems: 'center',
                         }}
                     >
-                        <Avatar sx={{ m: 1, bgcolor: '#40C137' }}>
+                        <Avatar sx={{ m: 1, bgcolor: '#2e86c1' }}>
                             <ConfirmationNumber />
                         </Avatar>
-                        <Typography 
-                        component="h1" 
-                        variant="h6"
-                        sx={{
-                            fontStyle: 'bold',
-                            fontFamily: 'Monospace'
-                        }}>
-                            Bienvenidx!
+                        <Typography
+                            component="h1"
+                            variant="h6"
+                            sx={{
+                                fontStyle: 'bold',
+                                fontFamily: 'Monospace'
+                            }}>
+                            Bienvenido!
                         </Typography>
-                        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
-                            <TextField
-                                {...register("username")}
-                                margin="normal"
-                                fullWidth
-                                label="Usuario"
-                                type="text"
-                                autoFocus
-                                onChange={(e) => {
-                                    username.onChange(e);
-                                    resetError();
-                                }}
-                            />
-                            <TextField
-                                {...register("password")}
-                                margin="normal"
-                                fullWidth
-                                label="Contraseña"
-                                type="password"
-                                onChange={(e) => {
-                                    password.onChange(e);
-                                    resetError();
-                                }}
-                            />
-                            <div className={classes.error}>
-                            {error && <Alert severity="error">{error.message}</Alert>}
-                            </div>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                Ingresar
-                            </Button>
-                        </Box>
+                        <LoginForm onSubmit={onSubmit} resetError={resetError} error={error}/>
                     </Box>
                 </Grid>
             </Grid>
         </ThemeProvider>
     );
 }
+
+export default LogIn;

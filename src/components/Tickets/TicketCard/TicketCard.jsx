@@ -5,8 +5,6 @@ import QRCode from 'react-qr-code';
 import { useStyles } from './styles';
 import Typography from '@mui/material/Typography';
 
-
-
 export default function Ticket({ ticket }) {
   const classes = useStyles();
   const _horario = new Date(ticket.matchStartTime);
