@@ -14,7 +14,7 @@ export default function Tickets({ tickets }) {
                         variant="h5"
                         component="div"
                     >
-                        Tus Tickets
+                        Tus Entradas
                     </Typography>
                     <Carousel autoPlay={false} animation="slide">
                         {
