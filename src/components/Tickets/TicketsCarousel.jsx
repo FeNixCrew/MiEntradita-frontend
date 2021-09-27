@@ -2,7 +2,7 @@ import React from 'react';
 import Carousel from 'react-material-ui-carousel';
 import Ticket from './TicketCard/TicketCard';
 import { Typography } from '@material-ui/core';
-import NavBar from '../navigation/NavBar';
+import NavBar from '../Navigation/NavBar';
 
 export default function Tickets({ tickets }) {
     return (

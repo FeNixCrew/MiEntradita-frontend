@@ -1,4 +1,4 @@
-import { Alert } from '../feedback/Alert';
+import { Alert } from '../Feedback/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import { useStyles } from './styles';
 

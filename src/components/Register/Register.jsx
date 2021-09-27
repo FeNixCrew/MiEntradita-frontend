@@ -1,9 +1,8 @@
-import { useState } from 'react';
 import { useHistory } from 'react-router';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import { ThemeProvider } from '@mui/material/styles';
-import BackdropInherit from '../Feedback/Backdrop';
+import BackdropInherit, { useBackdrop } from '../Feedback/Backdrop';
 import * as Api from '../../helpers/ApiRest.js';
 import RegisterForm from './RegisterForm';
 import Container from '@mui/material/Container';
@@ -12,16 +11,8 @@ import BeginningAvatar from '../Beginning/BegginnigAvatar';
 import { theme } from './styles.js'
 
 function Register() {
-    const [open, setOpen] = useState(false);
+    const { open, handleClose, handleToggle } = useBackdrop();
     const history = useHistory();
-
-    const handleClose = () => {
-        setOpen(false);
-    }
-
-    const handleToggle = () => {
-        setOpen(!open);
-    }
 
     const onSubmit = data => {
         handleToggle();

@@ -8,23 +8,15 @@ import Paper from '@mui/material/Paper';
 import Background from '../../assets/background.png';
 import { theme } from './styles';
 import LoginForm from './LoginForm'
-import BackdropInherit from '../Feedback/Backdrop';
+import BackdropInherit, { useBackdrop } from '../Feedback/Backdrop';
 import * as Api from '../../helpers/ApiRest.js';
 import BeginningTypography from '../Beginning/BeginningTypography';
 import BeginningAvatar from '../Beginning/BegginnigAvatar';
 
 function LogIn() {
-    const [open, setOpen] = useState(false);
+    const { open, handleClose, handleToggle } = useBackdrop();
     const [error, setError] = useState(null);
     const history = useHistory()
-
-    const handleClose = () => {
-        setOpen(false);
-    }
-
-    const handleToggle = () => {
-        setOpen(!open);
-    }
 
     const onSubmit = data => {
         handleToggle();

@@ -8,22 +8,22 @@ import Background from '../../assets/scannerBackground.png'
 import { CssBaseline } from '@material-ui/core';
 import Button from '@mui/material/Button';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { Alert } from '../feedback/Alert'
-import { exit } from '../../helpers/usedFunctions'
-import BackdropInherit from '../feedback/Backdrop';
+import { Alert } from '../Feedback/Alert'
+import { exit } from '../../helpers/usedFunctions';
+import BackdropInherit, { useBackdrop } from '../Feedback/Backdrop';
 import SnackBarScan from './SnackBarScan';
 
 export default function QrScan() {
   const [scanMessage, setScanMessage] = useState(null);
   const [resultState, setResultState] = useState(null);
-  const [open, setOpen] = useState(false);
+  const { open, handleClose, handleToggle } = useBackdrop();
   const [openSnackBar, setOpenSnackBar] = useState(false);
   const history = useHistory();
 
   const handleScan = data => {
     if (data) {
       const { userId, matchId } = JSON.parse(data);
-      setOpen(true);
+      handleToggle();
       Api.comeIn(userId, matchId)
         .then(response => {
           setResultState('success');
@@ -39,7 +39,7 @@ export default function QrScan() {
           }
           setOpenSnackBar(true);
         });
-        setOpen(false);
+        handleClose();
     }
   }
 
