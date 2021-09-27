@@ -10,14 +10,15 @@ import Button from '@mui/material/Button';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { Alert } from '../Feedback/Alert'
 import { exit } from '../../helpers/usedFunctions';
-import BackdropInherit, { useBackdrop } from '../Feedback/Backdrop';
+import BackdropInherit from '../Feedback/Backdrop';
 import SnackBarScan from './SnackBarScan';
+import { useToggle } from '../../helpers/customHooks'
 
 export default function QrScan() {
   const [scanMessage, setScanMessage] = useState(null);
   const [resultState, setResultState] = useState(null);
-  const { open, handleClose, handleToggle } = useBackdrop();
-  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [open, handleClose, handleToggle] = useToggle();
+  const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
   const history = useHistory();
 
   const handleScan = data => {
@@ -28,7 +29,7 @@ export default function QrScan() {
         .then(response => {
           setResultState('success');
           setScanMessage(response.data);
-          setOpenSnackBar(true);
+          openSnackBar();
         })
         .catch((err) => {
           setResultState('error');
@@ -37,7 +38,7 @@ export default function QrScan() {
           } else {
             setScanMessage('Hubo un error de sistema, por favor, pida asistencia')  
           }
-          setOpenSnackBar(true);
+          openSnackBar();
         });
         handleClose();
     }
@@ -101,10 +102,10 @@ export default function QrScan() {
         }}
       >
         <SnackBarScan
-          openSnackBar={openSnackBar}
+          openSnackBar={isOpenSnack}
           state={resultState}
           scanMessage={scanMessage}
-          closeSnackBar={() => setOpenSnackBar(false)}
+          closeSnackBar={closeSnackBar}
         /> 
       </Grid>
     </Grid >

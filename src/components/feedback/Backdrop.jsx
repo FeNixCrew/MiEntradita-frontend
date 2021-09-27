@@ -1,22 +1,6 @@
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
-import { useState } from 'react';
-
-
-export const useBackdrop = () => {
-    const [open, setOpen] = useState(false);
-
-    const handleClose = () => setOpen(false)
-
-    const handleToggle = () => setOpen(!open)
-
-    return {
-        open,
-        handleClose,
-        handleToggle
-    }
-}
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {

@@ -2,16 +2,18 @@ import { useHistory } from 'react-router';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import { ThemeProvider } from '@mui/material/styles';
-import BackdropInherit, { useBackdrop } from '../Feedback/Backdrop';
+import BackdropInherit from '../Feedback/Backdrop';
 import * as Api from '../../helpers/ApiRest.js';
 import RegisterForm from './RegisterForm';
 import Container from '@mui/material/Container';
 import BeginningTypography from '../Beginning/BeginningTypography';
 import BeginningAvatar from '../Beginning/BegginnigAvatar';
 import { theme } from './styles.js'
+import { useToggle } from '../../helpers/customHooks'
+
 
 function Register() {
-    const { open, handleClose, handleToggle } = useBackdrop();
+    const [open, handleClose, handleToggle] = useToggle();
     const history = useHistory();
 
     const onSubmit = data => {

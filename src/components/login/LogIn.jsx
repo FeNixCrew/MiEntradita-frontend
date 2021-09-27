@@ -7,14 +7,15 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Background from '../../assets/background.png';
 import { theme } from './styles';
-import LoginForm from './LoginForm'
-import BackdropInherit, { useBackdrop } from '../Feedback/Backdrop';
+import LoginForm from './LoginForm';
+import BackdropInherit from '../Feedback/Backdrop';
 import * as Api from '../../helpers/ApiRest.js';
 import BeginningTypography from '../Beginning/BeginningTypography';
 import BeginningAvatar from '../Beginning/BegginnigAvatar';
+import { useToggle } from '../../helpers/customHooks'
 
 function LogIn() {
-    const { open, handleClose, handleToggle } = useBackdrop();
+    const [open, handleClose, handleToggle] = useToggle();
     const [error, setError] = useState(null);
     const history = useHistory()
 
