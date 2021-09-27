@@ -3,7 +3,8 @@ import { Alert } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
 
 function LoginForm({ onSubmit, error, resetError }) {
     const { register, handleSubmit } = useForm();
@@ -49,6 +50,11 @@ function LoginForm({ onSubmit, error, resetError }) {
             >
                 Ingresar
             </Button>
+            <Grid item>
+                  <Link href="/register" variant="body2">
+                    {"Sin registrarse? Click aqui"}
+                  </Link>
+                </Grid>
         </Box>
     )
 }

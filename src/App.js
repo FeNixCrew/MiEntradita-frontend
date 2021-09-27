@@ -4,9 +4,10 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import LogIn from './components/login'
+import LogIn from './components/Login'
+import Register from "./components/Register";
 import QrScan from "./components/Scanner";
-import Home from './components/user';
+import Home from './components/User';
 
 const Routes = () => (
   <Router>
@@ -17,6 +18,7 @@ const Routes = () => (
         <Route path="/user/:username" component={Home} />
         <Route path="/scanner" component={QrScan} />
         <Route path="/login" component={LogIn} />
+        <Route path="/register" component={Register} />
       </Switch>
     </Router>
 );

@@ -1,18 +1,17 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
-import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import ConfirmationNumber from '@mui/icons-material/ConfirmationNumber';
-import Typography from '@mui/material/Typography';
 import { ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Background from '../../assets/background.png';
 import { theme } from './styles';
 import LoginForm from './LoginForm'
-import BackdropInherit from '../feedback/Backdrop';
+import BackdropInherit from '../Feedback/Backdrop';
 import * as Api from '../../helpers/ApiRest.js';
+import BeginningTypography from '../Beginning/BeginningTypography';
+import BeginningAvatar from '../Beginning/BegginnigAvatar';
 
 function LogIn() {
     const [open, setOpen] = useState(false);
@@ -56,7 +55,7 @@ function LogIn() {
 
     return (
         <ThemeProvider theme={theme}>
-           <BackdropInherit open={open} />
+            <BackdropInherit open={open} />
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid
@@ -83,19 +82,9 @@ function LogIn() {
                             alignItems: 'center',
                         }}
                     >
-                        <Avatar sx={{ m: 1, bgcolor: '#2e86c1' }}>
-                            <ConfirmationNumber />
-                        </Avatar>
-                        <Typography
-                            component="h1"
-                            variant="h6"
-                            sx={{
-                                fontStyle: 'bold',
-                                fontFamily: 'Monospace'
-                            }}>
-                            Bienvenido!
-                        </Typography>
-                        <LoginForm onSubmit={onSubmit} resetError={resetError} error={error}/>
+                        <BeginningAvatar />
+                        <BeginningTypography text="Bienvenido!" />
+                        <LoginForm onSubmit={onSubmit} resetError={resetError} error={error} />
                     </Box>
                 </Grid>
             </Grid>
