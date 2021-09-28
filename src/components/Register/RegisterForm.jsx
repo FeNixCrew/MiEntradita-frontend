@@ -5,13 +5,23 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useForm } from "react-hook-form";
 import { Alert } from '@mui/material';
+import './style.css'
 
-function RegisterForm({onSubmit, error, resetError}) {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const name = register('name', { required: true, minLength: 6 });
-    const surname = register('surname', { required: true, minLength: 6 });
+function RegisterForm({ onSubmit, error, resetError }) {
+    const { register, handleSubmit, formState: { errors }, watch } = useForm();
+ 
+    const name = register('name', { required: true });
+    const surname = register('surname', { required: true });
     const username = register('username', { required: true, minLength: 6 });
     const password = register('password', { required: true, minLength: 6 });
+
+    password.current = watch("password", "");
+
+    const confirmPassword = register('confirmPassword', {
+        required: true,
+        validate: value =>
+            value === password.current || "Las contraseñas no coinciden"
+    });
     const email = register('email', { required: true, pattern: /^\S+@\S+$/i });
     const dni = register('dni', { required: true });
 
@@ -32,6 +42,7 @@ function RegisterForm({onSubmit, error, resetError}) {
                             resetError();
                         }}
                     />
+                    {errors.name && errors.name.type === "required" && <p>Campo Nombre requerido</p>}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
@@ -46,6 +57,7 @@ function RegisterForm({onSubmit, error, resetError}) {
                             resetError();
                         }}
                     />
+                    {errors.surname && errors.surname.type === "required" && <p>Campo Apellido requerido</p>}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
@@ -59,6 +71,8 @@ function RegisterForm({onSubmit, error, resetError}) {
                             resetError();
                         }}
                     />
+                    {errors.username && errors.username.type === "required" && <p>Campo Usuario requerido</p>}
+                    {errors.username && errors.username.type === "minLength" && <p>El usuario debe ser de mas de 6 caracteres</p>}
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
@@ -72,6 +86,7 @@ function RegisterForm({onSubmit, error, resetError}) {
                             resetError();
                         }}
                     />
+                    {errors.dni && errors.dni.type === "required" && <p>Campo Dni requerido</p>}
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
@@ -86,6 +101,7 @@ function RegisterForm({onSubmit, error, resetError}) {
                             resetError();
                         }}
                     />
+                    {errors.email && errors.email.type === "required" && <p>Campo Email requerido</p>}
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
@@ -101,6 +117,23 @@ function RegisterForm({onSubmit, error, resetError}) {
                             resetError();
                         }}
                     />
+                    {errors.password && errors.password.type === "required" && <p>Campo Contraseña requerido</p>}
+                    {errors.password && errors.password.type === "minLength" && <p>La contraseñá debe ser de mas de 6 caracteres</p>}
+                </Grid>
+                <Grid item xs={12}>
+                    <TextField
+                        {...register("confirmPassword")}
+                        fullWidth
+                        name="confirmPassword"
+                        label="Confirmar Contraseña"
+                        type="password"
+                        id="confirmPassword"
+                        onChange={e => {
+                            confirmPassword.onChange(e);
+                            resetError();
+                        }}
+                    />
+                    {errors.confirmPassword && errors.confirmPassword.type === "validate" && <p>{errors.confirmPassword.message}</p>}
                 </Grid>
             </Grid>
             <div>
