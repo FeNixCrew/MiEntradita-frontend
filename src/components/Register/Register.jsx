@@ -10,10 +10,11 @@ import BeginningTypography from '../Beginning/BeginningTypography';
 import BeginningAvatar from '../Beginning/BegginnigAvatar';
 import { theme } from './styles.js'
 import { useToggle } from '../../helpers/customHooks'
-
+import { useState } from 'react';
 
 function Register() {
     const [open, handleClose, handleToggle] = useToggle();
+    const [error, setError] = useState(null);
     const history = useHistory();
 
     const onSubmit = data => {
@@ -26,10 +27,14 @@ function Register() {
                 history.push("/login");
             })
             .catch((aError) => {
-                console.log(aError);
+                const response = aError.response;
+                if (response.status);
+                setError(response.data);
                 handleClose();
             })
     };
+
+    const resetError = () => setError('');
 
     return (
         <ThemeProvider theme={theme}>
@@ -46,7 +51,7 @@ function Register() {
                 >
                     <BeginningAvatar />
                     <BeginningTypography text="Registrarse" />
-                    <RegisterForm onSubmit={onSubmit} />
+                    <RegisterForm onSubmit={onSubmit} error={error} resetError={resetError} />
                 </Box>
             </Container>
         </ThemeProvider>

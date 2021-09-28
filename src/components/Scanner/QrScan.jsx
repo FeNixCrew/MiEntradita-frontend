@@ -11,7 +11,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { Alert } from '../Feedback/Alert'
 import { exit } from '../../helpers/usedFunctions';
 import BackdropInherit from '../Feedback/Backdrop';
-import SnackBarScan from './SnackBarScan';
+import SnackBar from '../Feedback/SnackBar';
 import { useToggle } from '../../helpers/customHooks'
 
 export default function QrScan() {
@@ -101,11 +101,12 @@ export default function QrScan() {
           backgroundPosition: 'center',
         }}
       >
-        <SnackBarScan
+        <SnackBar
           openSnackBar={isOpenSnack}
-          state={resultState}
-          scanMessage={scanMessage}
+          severityState={resultState}
+          message={scanMessage}
           closeSnackBar={closeSnackBar}
+          position={{vertical: 'top', horizontal: 'right'}}
         /> 
       </Grid>
     </Grid >

@@ -1,9 +1,14 @@
-import { Alert } from '../Feedback/Alert';
+import { Alert } from './Alert';
 import Snackbar from '@mui/material/Snackbar';
-import { useStyles } from './styles';
+import { makeStyles } from '@material-ui/core/styles';
 
-function SnackBarScan({ openSnackBar, closeSnackBar, scanMessage, state }) {
+const useStyles = makeStyles((theme) => ({
+    messageContainer: {
+      'margin-top': '5vh'
+    }
+  }));
 
+function SnackBar({ openSnackBar, closeSnackBar, message, severityState, position }) {
     const classes = useStyles();
 
     return (
@@ -11,17 +16,17 @@ function SnackBarScan({ openSnackBar, closeSnackBar, scanMessage, state }) {
             <Snackbar open={openSnackBar}
                 autoHideDuration={5000} 
                 onClose={closeSnackBar}
-                anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                anchorOrigin={position}
             >
                 <Alert 
-                    severity={state} 
+                    severity={severityState} 
                     onClose={closeSnackBar} 
                     sx={{ width: '100%' }}
                 >
-                {scanMessage}
+                {message}
                 </Alert>
             </Snackbar>
         </div>)
 }
 
-export default SnackBarScan;
+export default SnackBar;

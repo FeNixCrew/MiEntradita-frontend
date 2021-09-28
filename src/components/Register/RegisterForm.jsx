@@ -4,9 +4,16 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useForm } from "react-hook-form";
+import { Alert } from '@mui/material';
 
-function RegisterForm({onSubmit}) {
-    const { register, handleSubmit } = useForm();
+function RegisterForm({onSubmit, error, resetError}) {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const name = register('name', { required: true, minLength: 6 });
+    const surname = register('surname', { required: true, minLength: 6 });
+    const username = register('username', { required: true, minLength: 6 });
+    const password = register('password', { required: true, minLength: 6 });
+    const email = register('email', { required: true, pattern: /^\S+@\S+$/i });
+    const dni = register('dni', { required: true });
 
     return (
         <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
@@ -20,6 +27,10 @@ function RegisterForm({onSubmit}) {
                         id="name"
                         label="Nombre"
                         autoFocus
+                        onChange={e => {
+                            name.onChange(e);
+                            resetError();
+                        }}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -30,6 +41,10 @@ function RegisterForm({onSubmit}) {
                         label="Apellido"
                         name="surname"
                         autoComplete="lname"
+                        onChange={e => {
+                            surname.onChange(e);
+                            resetError();
+                        }}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -39,6 +54,10 @@ function RegisterForm({onSubmit}) {
                         name="username"
                         label="Usuario"
                         id="username"
+                        onChange={e => {
+                            username.onChange(e);
+                            resetError();
+                        }}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -48,6 +67,10 @@ function RegisterForm({onSubmit}) {
                         name="dni"
                         label="Dni"
                         id="dni"
+                        onChange={e => {
+                            dni.onChange(e);
+                            resetError();
+                        }}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -58,6 +81,10 @@ function RegisterForm({onSubmit}) {
                         label="Email"
                         name="email"
                         autoComplete="email"
+                        onChange={e => {
+                            email.onChange(e);
+                            resetError();
+                        }}
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -69,9 +96,16 @@ function RegisterForm({onSubmit}) {
                         type="password"
                         id="password"
                         autoComplete="new-password"
+                        onChange={e => {
+                            password.onChange(e);
+                            resetError();
+                        }}
                     />
                 </Grid>
             </Grid>
+            <div>
+                {error && <Alert severity="error">{error.message}</Alert>}
+            </div>
             <Button
                 type="submit"
                 fullWidth
