@@ -4,23 +4,35 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import LogIn from './pages/LogIn';
-import Register from './pages/Register';
-import QrScan from './pages/QrScan';
+import LogIn from './pages/LogIn'
+import Register from "./pages/Register";
+import QrScan from "./pages/QrScan";
 import Home from './pages/Home';
+import { isScanner, isLogin } from "./helpers/usedFunctions";
+
+
+const PrivateRoute = ({ isAuth, component: Component, ...rest }) => {
+  return (
+    <Route {...rest} render={props => (
+      isAuth() ?
+        <Component {...props} /> :
+        <Redirect to="/login" />
+    )} />
+  )
+}
 
 const Routes = () => (
   <Router>
-      <Switch>
-        <Route exact path="/">
-          <Redirect to="/login" />
-        </Route>
-        <Route path="/user/:username" component={Home} />
-        <Route path="/scanner" component={QrScan} />
-        <Route path="/login" component={LogIn} />
-        <Route path="/register" component={Register} />
-      </Switch>
-    </Router>
+    <Switch>
+      <Route exact path="/">
+        <Redirect to="/login" />
+      </Route>
+      <PrivateRoute component={Home} path="/user/:username" isAuth={isLogin} />
+      <PrivateRoute component={QrScan} path="/scanner" isAuth={isScanner} />
+      <Route path="/login" component={LogIn} />
+      <Route path="/register" component={Register} />
+    </Switch>
+  </Router>
 );
 
 export default function App() {

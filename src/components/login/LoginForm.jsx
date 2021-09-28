@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 
 function LoginForm({ onSubmit, error, resetError }) {
-    const { register, handleSubmit, formState: { errors }} = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const username = register('username', { required: true });
     const password = register('password', { required: true });
 
@@ -25,6 +25,7 @@ function LoginForm({ onSubmit, error, resetError }) {
                     resetError();
                 }}
             />
+            {errors.username && errors.username.type === "required" && <p>El campo usuario no puede estar vacio</p>}
             <TextField
                 {...register("password")}
                 margin="normal"
@@ -36,6 +37,12 @@ function LoginForm({ onSubmit, error, resetError }) {
                     resetError();
                 }}
             />
+            {errors.password && errors.password.type === "required" && <p>El campo contraseña no puede estar vacio</p>}
+
+            <div>
+                {error && <Alert severity="error">{error.message}</Alert>}
+            </div>
+
             <Button
                 style={{
                     backgroundColor: '#2e86c1'
@@ -52,11 +59,6 @@ function LoginForm({ onSubmit, error, resetError }) {
                     {"Sin registrarse? Click aqui"}
                 </Link>
             </Grid>
-            <div>
-                {error && <Alert severity="error">{error.message}</Alert>}
-                {errors.username && errors.username.type === "required" && <Alert severity="error">El campo usuario no puede estar vacio</Alert>}
-                {errors.password && errors.password.type === "required" && <Alert severity="error">El campo contraseña no puede estar vacio</Alert>}
-            </div>
         </Box>
     )
 }
