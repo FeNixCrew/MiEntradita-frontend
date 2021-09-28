@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import * as Api from '../../helpers/ApiRest';
 import Tickets from '../Tickets';
-import BackdropInherit from '../feedback/Backdrop';
+import BackdropInherit from '../Feedback/Backdrop';
 
 export default function Home() {
     const [tickets, setTickets] = useState(null);

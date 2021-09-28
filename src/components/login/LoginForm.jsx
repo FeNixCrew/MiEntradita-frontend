@@ -3,12 +3,13 @@ import { Alert } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
 
 function LoginForm({ onSubmit, error, resetError }) {
-    const { register, handleSubmit } = useForm();
-    const username = register('username');
-    const password = register('password');
+    const { register, handleSubmit, formState: { errors }} = useForm();
+    const username = register('username', { required: true });
+    const password = register('password', { required: true });
 
     return (
         <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
@@ -37,7 +38,10 @@ function LoginForm({ onSubmit, error, resetError }) {
             />
             <div>
                 {error && <Alert severity="error">{error.message}</Alert>}
+                {errors.username && errors.username.type === "required" && <Alert severity="error">El campo usuario no puede estar vacio</Alert>}
+                {errors.password && errors.password.type === "required" && <Alert severity="error">El campo contraseña no puede estar vacio</Alert>}
             </div>
+
             <Button
                 style={{
                     backgroundColor: '#2e86c1'
@@ -49,6 +53,11 @@ function LoginForm({ onSubmit, error, resetError }) {
             >
                 Ingresar
             </Button>
+            <Grid item>
+                <Link href="/register" variant="body2">
+                    {"Sin registrarse? Click aqui"}
+                </Link>
+            </Grid>
         </Box>
     )
 }

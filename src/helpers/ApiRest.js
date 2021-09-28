@@ -31,3 +31,18 @@ export const comeIn = async (spectatorId, matchId) => {
     return axios.post(urlApi + endpoint, data)
 }
 
+
+export const register = async (name, surname, username, email, dni, password) => {
+    const endpoint = '/register';
+    dni = parseInt(dni)
+    const data = {
+        name: name,
+        surname: surname,
+        username: username,
+        password: password,
+        dni: dni,
+        email: email
+    }
+    return axios.post(urlSpectator + endpoint, data)
+}
+
