@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import * as Api from '../../helpers/ApiRest';
-import Tickets from '../Tickets';
-import BackdropInherit from '../Feedback/Backdrop';
+import * as Api from '../helpers/ApiRest';
+import Tickets from '../components/ticket/TicketsCarousel';
+import BackdropInherit from '../components/feedback/Backdrop';
 
 export default function Home() {
     const [tickets, setTickets] = useState(null);
@@ -24,13 +24,12 @@ export default function Home() {
 
     return (
         <>
-            {(tickets === null &&
-                <BackdropInherit open={open} />)
-                ||
-                <div>
-
+            {
+                tickets === null ?
+                    <BackdropInherit open={open} />
+                    :
                     <Tickets tickets={tickets} />
-                </div>
+
             }
         </>
     )

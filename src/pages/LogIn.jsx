@@ -1,18 +1,21 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
+
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import { ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Background from '../../assets/background.png';
-import { theme } from './styles';
-import LoginForm from './LoginForm';
-import BackdropInherit from '../Feedback/Backdrop';
-import * as Api from '../../helpers/ApiRest.js';
-import BeginningTypography from '../Beginning/BeginningTypography';
-import BeginningAvatar from '../Beginning/BegginnigAvatar';
-import { useToggle } from '../../helpers/customHooks'
+
+import { theme } from '../components/login/styles';
+import LoginForm from '../components/login/LoginForm';
+import BackdropInherit from '../components/feedback/Backdrop';
+import BeginningTypography from '../components/beginning/BeginningTypography';
+import BeginningAvatar from '../components/beginning/BegginnigAvatar';
+
+import * as Api from '../helpers/ApiRest.js';
+import { useToggle } from '../helpers/hooks/useToggle'
+import Background from '../assets/background.png';
 
 function LogIn() {
     const [open, handleClose, handleToggle] = useToggle();

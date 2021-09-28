@@ -1,18 +1,25 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
 import QrReader from 'react-qr-reader';
-import * as Api from '../../helpers/ApiRest';
-import { scannerStyle } from './styles';
+
 import Grid from '@mui/material/Grid';
-import Background from '../../assets/scannerBackground.png'
+import Background from '../assets/scannerBackground.png'
 import { CssBaseline } from '@material-ui/core';
 import Button from '@mui/material/Button';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { Alert } from '../Feedback/Alert'
-import { exit } from '../../helpers/usedFunctions';
-import BackdropInherit from '../Feedback/Backdrop';
-import SnackBar from '../Feedback/SnackBar';
-import { useToggle } from '../../helpers/customHooks'
+
+import { Alert } from '../components/feedback/Alert'
+import BackdropInherit from '../components/feedback/Backdrop';
+import SnackBar from '../components/feedback/SnackBar';
+
+import { useToggle } from '../helpers/hooks/useToggle'
+import { exit } from '../helpers/usedFunctions';
+import * as Api from '../helpers/ApiRest';
+
+const scannerStyle = {
+  height: '64vh',
+  width: '64vh',
+}
 
 export default function QrScan() {
   const [scanMessage, setScanMessage] = useState(null);

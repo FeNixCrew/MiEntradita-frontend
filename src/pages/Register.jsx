@@ -1,16 +1,19 @@
 import { useHistory } from 'react-router';
+import { useState } from 'react';
+
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import { ThemeProvider } from '@mui/material/styles';
-import BackdropInherit from '../Feedback/Backdrop';
-import * as Api from '../../helpers/ApiRest.js';
-import RegisterForm from './RegisterForm';
 import Container from '@mui/material/Container';
-import BeginningTypography from '../Beginning/BeginningTypography';
-import BeginningAvatar from '../Beginning/BegginnigAvatar';
-import { theme } from './styles.js'
-import { useToggle } from '../../helpers/customHooks'
-import { useState } from 'react';
+
+import RegisterForm from '../components/register/RegisterForm';
+import BeginningTypography from '../components/beginning/BeginningTypography';
+import BeginningAvatar from '../components/beginning/BegginnigAvatar';
+import BackdropInherit from '../components/feedback/Backdrop';
+import { theme } from '../components/register/styles.js'
+
+import { useToggle } from '../helpers/hooks/useToggle'
+import * as Api from '../helpers/ApiRest.js';
 
 function Register() {
     const [open, handleClose, handleToggle] = useToggle();

@@ -4,10 +4,10 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import LogIn from './components/Login'
-import Register from "./components/Register";
-import QrScan from "./components/Scanner";
-import Home from './components/User';
+import LogIn from './pages/LogIn';
+import Register from './pages/Register';
+import QrScan from './pages/QrScan';
+import Home from './pages/Home';
 
 const Routes = () => (
   <Router>
