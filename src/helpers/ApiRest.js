@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const url = 'http://localhost:8081/api'
 const urlSpectator = url + '/spectator'
+const urlAuth = url + '/auth'
 const urlApi = url + '/match'
 
 
@@ -11,7 +12,7 @@ export const login = async (username, password) => {
         username: username,
         password: password
     }
-    return axios.post(urlSpectator + endpoint, data);
+    return axios.post(urlAuth + endpoint, data);
 }
 
 export const me = async () => {
@@ -43,6 +44,6 @@ export const register = async (name, surname, username, email, dni, password) =>
         dni: dni,
         email: email
     }
-    return axios.post(urlSpectator + endpoint, data)
+    return axios.post(urlAuth + endpoint, data)
 }
 

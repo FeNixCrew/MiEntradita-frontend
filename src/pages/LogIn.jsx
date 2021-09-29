@@ -28,8 +28,9 @@ function LogIn() {
             .then(response => {
                 localStorage.setItem('spectatorId', response.data.id);
                 localStorage.setItem('username', response.data.username);
+                localStorage.setItem('role', response.data.role);
                 handleClose();
-                push(response.data.username);
+                push(response.data.role, response.data.username);
             })
             .catch((aError) => {
                 const response = aError.response;
@@ -41,11 +42,17 @@ function LogIn() {
 
     const resetError = () => setError('');
 
-    const push = (username) => {
-        if (username === "scanner") {
-            history.push(`/${username}`);
-        } else {
-            history.push(`/user/${username}`);
+    const push = (role, username) => {
+        switch (role) {
+            case "SCANNER":
+                history.push('/scanner');
+                break;
+            case "ADMIN":
+                history.push('/administrator');
+                break;
+            default:
+                history.push(`/user/${username}`);
+                break;
         }
     }
 
@@ -58,7 +65,7 @@ function LogIn() {
                     item
                     xs={false}
                     sm={4}
-                    md={7}
+                    md={5}
                     sx={{
                         backgroundImage: `url(${Background})`,
                         backgroundRepeat: 'no-repeat',
@@ -68,18 +75,19 @@ function LogIn() {
                         backgroundPosition: 'center',
                     }}
                 />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                <Grid item xs={12} sm={8} md={7} component={Paper} elevation={6} square>
                     <Box
                         sx={{
-                            my: 8,
+                            my: 7,
                             mx: 4,
                             display: 'flex',
                             flexDirection: 'column',
-                            alignItems: 'center',
+                            alignItems: 'center'
                         }}
                     >
                         <BeginningAvatar />
                         <BeginningTypography text="Bienvenido!" />
+
                         <LoginForm onSubmit={onSubmit} resetError={resetError} error={error} />
                     </Box>
                 </Grid>

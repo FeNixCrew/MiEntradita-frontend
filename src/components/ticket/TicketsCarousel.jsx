@@ -2,7 +2,6 @@ import React from 'react';
 import Carousel from 'react-material-ui-carousel';
 import Ticket from './ticketCard/TicketCard';
 import { Typography } from '@material-ui/core';
-import NavBar from '../navigation/NavBar';
 
 export default function Tickets({ tickets }) {
 
@@ -12,7 +11,6 @@ export default function Tickets({ tickets }) {
 
     return (
         <>
-            <NavBar />
             {
                 tickets.length > 0 ?
                     <div style={{ marginRight: '40vh', marginLeft: '40vh', marginTop: '7vh' }}>

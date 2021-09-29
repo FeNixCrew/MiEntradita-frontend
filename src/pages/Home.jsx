@@ -1,34 +1,18 @@
-import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
-import * as Api from '../helpers/ApiRest';
-import Tickets from '../components/ticket/TicketsCarousel';
-import BackdropInherit from '../components/feedback/Backdrop';
+import NavBar from '../components/navigation/NavBar';
+import { isAdmin } from '../helpers/usedFunctions';
+import Admin from '../components/user/Admin'
+import Spectator from '../components/user/Spectator';
 
 export default function Home() {
-    const [tickets, setTickets] = useState(null);
-    const [open, setOpen] = useState(false);
-    const history = useHistory();
-
-    useEffect(() => {
-        setOpen(true);
-        Api.me()
-            .then(response => {
-                setTickets(response.data);
-            })
-            .catch(() => {
-                localStorage.clear();
-                history.push('/login');
-            });
-        setOpen(false);
-    }, [history]);
 
     return (
         <>
+        <NavBar />
             {
-                tickets === null ?
-                    <BackdropInherit open={open} />
+                isAdmin() ?
+                    <Admin />
                     :
-                    <Tickets tickets={tickets} />
+                    <Spectator />
 
             }
         </>

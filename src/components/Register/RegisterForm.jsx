@@ -26,7 +26,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
     const dni = register('dni', { required: true });
 
     return (
-        <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
+        <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 2 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <TextField
@@ -148,7 +148,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                 Registrarse
             </Button>
             <Grid container justifyContent="flex-end">
-                <Grid item>
+                <Grid item sx={{ mb: 2 }}>
                     <Link href="/login" variant="body2">
                         Ya tienes una cuenta? Inica sesion
                     </Link>

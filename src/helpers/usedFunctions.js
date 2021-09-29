@@ -4,8 +4,13 @@ export const exit = (history) => {
 }
 
 export const isScanner = () => {
-    return localStorage.getItem('username') === 'scanner'
+    return localStorage.getItem('role') === 'SCANNER'
 }
+
+export const isAdmin = () => {
+    return localStorage.getItem('role') === 'ADMIN'
+}
+
 
 export const isLogin = () => {
     return localStorage.getItem('username') !== null
