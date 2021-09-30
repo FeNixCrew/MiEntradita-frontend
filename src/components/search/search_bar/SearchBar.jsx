@@ -17,7 +17,7 @@ function SearchBar({ onSubmit }) {
                 </SearchIconWrapper>
                 <StyledInputBase
                     {...register("textSearched")}
-                    placeholder="Search…"
+                    placeholder="Buscar..."
                     inputProps={{ 'aria-label': 'search' }}
                 />
             </Search>

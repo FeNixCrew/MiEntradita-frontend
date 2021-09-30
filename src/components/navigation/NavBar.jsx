@@ -10,6 +10,7 @@ import { exit } from '../../helpers/usedFunctions'
 import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
 import { IconButton } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
 
 
 function NavBar() {
@@ -18,6 +19,11 @@ function NavBar() {
     const goToSearch = () => {
         let username = localStorage.getItem('username');
         history.push(`/${username}/search`)
+    }
+
+    const goHome = () => {
+        let username = localStorage.getItem('username');
+        history.push(`/${username}/home`)
     }
 
     return (
@@ -44,6 +50,15 @@ function NavBar() {
                         onClick={goToSearch}
                         color="inherit">
                         <SearchIcon />
+                    </IconButton>
+                    <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={goHome}
+                        color="inherit">
+                        <HomeIcon />
                     </IconButton>
                     <Button
                         style={{

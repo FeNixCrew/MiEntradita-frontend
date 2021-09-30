@@ -1,23 +1,25 @@
-import { Box } from "@mui/system";
-
+import { Container, Grid, Typography } from "@mui/material";
+import SearchResult from "./SearchResult";
 
 function SearchResults({ results }) {
 
     const renderResult = () => {
-        return results.map((result, i) => <h5 key={i}>{`${result.home} vs ${result.away}`}</h5>);
+        return results.map((result, i) => <SearchResult key={i} match={result} />);
     };
 
     return (
-        <Box>
-            {results.length > 0 ?
-                <div>
-                    <h4>Resultados:</h4>
-                    {renderResult()}
-                </div>
-                :
-                <h6>No hay resultados</h6>
-            }
-        </Box>
+        <Container  maxWidth="xl">
+            <Grid container spacing={2}>
+                {results.length > 0 ?
+                    <div>
+                        <Typography variant='h6' component='div' sx={{m:5}}>Resultados:</Typography>
+                        {renderResult()}
+                    </div>
+                    :
+                    <Typography variant='h6' component='div' sx={{m:6}}>Sin resultados</Typography>
+                }
+            </Grid>
+        </Container>
     );
 };
 

@@ -24,9 +24,15 @@ export default function Search() {
     return (
         <div>
             <NavBar />
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: '5vh' }}>
-
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                mt: 5
+            }}>
                 <SearchBar onSubmit={onSubmit} />
+            </Box>
+            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 200vh)' }}>
                 <SearchResults results={result} />
             </Box>
         </div>
