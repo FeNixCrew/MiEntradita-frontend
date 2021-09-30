@@ -40,6 +40,7 @@ function LoginForm({ onSubmit, error, resetError }) {
             <div>
                 {error && <Alert severity="error">{error.message}</Alert>}
             </div>
+
             <Button
                 style={{
                     backgroundColor: '#2e86c1'
@@ -51,9 +52,11 @@ function LoginForm({ onSubmit, error, resetError }) {
             >
                 Ingresar
             </Button>
-            <Link href="/register" variant="body2">
-                {"Sin registrarse? Click aqui"}
-            </Link>
+            <Grid item>
+                <Link href="/register" variant="body2">
+                    {"Sin registrarse? Click aqui"}
+                </Link>
+            </Grid>
         </Box>
     )
 }

@@ -11,7 +11,6 @@ export const isAdmin = () => {
     return localStorage.getItem('role') === 'ADMIN'
 }
 
-
 export const isLogin = () => {
     return localStorage.getItem('username') !== null
 }
