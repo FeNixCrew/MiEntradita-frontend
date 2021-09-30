@@ -26,7 +26,7 @@ export const me = async () => {
 
 export const comeIn = async (spectatorId, matchId) => {
     const endpoint = '/comeIn';
-    const header = {headers: { authorization: localStorage.getItem('auth') } }
+    const header = { headers: { authorization: localStorage.getItem('auth') } }
     const data = {
         spectatorId: spectatorId,
         matchId: matchId
@@ -61,4 +61,12 @@ export const createMatch = async (home, away, price, match_start_time) => {
     }
 
     return axios.post(urlApi + endpoint, data, header)
+}
+
+export const search = async (text) => {
+    const endpoint = '/search';
+    const params = new URLSearchParams([['partialName', text]]);
+    const header = { authorization: localStorage.getItem('auth') }
+
+    return axios.get(urlApi + endpoint, { headers: header, params: params });
 }

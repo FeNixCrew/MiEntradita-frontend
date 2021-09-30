@@ -1,9 +1,10 @@
+import { useHistory } from 'react-router';
 import NavBar from '../components/navigation/NavBar';
-import { isAdmin } from '../helpers/usedFunctions';
 import Admin from '../components/user/Admin'
 import Spectator from '../components/user/Spectator';
 
 export default function Home() {
+    const history = useHistory();
     const role = localStorage.getItem('role');
 
     const switchRole = () => {
@@ -12,6 +13,8 @@ export default function Home() {
                 return <Admin />
             case "ROLE_USER":
                 return <Spectator />
+            default:
+                history.push('/login')
         }
     };
 

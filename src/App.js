@@ -10,6 +10,7 @@ import QrScan from "./pages/QrScan";
 import Home from './pages/Home';
 
 import { isScanner, isLogin, isAdmin } from "./helpers/usedFunctions";
+import Search from "./pages/Search";
 
 
 const PrivateRoute = ({ isAuth, component: Component, ...rest }) => {
@@ -31,6 +32,7 @@ const Routes = () => (
       <PrivateRoute component={Home} path="/:username/home" isAuth={isLogin} />
       <PrivateRoute component={QrScan} path="/scanner" isAuth={isScanner} />
       <PrivateRoute component={Home} path="/admin/home" isAuth={isAdmin} />
+      <PrivateRoute component={Search} path="/:username/search" isAuth={() => isAdmin() || isLogin()} />
 
       <Route path="/login" component={LogIn} />
       <Route path="/register" component={Register} />
