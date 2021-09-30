@@ -3,7 +3,6 @@ import { Alert } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 
 function LoginForm({ onSubmit, error, resetError }) {
@@ -12,7 +11,7 @@ function LoginForm({ onSubmit, error, resetError }) {
     const password = register('password', { required: true });
 
     return (
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 1 }}>
+        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt:5 }}>
             <TextField
                 {...register("username")}
                 margin="normal"
@@ -38,7 +37,6 @@ function LoginForm({ onSubmit, error, resetError }) {
                 }}
             />
             {errors.password && errors.password.type === "required" && <p>El campo contraseña no puede estar vacio</p>}
-
             <div>
                 {error && <Alert severity="error">{error.message}</Alert>}
             </div>

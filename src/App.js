@@ -8,7 +8,8 @@ import LogIn from './pages/LogIn'
 import Register from "./pages/Register";
 import QrScan from "./pages/QrScan";
 import Home from './pages/Home';
-import { isScanner, isLogin } from "./helpers/usedFunctions";
+
+import { isScanner, isLogin, isAdmin } from "./helpers/usedFunctions";
 
 
 const PrivateRoute = ({ isAuth, component: Component, ...rest }) => {
@@ -29,6 +30,8 @@ const Routes = () => (
       </Route>
       <PrivateRoute component={Home} path="/user/:username" isAuth={isLogin} />
       <PrivateRoute component={QrScan} path="/scanner" isAuth={isScanner} />
+      <PrivateRoute component={Home} path="/administrator" isAuth={isAdmin} />
+
       <Route path="/login" component={LogIn} />
       <Route path="/register" component={Register} />
     </Switch>
