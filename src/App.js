@@ -28,9 +28,9 @@ const Routes = () => (
       <Route exact path="/">
         <Redirect to="/login" />
       </Route>
-      <PrivateRoute component={Home} path="/user/:username" isAuth={isLogin} />
+      <PrivateRoute component={Home} path="/:username/home" isAuth={isLogin} />
       <PrivateRoute component={QrScan} path="/scanner" isAuth={isScanner} />
-      <PrivateRoute component={Home} path="/administrator" isAuth={isAdmin} />
+      <PrivateRoute component={Home} path="/admin/home" isAuth={isAdmin} />
 
       <Route path="/login" component={LogIn} />
       <Route path="/register" component={Register} />

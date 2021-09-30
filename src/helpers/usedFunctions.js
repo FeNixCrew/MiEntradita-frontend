@@ -4,11 +4,11 @@ export const exit = (history) => {
 }
 
 export const isScanner = () => {
-    return localStorage.getItem('role') === 'SCANNER'
+    return localStorage.getItem('role') === 'ROLE_SCANNER'
 }
 
 export const isAdmin = () => {
-    return localStorage.getItem('role') === 'ADMIN'
+    return localStorage.getItem('role') === 'ROLE_ADMIN'
 }
 
 export const isLogin = () => {

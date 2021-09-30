@@ -19,17 +19,19 @@ export const me = async () => {
     const endpoint = '/tickets';
     const spectatorId = localStorage.getItem('spectatorId');
     const params = new URLSearchParams([['spectatorId', spectatorId]]);
+    const header = { authorization: localStorage.getItem('auth') }
 
-    return axios.get(urlSpectator + endpoint, { params });
+    return axios.get(urlSpectator + endpoint, { headers: header, params: params });
 }
 
 export const comeIn = async (spectatorId, matchId) => {
     const endpoint = '/comeIn';
+    const header = {headers: { authorization: localStorage.getItem('auth') } }
     const data = {
         spectatorId: spectatorId,
         matchId: matchId
     }
-    return axios.post(urlApi + endpoint, data)
+    return axios.post(urlApi + endpoint, data, header)
 }
 
 
@@ -48,8 +50,9 @@ export const register = async (name, surname, username, email, dni, password) =>
 }
 
 
-export const createMatch = async(home, away, price, match_start_time) => {
+export const createMatch = async (home, away, price, match_start_time) => {
     const endpoint = '/create'
+    const header = { headers: { authorization: localStorage.getItem('auth') } }
     const data = {
         home: home,
         away: away,
@@ -57,5 +60,5 @@ export const createMatch = async(home, away, price, match_start_time) => {
         matchStartTime: match_start_time
     }
 
-    return axios.post(urlApi + endpoint, data)
+    return axios.post(urlApi + endpoint, data, header)
 }

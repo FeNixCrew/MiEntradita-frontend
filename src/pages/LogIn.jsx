@@ -26,9 +26,7 @@ function LogIn() {
         handleToggle();
         Api.login(data.username, data.password)
             .then(response => {
-                localStorage.setItem('spectatorId', response.data.id);
-                localStorage.setItem('username', response.data.username);
-                localStorage.setItem('role', response.data.role);
+                saveData(response)
                 handleClose();
                 push(response.data.role, response.data.username);
             })
@@ -44,16 +42,20 @@ function LogIn() {
 
     const push = (role, username) => {
         switch (role) {
-            case "SCANNER":
+            case "ROLE_SCANNER":
                 history.push('/scanner');
                 break;
-            case "ADMIN":
-                history.push('/administrator');
-                break;
             default:
-                history.push(`/user/${username}`);
+                history.push(`/${username}/home`);
                 break;
         }
+    }
+
+    const saveData = response => {
+        localStorage.setItem('spectatorId', response.data.id);
+        localStorage.setItem('username', response.data.username);
+        localStorage.setItem('role', response.data.role);
+        localStorage.setItem('auth', response.headers.authorization)
     }
 
     return (
