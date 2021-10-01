@@ -15,9 +15,8 @@ function Spectator() {
             .then(response => {
                 setTickets(response.data);
             })
-            .catch(() => {
-                // localStorage.clear();
-                // history.push('/login');
+            .catch((err) => {
+                console.log(err)
             });
         setOpen(false);
     }, [history]);

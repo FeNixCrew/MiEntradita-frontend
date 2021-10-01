@@ -4,11 +4,11 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import QRCode from 'react-qr-code';
 import { useStyles } from './styles';
 import Typography from '@mui/material/Typography';
+import { formatDateAndTime } from '../../../helpers/usedFunctions';
 
 export default function Ticket({ ticket }) {
   const classes = useStyles();
-  const _horario = new Date(ticket.matchStartTime);
-  const horarioFormateado = `${_horario.toLocaleDateString()}, ${_horario.toLocaleTimeString().slice(0, -3)} hs`;
+  const horarioFormateado = formatDateAndTime(ticket.matchStartTime);
   const ticketQr = {
     userId: ticket.userId,
     matchId: ticket.matchId

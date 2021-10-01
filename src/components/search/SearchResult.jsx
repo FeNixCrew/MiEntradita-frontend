@@ -4,10 +4,10 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { formatDateAndTime } from '../../helpers/usedFunctions';
 
 function SearchResult({ match }) {
     const matchTitle = `${match.home} vs ${match.away}`;
-    const matchTime = match.matchStartTime.split('T')[0].replaceAll('-', '/').concat(' ', match.matchStartTime.split('T')[1])
 
     return (
         <Grid item md={12} sx={{m:5}}>
@@ -19,7 +19,7 @@ function SearchResult({ match }) {
                         {matchTitle}
                     </Typography>
                     <Typography variant="h7">
-                        {matchTime}
+                        {formatDateAndTime(match.matchStartTime)}
                     </Typography>
                 </CardContent>
                 <CardActions>
