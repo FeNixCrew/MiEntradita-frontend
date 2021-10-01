@@ -11,9 +11,7 @@ function SearchResult({ match }) {
 
     return (
         <Grid item md={12} sx={{m:5}}>
-            <Card
-                sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-            >
+            <Card sx={{ p: 1}}>
                 <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2" sx={{color: "#2e86c1"}}>
                         {matchTitle}

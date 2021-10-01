@@ -1,4 +1,4 @@
-import { Container, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import BeginningTypography from "../beginning/BeginningTypography";
 import SearchResult from "./SearchResult";
 
@@ -9,18 +9,16 @@ function SearchResults({ results }) {
     };
 
     return (
-        <Container  maxWidth="xl">
-            <Grid container spacing={2}>
-                {results.length > 0 ?
-                    <div>
-                    <BeginningTypography text ='Resultados:' />
-                        {renderResult()}
-                    </div>
-                    :
-                    <BeginningTypography text ='no se han encontrado partidos :(' />
-                }
-            </Grid>
-        </Container>
+        <Grid container sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, auto-fit)', justifyContent: 'center' }}>
+            {results.length > 0 ?
+                <div>
+                    <BeginningTypography text='Resultados:' sx={{ mt: 4 }} />
+                    {renderResult()}
+                </div>
+                :
+                <BeginningTypography text='no se han encontrado partidos :(' sx={{ mt: 3 }} />
+            }
+        </Grid>
     );
 };
 

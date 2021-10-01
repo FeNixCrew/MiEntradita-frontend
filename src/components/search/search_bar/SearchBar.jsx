@@ -6,7 +6,7 @@ import { Search } from './SearchComponent';
 import { SearchIconWrapper } from './SearchIconWrapper';
 import { StyledInputBase } from './StyledInputBase';
 
-function SearchBar({ onSubmit }) {
+function SearchBar({ onSubmit, partialSearch }) {
     const { register, handleSubmit } = useForm();
 
     return (
