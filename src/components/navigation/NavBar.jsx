@@ -49,7 +49,7 @@ function NavBar() {
                         aria-haspopup="true"
                         onClick={goToSearch}
                         color="inherit">
-                        <SearchIcon />
+                        <SearchIcon sx= {{color: '#FFF'}}/>
                     </IconButton>
                     <IconButton
                         size="large"
@@ -57,17 +57,11 @@ function NavBar() {
                         aria-controls="menu-appbar"
                         aria-haspopup="true"
                         onClick={goHome}
-                        color="inherit">
-                        <HomeIcon />
-                    </IconButton>
-                    <Button
-                        style={{
-                            color: '#2e86c1'
-                        }}
-                        onClick={() => exit(history)}
-                        color="inherit"
                     >
-                        <LogoutIcon />
+                        <HomeIcon sx= {{color: '#FFF'}} />
+                    </IconButton>
+                    <Button onClick={() => exit(history)} >
+                        <LogoutIcon sx= {{color: '#FFF'}}/>
                     </Button>
                 </Toolbar>
             </AppBar>
