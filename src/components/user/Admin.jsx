@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@emotion/react';
-import { CssBaseline, Box, Container } from '@mui/material';
+import { CssBaseline, Container } from '@mui/material';
 
 import { theme } from './style';
 import BackdropInherit from '../feedback/Backdrop';
@@ -17,7 +17,7 @@ function Admin() {
     const [message, setMessage] = useState();
 
     const onSubmit = (data) => {
-        let matchStartTime = new Date(data.date + "T" + data.time).toISOString();
+        let matchStartTime = new Date(data.date + "T" + data.time)
         handleToggle();
         matchService.create(data.home, data.away, parseInt(data.price), matchStartTime)
             .then(_ => {
@@ -47,16 +47,7 @@ function Admin() {
             />
             <Container component="main" maxWidth="md">
                 <CssBaseline />
-                <Box
-                    sx={{
-                        mt: 3,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'rigth'
-                    }}
-                >
-                    <CreateMatchForm onSubmit={onSubmit} />
-                </Box>
+                <CreateMatchForm onSubmit={onSubmit} />
             </Container >
         </ThemeProvider >
     );

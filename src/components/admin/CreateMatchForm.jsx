@@ -1,6 +1,6 @@
 import MenuItem from '@mui/material/MenuItem';
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, Grid, Paper } from '@mui/material';
 import { equipos } from '../../equipos'
 import { useForm } from 'react-hook-form';
 import GridItem from './GridItem';
@@ -19,8 +19,18 @@ function CreateMatchForm({ onSubmit }) {
     });
 
     return (
-        <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
-            <Grid container spacing={1}>
+        <Paper
+            component="form"
+            noValidate
+            onSubmit={handleSubmit(onSubmit)}
+            sx={{
+                backgroundColor: '#d7dbdd',
+                p: 2,
+                borderRadius: 2
+            }}
+            elevation={6}
+            >
+            <Grid container spacing={1} sx={{ display: 'flex' }}>
                 <GridItem
                     register={register}
                     name="home"
@@ -67,16 +77,19 @@ function CreateMatchForm({ onSubmit }) {
                     label="Precio"
                     xs={12}
                 />
+
             </Grid>
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-            >
-                <AddIcon sx={{ mr: 1 }} /> Crear partido
-            </Button>
-        </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2, maxWidth: '50%' }}
+                >
+                    <AddIcon sx={{ mr: 1 }} /> Crear partido
+                </Button>
+            </Box>
+        </Paper>
     )
 }
 
