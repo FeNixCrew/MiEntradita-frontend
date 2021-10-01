@@ -5,10 +5,10 @@ import { theme } from './style';
 import BackdropInherit from '../feedback/Backdrop';
 
 import { useToggle } from '../../helpers/hooks/useToggle';
-import * as Api from '../../helpers/ApiRest';
 import SnackBar from '../feedback/SnackBar';
 import { useState } from 'react';
 import CreateMatchForm from '../admin/CreateMatchForm';
+import matchService from '../../services/MatchService';
 
 function Admin() {
     const [open, handleClose, handleToggle] = useToggle();
@@ -18,16 +18,15 @@ function Admin() {
 
     const onSubmit = (data) => {
         let matchStartTime = new Date(data.date + "T" + data.time).toISOString();
-        console.log(new Date(matchStartTime).toISOString());
         handleToggle();
-        Api.createMatch(data.home, data.away, parseInt(data.price), matchStartTime)
-            .then(response => {
+        matchService.create(data.home, data.away, parseInt(data.price), matchStartTime)
+            .then(_ => {
                 handleClose();
                 setSeverity("success");
                 setMessage("Partido creado exitosamente");
                 openSnackBar();
             })
-            .catch(error => {
+            .catch(_ => {
                 handleClose();
                 setSeverity("error");
                 setMessage("Partido no creado, ha ocurrido un error");

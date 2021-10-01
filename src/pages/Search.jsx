@@ -3,10 +3,10 @@ import { useState } from "react";
 
 import NavBar from "../components/navigation/NavBar";
 import SearchBar from "../components/search/search_bar/SearchBar";
-import * as Api from '../helpers/ApiRest';
 import SearchResults from '../components/search/SearchResults';
 import BackdropInherit from "../components/feedback/Backdrop";
 import BeginningTypography from "../components/beginning/BeginningTypography";
+import matchService from "../services/MatchService";
 
 
 export default function Search() {
@@ -15,7 +15,7 @@ export default function Search() {
 
     const onSubmit = data => {
         setIsLoading(true);
-        Api.search(data.textSearched)
+        matchService.search(data.textSearched)
             .then(response => {
                 console.log(response.data);
                 setResult(response.data);
