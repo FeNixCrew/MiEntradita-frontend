@@ -1,4 +1,5 @@
 import { Container, Grid, Typography } from "@mui/material";
+import BeginningTypography from "../beginning/BeginningTypography";
 import SearchResult from "./SearchResult";
 
 function SearchResults({ results }) {
@@ -12,11 +13,11 @@ function SearchResults({ results }) {
             <Grid container spacing={2}>
                 {results.length > 0 ?
                     <div>
-                        <Typography variant='h6' component='div' sx={{m:5}}>Resultados:</Typography>
+                    <BeginningTypography text ='Resultados:' />
                         {renderResult()}
                     </div>
                     :
-                    <Typography variant='h6' component='div' sx={{m:6}}>Sin resultados</Typography>
+                    <BeginningTypography text ='no se han encontrado partidos :(' />
                 }
             </Grid>
         </Container>

@@ -5,16 +5,21 @@ import NavBar from "../components/navigation/NavBar";
 import SearchBar from "../components/search/search_bar/SearchBar";
 import * as Api from '../helpers/ApiRest';
 import SearchResults from '../components/search/SearchResults';
+import BackdropInherit from "../components/feedback/Backdrop";
+import BeginningTypography from "../components/beginning/BeginningTypography";
 
 
 export default function Search() {
-    const [result, setResult] = useState([]);
+    const [result, setResult] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const onSubmit = data => {
+        setIsLoading(true);
         Api.search(data.textSearched)
             .then(response => {
                 console.log(response.data);
                 setResult(response.data);
+            setIsLoading(false);
             })
             .catch(error => {
                 console.log(error);
@@ -24,6 +29,7 @@ export default function Search() {
     return (
         <div>
             <NavBar />
+            <BackdropInherit open={isLoading}/>
             <Box sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -33,7 +39,12 @@ export default function Search() {
                 <SearchBar onSubmit={onSubmit} />
             </Box>
             <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, 200vh)' }}>
-                <SearchResults results={result} />
+                {
+                result ?
+                    <SearchResults results={result} />
+                    :
+                    <BeginningTypography text ='Busque partidos de un equipo!' />
+                }
             </Box>
         </div>
     );
