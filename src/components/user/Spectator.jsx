@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import * as Api from '../../helpers/ApiRest';
 import Tickets from '../ticket/TicketsCarousel';
 import BackdropInherit from '../feedback/Backdrop';
+import spectatorService from '../../services/SpectatorService';
 
 function Spectator() {
     const [tickets, setTickets] = useState(null);
@@ -11,13 +11,13 @@ function Spectator() {
 
     useEffect(() => {
         setOpen(true);
-        Api.me()
+        spectatorService.pendingTickets()
             .then(response => {
                 setTickets(response.data);
             })
             .catch(() => {
-                localStorage.clear();
-                history.push('/login');
+                // localStorage.clear();
+                // history.push('/login');
             });
         setOpen(false);
     }, [history]);

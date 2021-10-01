@@ -13,8 +13,8 @@ import BackdropInherit from '../components/feedback/Backdrop';
 import BeginningTypography from '../components/beginning/BeginningTypography';
 import BeginningAvatar from '../components/beginning/BegginnigAvatar';
 
-import * as Api from '../helpers/ApiRest.js';
-import { useToggle } from '../helpers/hooks/useToggle'
+import authService from '../services/AuthService';
+import { useToggle } from '../helpers/hooks/useToggle';
 import Background from '../assets/background.png';
 
 function LogIn() {
@@ -24,9 +24,9 @@ function LogIn() {
 
     const onSubmit = data => {
         handleToggle();
-        Api.login(data.username, data.password)
+        authService.login(data.username, data.password)
             .then(response => {
-                saveData(response)
+                saveData(response);
                 handleClose();
                 push(response.data.role, response.data.username);
             })
@@ -55,7 +55,7 @@ function LogIn() {
         localStorage.setItem('spectatorId', response.data.id);
         localStorage.setItem('username', response.data.username);
         localStorage.setItem('role', response.data.role);
-        localStorage.setItem('auth', response.headers.authorization)
+        localStorage.setItem('auth', response.headers.authorization);
     }
 
     return (

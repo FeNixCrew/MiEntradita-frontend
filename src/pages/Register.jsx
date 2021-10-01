@@ -12,8 +12,8 @@ import BeginningAvatar from '../components/beginning/BegginnigAvatar';
 import BackdropInherit from '../components/feedback/Backdrop';
 import { theme } from '../components/register/styles.js'
 
-import { useToggle } from '../helpers/hooks/useToggle'
-import * as Api from '../helpers/ApiRest.js';
+import { useToggle } from '../helpers/hooks/useToggle';
+import authService from '../services/AuthService';
 
 function Register() {
     const [open, handleClose, handleToggle] = useToggle();
@@ -22,7 +22,7 @@ function Register() {
 
     const onSubmit = data => {
         handleToggle();
-        Api.register(data.name, data.surname, data.username, data.email, data.dni, data.password)
+        authService.register(data.name, data.surname, data.username, data.email, parseInt(data.dni), data.password)
             .then(response => {
                 localStorage.setItem('spectatorId', response.data.id);
                 localStorage.setItem('username', response.data.username);

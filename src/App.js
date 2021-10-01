@@ -23,6 +23,14 @@ const PrivateRoute = ({ isAuth, component: Component, ...rest }) => {
   )
 }
 
+function Error() {
+  return <p>Error!</p>
+}
+
+function NotFound() {
+  return <p>404 not found!</p>
+}
+
 const Routes = () => (
   <Router>
     <Switch>
@@ -33,9 +41,10 @@ const Routes = () => (
       <PrivateRoute component={QrScan} path="/scanner" isAuth={isScanner} />
       <PrivateRoute component={Home} path="/admin/home" isAuth={isAdmin} />
       <PrivateRoute component={Search} path="/:username/search" isAuth={() => isAdmin() || isLogin()} />
-
+      <Route component={Error} path="/error"/>
       <Route path="/login" component={LogIn} />
       <Route path="/register" component={Register} />
+      <Route component={NotFound} path="*"/>
     </Switch>
   </Router>
 );

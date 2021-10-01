@@ -14,7 +14,7 @@ import SnackBar from '../components/feedback/SnackBar';
 
 import { useToggle } from '../helpers/hooks/useToggle'
 import { exit } from '../helpers/usedFunctions';
-import * as Api from '../helpers/ApiRest';
+import matchService from '../services/MatchService';
 
 const scannerStyle = {
   height: '64vh',
@@ -32,7 +32,7 @@ export default function QrScan() {
     if (data) {
       const { userId, matchId } = JSON.parse(data);
       handleToggle();
-      Api.comeIn(userId, matchId)
+      matchService.comeIn(userId, matchId)
         .then(response => {
           setResultState('success');
           setScanMessage(response.data);
