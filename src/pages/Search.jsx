@@ -11,33 +11,24 @@ import { Paper } from "@mui/material";
 
 
 export default function Search() {
-    const [result, setResult] = useState(null);
+    const [matchs, setMatchs] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const onSubmit = data => {
-        setIsLoading(true);
-        matchService.search(data.textSearched)
-            .then(response => {
-                console.log(response.data);
-                setResult(response.data);
-                setIsLoading(false);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }
-
-    const partialSearch = (text) => {
-        if(text.length < 3) return;
-        setIsLoading(true);
-        matchService.search(text)
-            .then(response => {
-                setResult(response.data);
-                setIsLoading(false);
-            })
-            .catch(error => {
-                console.log(error);
-            })
+    const onChange = data => {
+        const partialSearch = data.textSearched;
+        if (partialSearch.length > 0) {
+            setIsLoading(true);
+            matchService.search(partialSearch)
+                .then(response => {
+                    setMatchs(response.data);
+                    setIsLoading(false);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        } else {
+            setMatchs(null);
+        }
     }
 
     return (
@@ -50,15 +41,15 @@ export default function Search() {
                     justifyContent: 'center',
                     gridTemplateColumns: 'repeat(auto-fit, auto-fit)',
                 }}>
-                    <SearchBar onSubmit={onSubmit} partialSearch={partialSearch} />
+                    <SearchBar onChange={onChange} />
                 </Box>
                 <Box sx={{
                     display: 'grid',
                     justifyContent: 'center',
                 }}>
                     {
-                        result ?
-                            <SearchResults results={result} />
+                        matchs ?
+                            <SearchResults results={matchs} />
                             :
                             <BeginningTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
                     }

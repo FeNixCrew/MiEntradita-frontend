@@ -6,11 +6,11 @@ import { Search } from './SearchComponent';
 import { SearchIconWrapper } from './SearchIconWrapper';
 import { StyledInputBase } from './StyledInputBase';
 
-function SearchBar({ onSubmit, partialSearch }) {
+function SearchBar({ onChange }) {
     const { register, handleSubmit } = useForm();
 
     return (
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Box component="form" onChange={handleSubmit(onChange)} noValidate>
             <Search >
                 <SearchIconWrapper>
                     <SearchIcon />
