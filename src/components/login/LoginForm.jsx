@@ -12,32 +12,46 @@ function LoginForm({ onSubmit, error, resetError }) {
     const password = register('password', { required: true });
 
     return (
-        <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt:5 }}>
+        <Box
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+            sx={{
+                mt: 5,
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, auto-fit)',
+                justifyContent: 'center',
+                maxWidth: '41vh',
+                p: 2
+            }}
+        >
             <TextField
                 {...register("username")}
+                error={errors.username && errors.username.type === "required"}
                 margin="normal"
-                fullWidth
                 label="Usuario"
                 type="text"
                 autoFocus
+                sx={{width: '41vh'}}
+                helperText={errors.username && "El campo usuario no puede estar vacio"}
                 onChange={(e) => {
                     username.onChange(e);
                     resetError();
                 }}
             />
-            {errors.username && errors.username.type === "required" && <p>El campo usuario no puede estar vacio</p>}
             <TextField
                 {...register("password")}
+                error={errors.password && errors.password.type === "required"}
                 margin="normal"
-                fullWidth
                 label="Contraseña"
                 type="password"
+                sx={{width: '41vh'}}
+                helperText={errors.password && "El campo contraseña no puede estar vacio"}
                 onChange={(e) => {
                     password.onChange(e);
                     resetError();
                 }}
             />
-            {errors.password && errors.password.type === "required" && <p>El campo contraseña no puede estar vacio</p>}
             <div>
                 {error && <Alert severity="error">{error.message}</Alert>}
             </div>

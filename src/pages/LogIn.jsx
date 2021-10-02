@@ -67,7 +67,7 @@ function LogIn() {
                     item
                     xs={false}
                     sm={4}
-                    md={5}
+                    md={7}
                     sx={{
                         backgroundImage: `url(${Background})`,
                         backgroundRepeat: 'no-repeat',
@@ -77,7 +77,7 @@ function LogIn() {
                         backgroundPosition: 'center',
                     }}
                 />
-                <Grid item xs={12} sm={8} md={7} component={Paper} elevation={6} square>
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <Box
                         sx={{
                             my: 7,
@@ -91,6 +91,7 @@ function LogIn() {
                         <BeginningTypography text="Bienvenido!" />
 
                         <LoginForm onSubmit={onSubmit} resetError={resetError} error={error} />
+
                     </Box>
                 </Grid>
             </Grid>

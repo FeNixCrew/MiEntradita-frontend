@@ -4,6 +4,8 @@ import { Box, Button, Grid, Paper } from '@mui/material';
 import { equipos } from '../../equipos'
 import { useForm } from 'react-hook-form';
 import GridItem from './GridItem';
+import BeginningTypography from "../beginning/BeginningTypography";
+
 
 const renderTeams = () => {
     return equipos.map((equipo, i) => <MenuItem key={i} value={equipo}>{equipo}</MenuItem>)
@@ -19,6 +21,8 @@ function CreateMatchForm({ onSubmit }) {
     });
 
     return (
+        <>
+        <BeginningTypography text="Crear partido" />
         <Paper
             component="form"
             noValidate
@@ -26,7 +30,8 @@ function CreateMatchForm({ onSubmit }) {
             sx={{
                 backgroundColor: '#d7dbdd',
                 p: 2,
-                borderRadius: 2
+                borderRadius: 2,
+                mb: 1
             }}
             elevation={6}
             >
@@ -90,6 +95,7 @@ function CreateMatchForm({ onSubmit }) {
                 </Button>
             </Box>
         </Paper>
+        </>
     )
 }
 

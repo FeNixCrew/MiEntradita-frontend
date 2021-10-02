@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     messageContainer: {
-      'margin-top': '5vh'
+      'margin-top': '2vh'
     }
   }));
 
