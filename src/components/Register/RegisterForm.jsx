@@ -22,25 +22,27 @@ function RegisterForm({ onSubmit, error, resetError }) {
             value === password.current || "Las contraseñas deben coincidir"
     });
     const email = register('email', { required: true, pattern: /^\S+@\S+$/i });
-    const dni = register('dni', { required: true });
+    const dni = register('dni', { required: true, pattern: /^(\d{7}|\d{8})$/ });
 
     const showError = (entity) => {
-        return errors[entity] && true
+        return errors[entity] !== undefined;
     }
 
-    const getErrorText = (type, entity) => {
+    const getErrorText = (type, field) => {
         switch (type) {
             case 'required':
-                return (`El campo ${entity} es requerido`);
+                return `El campo ${field} es requerido`;
             case 'minLength':
-                return (`Su ${entity} debe contener de mas de 6 caracteres`);
+                return `Su ${field} debe contener de mas de 6 caracteres`;
             case 'validate':
-                return("Las contraseñas deben coincidir")
+                return "Las contraseñas deben coincidir";
+            default:
+                return `Su ${field} es invalido`;
         }
     }
 
-    const getError = (type, entity, entityName) => {
-        return (errors[entity] && errors[entity].type === type && getErrorText(type,entityName))
+    const getError = (type, field, fieldName) => {
+        return (errors[field] && errors[field].type === type && getErrorText(type,fieldName))
     }
 
     return (
@@ -104,9 +106,9 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         fullWidth
                         error={showError('dni')}
                         name="dni"
-                        label="Dni"
+                        label="DNI"
                         id="dni"
-                        helperText={getError('required', 'dni', 'dni')}
+                        helperText={getError('required', 'dni', 'dni') || getError('pattern', 'dni', 'dni')}
                         onChange={e => {
                             dni.onChange(e);
                             resetError();
@@ -122,7 +124,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         label="Email"
                         name="email"
                         autoComplete="email"
-                        helperText={getError('required', 'email', 'email')}
+                        helperText={getError('required', 'email', 'email') || getError('pattern', 'email', 'email')}
                         onChange={e => {
                             email.onChange(e);
                             resetError();
@@ -177,7 +179,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
             <Grid container justifyContent="flex-end">
                 <Grid item sx={{ mb: 2 }}>
                     <Link href="/login" variant="body2">
-                        Ya tienes una cuenta? Inica sesion
+                        Ya tienes una cuenta?
                     </Link>
                 </Grid>
             </Grid>
