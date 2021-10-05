@@ -32,29 +32,32 @@ export default function Search() {
     }
 
     return (
-        <div>
+        <>
             <NavBar />
-            <BackdropInherit open={isLoading} />
-            <Paper elevation={4} square sx={{ m:4, p:4, backgroundColor: '#d7dbdd', borderRadius: 4 }}>
-                <Box sx={{
-                    display: 'grid',
-                    justifyContent: 'center',
-                    gridTemplateColumns: 'repeat(auto-fit, auto-fit)',
-                }}>
-                    <SearchBar onChange={onChange} />
-                </Box>
-                <Box sx={{
-                    display: 'grid',
-                    justifyContent: 'center',
-                }}>
-                    {
-                        matchs ?
-                            <SearchResults results={matchs} />
-                            :
-                            <BeginningTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
-                    }
-                </Box>
-            </Paper>
-        </div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+
+                <BackdropInherit open={isLoading} />
+                <Paper elevation={4} square sx={{ m: 4, p: 4, backgroundColor: '#d7dbdd', borderRadius: 4 }}>
+                    <Box sx={{
+                        display: 'grid',
+                        justifyContent: 'center',
+                        gridTemplateColumns: 'repeat(auto-fit, auto-fit)',
+                    }}>
+                        <SearchBar onChange={onChange} />
+                    </Box>
+                    <Box sx={{
+                        display: 'grid',
+                        justifyContent: 'center',
+                    }}>
+                        {
+                            matchs ?
+                                <SearchResults results={matchs} />
+                                :
+                                <BeginningTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
+                        }
+                    </Box>
+                </Paper>
+            </div>
+        </>
     );
 };

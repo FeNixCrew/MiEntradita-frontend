@@ -5,6 +5,7 @@ import QRCode from 'react-qr-code';
 import { useStyles } from './styles';
 import Typography from '@mui/material/Typography';
 import { formatDateAndTime } from '../../../helpers/usedFunctions';
+import { Box } from '@mui/system';
 
 export default function Ticket({ ticket }) {
   const classes = useStyles();
@@ -34,41 +35,46 @@ export default function Ticket({ ticket }) {
   };
 
   return (
-    <Card className={classes.mainContainer}>
-      <Typography
-        variant="h5"
-        component="div"
-        sx={{
-          m: 1,
-          letterSpacing: 4,
-          textAlign: 'center'
-        }}>
-        <span img={ticket.homeSpan} />{ticket.home} vs {ticket.away}
-      </Typography>
-      <Typography
-        variant="h6"
-        component="div"
-        sx={{
-          m: 1,
-          letterSpacing: 2,
-          textAlign: 'center'
-        }}
-      >
-        {horarioFormateado}
-      </Typography>
-      <div className={classes.qrContainer}>
-        <QRCode
-          id="QRCodeGen"
-          className={classes.qr}
-          value={JSON.stringify(ticketQr)} />
-        <Button
-          className={classes.downloadButton}
-          variant="contained"
-          color="primary"
-          onClick={() => onImageCownload()}>
-          <GetAppIcon />
-        </Button>
-      </div>
-    </Card>
+    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, auto-fit)' }}>
+      <Card className={classes.mainContainer}>
+        <Typography
+          variant="h5"
+          component="div"
+          sx={{
+            m: 1,
+            letterSpacing: 4,
+            textAlign: 'center'
+          }}>
+          <span img={ticket.homeSpan} />{ticket.home} vs {ticket.away}
+        </Typography>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{
+            m: 1,
+            letterSpacing: 2,
+            textAlign: 'center'
+          }}
+        >
+          {horarioFormateado}
+        </Typography>
+        <div className={classes.qrContainer}>
+          <QRCode
+            id="QRCodeGen"
+            className={classes.qr}
+            value={JSON.stringify(ticketQr)} />
+          <div style={{ display: 'grid', justifyContent: 'center' }}>
+            <Button
+              className={classes.downloadButton}
+              variant="contained"
+              color="primary"
+              size="small"
+              onClick={() => onImageCownload()}>
+              <GetAppIcon />
+            </Button>
+          </div>
+        </div>
+      </Card>
+    </Box>
   )
 }

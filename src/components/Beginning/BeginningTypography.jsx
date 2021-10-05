@@ -1,11 +1,11 @@
 import Typography from '@mui/material/Typography';
 
 
-function BeginningTypography({ text, sx }) {
+function BeginningTypography({ text, sx, component, variant }) {
     return (
         <Typography
-            component="h1"
-            variant="h6"
+            component={ component || "h1"}
+            variant={variant || "h6"}
             sx={{
                 fontStyle: 'bold',
                 fontFamily: 'Monospace',

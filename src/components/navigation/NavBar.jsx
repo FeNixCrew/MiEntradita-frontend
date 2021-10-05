@@ -11,6 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import SearchIcon from '@mui/icons-material/Search';
 import { IconButton } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
+import BeginningTypography from '../beginning/BeginningTypography';
 
 
 function NavBar() {
@@ -28,20 +29,19 @@ function NavBar() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position='static' style={{ backgroundColor: '#212121' }}>
+            <AppBar position='relative' color="transparent">
                 <Toolbar>
-                    <Avatar sx={{ m: 1, mr: 3 }} src={Logo} />
-                    <Typography
-                        variant="h6"
-                        component="div"
-                        style={{
+                    <IconButton onClick={goHome}>
+                        <Avatar sx={{ m: 1, mr: 3 }} src={Logo} />
+                    </IconButton>
+                    <BeginningTypography
+                        text="Mi Entradita"
+                        sx={{
                             flexGrow: 1,
                             fontFamily: 'Monospace',
                             letterSpacing: 4,
-                            color: 'white'
-                        }}>
-                        Mi Entradita
-                    </Typography>
+                            color: 'black'
+                        }} />
                     <IconButton
                         size="large"
                         aria-label="account of current user"
@@ -49,19 +49,10 @@ function NavBar() {
                         aria-haspopup="true"
                         onClick={goToSearch}
                         color="inherit">
-                        <SearchIcon sx= {{color: '#FFF'}}/>
-                    </IconButton>
-                    <IconButton
-                        size="large"
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={goHome}
-                    >
-                        <HomeIcon sx= {{color: '#FFF'}} />
+                        <SearchIcon sx={{ color: 'black' }} />
                     </IconButton>
                     <Button onClick={() => exit(history)} >
-                        <LogoutIcon sx= {{color: '#FFF'}}/>
+                        <LogoutIcon sx={{ color: 'black' }} />
                     </Button>
                 </Toolbar>
             </AppBar>

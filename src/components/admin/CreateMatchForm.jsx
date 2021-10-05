@@ -15,7 +15,7 @@ function CreateMatchForm({ onSubmit }) {
     const { register, handleSubmit } = useForm({
         defaultValues: {
             date: (new Date().toJSON().split("T")[0]),
-            time: (new Date().toLocaleTimeString()),
+            time: ('16:00'),
             price: 200
         }
     });
