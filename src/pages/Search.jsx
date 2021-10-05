@@ -1,16 +1,16 @@
 import { Box } from "@mui/system";
 import { useState } from "react";
 
-import NavBar from "../components/navigation/NavBar";
 import SearchBar from "../components/search/search_bar/SearchBar";
 import SearchResults from '../components/search/SearchResults';
 import BackdropInherit from "../components/feedback/Backdrop";
 import BeginningTypography from "../components/beginning/BeginningTypography";
 import matchService from "../services/MatchService";
 import { Paper } from "@mui/material";
+import BurgerMenu from "../components/navigation/BurgerMenu";
 
 
-export default function Search() {
+function Searcher() {
     const [matchs, setMatchs] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -33,7 +33,6 @@ export default function Search() {
 
     return (
         <>
-            <NavBar />
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
                 <BackdropInherit open={isLoading} />
@@ -61,3 +60,9 @@ export default function Search() {
         </>
     );
 };
+
+export { Searcher };
+
+export default function Search() {
+    return <BurgerMenu children={<Searcher/>}/>
+}

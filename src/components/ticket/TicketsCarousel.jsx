@@ -1,7 +1,6 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
 import Ticket from './ticketCard/TicketCard';
-import { Typography } from '@material-ui/core';
 import BeginningTypography from '../beginning/BeginningTypography';
 
 export default function Tickets({ tickets }) {

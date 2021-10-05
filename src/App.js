@@ -11,6 +11,7 @@ import Home from './pages/Home';
 
 import { isScanner, isLogin, isAdmin } from "./helpers/usedFunctions";
 import Search from "./pages/Search";
+import CreateMatch from "./pages/CreateMatch";
 
 
 const PrivateRoute = ({ isAuth, component: Component, ...rest }) => {
@@ -40,6 +41,7 @@ const Routes = () => (
       <PrivateRoute component={Home} path="/:username/home" isAuth={isLogin} />
       <PrivateRoute component={QrScan} path="/scanner" isAuth={isScanner} />
       <PrivateRoute component={Home} path="/admin/home" isAuth={isAdmin} />
+      <PrivateRoute component={CreateMatch} path="/admin/add-match" isAuth={isAdmin} />
       <PrivateRoute component={Search} path="/:username/search" isAuth={() => isAdmin() || isLogin()} />
       <Route component={Error} path="/error"/>
       <Route path="/login" component={LogIn} />

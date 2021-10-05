@@ -1,27 +1,22 @@
 import { useHistory } from 'react-router';
-import NavBar from '../components/navigation/NavBar';
-import Admin from '../components/user/Admin'
+import BurgerMenu from '../components/navigation/BurgerMenu';
 import Spectator from '../components/user/Spectator';
 import { exit } from '../helpers/usedFunctions';
+import { Searcher } from './Search';
 
 export default function Home() {
     const history = useHistory();
 
-    const switchRole = () => {
-        switch (localStorage.role) {
-            case "ROLE_ADMIN":
-                return <Admin />
-            case "ROLE_USER":
-                return <Spectator />
-            default:
+    const handleChildren = () => {
+        const role = localStorage.role;
+        return  role === 'ROLE_ADMIN' ?
+            <Searcher />
+            :
+            role === 'ROLE_USER' ?
+                <Spectator />
+                :
                 exit(history);
-        }
     };
 
-    return (
-        <>
-            <NavBar />
-            {switchRole()}
-        </>
-    )
+    return <BurgerMenu children={handleChildren()} />
 }

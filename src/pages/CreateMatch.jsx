@@ -1,20 +1,21 @@
 import { ThemeProvider } from '@emotion/react';
-import { CssBaseline, Container } from '@mui/material';
+import { CssBaseline, Container, createTheme } from '@mui/material';
 
-import { theme } from './style';
-import BackdropInherit from '../feedback/Backdrop';
+import BackdropInherit from '../components/feedback/Backdrop';
 
-import { useToggle } from '../../helpers/hooks/useToggle';
-import SnackBar from '../feedback/SnackBar';
+import { useToggle } from '../helpers/hooks/useToggle';
+import SnackBar from '../components/feedback/SnackBar';
 import { useState } from 'react';
-import CreateMatchForm from '../admin/CreateMatchForm';
-import matchService from '../../services/MatchService';
+import CreateMatchForm from '../components/admin/CreateMatchForm';
+import matchService from '../services/MatchService';
+import BurgerMenu from '../components/navigation/BurgerMenu';
 
-function Admin() {
+function CreateMatchComponent() {
     const [open, handleClose, handleToggle] = useToggle();
     const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
     const [severity, setSeverity] = useState();
     const [message, setMessage] = useState();
+    const theme = createTheme();
 
     const onSubmit = (data) => {
         let matchStartTime = new Date(data.date + "T" + data.time)
@@ -53,4 +54,6 @@ function Admin() {
     );
 }
 
-export default Admin;
+export default function CreateMatch() { 
+    return <BurgerMenu children={<CreateMatchComponent/>} />
+}

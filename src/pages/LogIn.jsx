@@ -20,7 +20,7 @@ import Background from '../assets/background.png';
 function LogIn() {
     const [open, handleClose, handleToggle] = useToggle();
     const [error, setError] = useState(null);
-    const history = useHistory()
+    const history = useHistory();
 
     const onSubmit = data => {
         handleToggle();
