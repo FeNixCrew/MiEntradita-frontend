@@ -30,9 +30,23 @@ export default function QrScan() {
 
   const handleScan = data => {
     if (data) {
-      const { userId, matchId } = JSON.parse(data);
-      handleToggle();
-      matchService.comeIn(userId, matchId)
+      console.log(data);
+      let userId= null;
+      let matchId = null;
+
+      try {
+        const obtainedData = JSON.parse(data);
+        userId = obtainedData.userId;
+        matchId = obtainedData.matchId;
+      } catch(_) {
+        setResultState('error');
+        setScanMessage('Entrada inválida. Por favor, descargue su entrada desde nuestra web')
+        openSnackBar();
+      }
+
+      if(userId && matchId){
+        handleToggle();
+        matchService.comeIn(userId, matchId)
         .then(response => {
           setResultState('success');
           setScanMessage(response.data);
@@ -48,6 +62,7 @@ export default function QrScan() {
           openSnackBar();
         });
         handleClose();
+      }
     }
   }
 
