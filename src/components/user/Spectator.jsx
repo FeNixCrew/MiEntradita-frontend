@@ -6,11 +6,9 @@ import spectatorService from '../../services/SpectatorService';
 
 function Spectator() {
     const [tickets, setTickets] = useState(null);
-    const [open, setOpen] = useState(false);
     const history = useHistory();
 
     useEffect(() => {
-        setOpen(true);
         spectatorService.pendingTickets()
             .then(response => {
                 setTickets(response.data);
@@ -18,14 +16,13 @@ function Spectator() {
             .catch((err) => {
                 console.log(err)
             });
-        setOpen(false);
     }, [history]);
 
     return (
         <>
             {
                 tickets === null ?
-                    <BackdropInherit open={open} />
+                    <BackdropInherit open={true} />
                     :
                     <Tickets tickets={tickets} />
 
