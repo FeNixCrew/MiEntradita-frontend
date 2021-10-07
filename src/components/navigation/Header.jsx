@@ -37,13 +37,13 @@ export default function Header({styleClasses, open, handleDrawerOpen}) {
             <MenuIcon />
           </IconButton>
           <IconButton onClick={goHome}>
-          <Avatar sx={{ m: 1, mr: 3 }} src={Logo} />
+          <Avatar style={{ m: 1, mr: 3 }} src={Logo} />
       <Typography
           style={{
               flexGrow: 1,
               letterSpacing: 2,
               fontSize: 20,
-              color: 'black',
+              color: 'white',
               fontFamily: 'Monospace',
               marginLeft: '2vh'
           }}>
@@ -52,7 +52,7 @@ export default function Header({styleClasses, open, handleDrawerOpen}) {
           </IconButton>
           <div style={{ marginLeft: "auto" }}>
             <Button onClick={() => exit(history)} >
-                <LogoutIcon sx={{ color: 'black' }} />
+                <LogoutIcon sx={{ color: 'white' }} />
             </Button>
           </div>
         </Toolbar>

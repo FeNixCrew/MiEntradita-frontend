@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: theme.palette.background.default,
-    color: 'rgba(0, 0, 0, 0.87)'
+    backgroundColor: '#2e86c1',
+    color: 'white'
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerOpen: {
     width: drawerWidth,
+    backgroundColor: '#2e86c1',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -62,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   drawerClose: {
+    backgroundColor: '#2e86c1',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -77,7 +79,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
   },
   content: {
@@ -103,13 +104,13 @@ export default function BurgerMenu({children}) {
   const drawerItems = [
     {
       text: 'Buscar partidos',
-      icon: <SearchIcon sx={{ color: 'black' }} />,
+      icon: <SearchIcon style={{color:'white'}} />,
       onClick: () => history.push(`/${username}/search`),
       enabled: role && role === 'ROLE_USER'
     },
     {
       text: 'Agregar partido',
-      icon: <AddIcon sx={{ color: 'black' }} />,
+      icon: <AddIcon style={{color:'white'}} />,
       onClick: () => history.push(`/${username}/add-match`),
       enabled: role && role === 'ROLE_ADMIN'
     },
@@ -156,7 +157,7 @@ export default function BurgerMenu({children}) {
                   onClick={item.onClick}
                 >
                   <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.text} />
+                  <ListItemText style={{color:'white'}} primary={item.text} />
                 </ListItem>
               </Tooltip>
           ))}
