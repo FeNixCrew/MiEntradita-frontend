@@ -6,9 +6,9 @@ class SpectatorService extends AbstractService {
         super('/match');
     }
 
-    async create(home, away, ticketPrice, matchStartTime) {
+    async create(home, away, ticketPrice, matchStartTime, stadium) {
         const endpoint = '/create'
-        const newMatchRequest = { home, away, ticketPrice, matchStartTime }
+        const newMatchRequest = { home, away, ticketPrice, matchStartTime, stadium }
         return this.axios.post(this.path + endpoint, newMatchRequest)
     }
     

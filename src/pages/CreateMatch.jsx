@@ -20,7 +20,7 @@ function CreateMatchComponent() {
     const onSubmit = (data) => {
         let matchStartTime = new Date(data.date + "T" + data.time)
         handleToggle();
-        matchService.create(data.home, data.away, parseInt(data.price), matchStartTime)
+        matchService.create(data.home, data.away, parseInt(data.price), matchStartTime, data.stadium)
             .then(_ => {
                 handleClose();
                 setSeverity("success");

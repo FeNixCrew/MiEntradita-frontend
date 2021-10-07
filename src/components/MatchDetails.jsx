@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import matchService from '../services/MatchService.js';
-import { formatDateAndTime, getMonth } from '../helpers/usedFunctions';
+import { formatDateAndTime } from '../helpers/usedFunctions';
 import {  Box } from '@material-ui/core';
 import Typography from '@mui/material/Typography';
 import DateRangeIcon from '@mui/icons-material/DateRange';
@@ -42,13 +42,9 @@ BootstrapDialogTitle.propTypes = {
 };
 
 function MatchDetailsContent({ matchDetails }) {
-  const { home, away, matchStartTime, ticketPrice, stadium } = matchDetails;
+  const { matchStartTime, ticketPrice, stadium } = matchDetails;
   let date = (formatDateAndTime(new Date(matchStartTime))).split(' ')[0];
   let time = (formatDateAndTime(new Date(matchStartTime))).split(' ')[1];
-  let year = date.split('/')[2];
-  let month = date.split('/')[1];
-  let day = date.split('/')[0];
-
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 5 }}>
@@ -70,7 +66,7 @@ export default function MatchDetails({ open, handleClose, matchId, title }) {
         if (response.status >= 200 && response.status < 300) {
           setMatchDetails(response.data);
         } else {
-          console.log("Fallo algo pa" + response.status);
+          console.log("Error status code:" + response.status);
         }
       })
       .catch((error) => {

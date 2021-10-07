@@ -16,7 +16,8 @@ function CreateMatchForm({ onSubmit }) {
             time: ('16:00'),
             price: 200,
             home: '',
-            away: ''
+            away: '',
+            stadium: ''
         }
     });
     const [teams, setTeams] = useState(null);
@@ -67,6 +68,13 @@ function CreateMatchForm({ onSubmit }) {
                                     renderInput={(params) => <TextField {...params} label="Selecciona un equipo" />}
                                 />
                             </Grid>
+                            <GridItem
+                                register={register}
+                                name="stadium"
+                                id="stadium-id"
+                                label="Estadio Local"
+                                xs={12}
+                            />
                             <GridItem
                                 register={register}
                                 name="date"
