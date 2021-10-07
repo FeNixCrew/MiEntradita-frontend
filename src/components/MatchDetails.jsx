@@ -72,7 +72,7 @@ export default function MatchDetails({ open, handleClose, matchId, title }) {
       .catch((error) => {
         console.log(error);
       })
-  }, [])
+  }, [matchId]);
 
   return (
     <div>

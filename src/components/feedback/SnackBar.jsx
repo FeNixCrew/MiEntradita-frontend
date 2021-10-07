@@ -1,18 +1,9 @@
 import { Alert } from './Alert';
 import Snackbar from '@mui/material/Snackbar';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-    messageContainer: {
-      'margin-top': '2vh'
-    }
-  }));
 
 function SnackBar({ openSnackBar, closeSnackBar, message, severityState, position }) {
-    const classes = useStyles();
-
     return (
-        <div className={classes.messageContainer}>
+        <div>
             <Snackbar open={openSnackBar}
                 autoHideDuration={5000} 
                 onClose={closeSnackBar}
@@ -21,7 +12,10 @@ function SnackBar({ openSnackBar, closeSnackBar, message, severityState, positio
                 <Alert 
                     severity={severityState} 
                     onClose={closeSnackBar} 
-                    sx={{ width: '100%' }}
+                    style={{ 
+                        width: '100%',
+                        backgroundColor: severityState === 'error' ? '#d32f2f' : '#2e7d32',
+                        color: 'white'}}
                 >
                 {message}
                 </Alert>

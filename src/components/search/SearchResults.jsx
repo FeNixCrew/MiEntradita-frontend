@@ -9,14 +9,14 @@ function SearchResults({ results }) {
     };
 
     return (
-        <Grid container sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, auto-fit)', justifyContent: 'center' }}>
+        <Grid container style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, auto-fit)', justifyContent: 'center' }}>
             {results.length > 0 ?
                 <div>
-                    <BeginningTypography text='Resultados:' sx={{ mt: 4 }} />
+                    <BeginningTypography text='Resultados:' />
                     {renderResult()}
                 </div>
                 :
-                <BeginningTypography text='no se han encontrado partidos :(' sx={{ mt: 3 }} />
+                <BeginningTypography text='no se han encontrado partidos :(' />
             }
         </Grid>
     );

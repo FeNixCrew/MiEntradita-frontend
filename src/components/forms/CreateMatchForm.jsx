@@ -7,8 +7,6 @@ import matchService from '../../services/MatchService';
 import { useEffect, useState } from 'react';
 import BackdropInherit from '../feedback/Backdrop';
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import { Controller } from 'react-hook-form';
 import ControlledAutocomplete from './ControlledAutocomplete';
 
 function CreateMatchForm({ onSubmit }) {
@@ -23,7 +21,7 @@ function CreateMatchForm({ onSubmit }) {
         }
     });
     const [teams, setTeams] = useState(null);
-    const stadium = register('stadium', { required: true });
+    register('stadium', { required: true });
 
     useEffect(() => {
         matchService.teams()
@@ -52,17 +50,17 @@ function CreateMatchForm({ onSubmit }) {
                         component="form"
                         noValidate
                         onSubmit={handleSubmit(onSubmit)}
-                        sx={{
+                        style={{
                             backgroundColor: '#d7dbdd',
-                            p: 2,
+                            padding: '2vh',
                             borderRadius: 2,
-                            mb: 1
+                            marginBottom: '1vh'
                         }}
                         elevation={6}
                     >
-                        <Grid container spacing={1} sx={{ display: 'flex' }}>
+                        <Grid container spacing={1} style={{ display: 'flex' }}>
                             <Grid item xs={12} >
-                                <InputLabel sx={{ paddingBottom: 1 }}>Local</InputLabel>
+                                <InputLabel style={{ paddingBottom: 1 }}>Local</InputLabel>
                                 <ControlledAutocomplete
                                     control={control}
                                     name="home"
@@ -81,7 +79,7 @@ function CreateMatchForm({ onSubmit }) {
 
                             </Grid>
                             <Grid item xs={12} >
-                                <InputLabel sx={{ paddingBottom: 1 }}>Visitante</InputLabel>
+                                <InputLabel style={{ paddingBottom: 1 }}>Visitante</InputLabel>
                                 <ControlledAutocomplete
                                     control={control}
                                     name="away"
@@ -134,14 +132,14 @@ function CreateMatchForm({ onSubmit }) {
                             />
 
                         </Grid>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 2 }}>
+                        <Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 2 }}>
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                sx={{ mt: 3, mb: 2, maxWidth: '50%' }}
+                                style={{ marginTop: 3, marginBottom: 2, maxWidth: '50%', backgroundColor: '#2e86c1' }}
                             >
-                                <AddIcon sx={{ mr: 1 }} /> Crear partido
+                                <AddIcon style={{ marginRight: '1vw' }} /> Crear partido
                             </Button>
                         </Box>
                     </Paper>

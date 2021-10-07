@@ -6,7 +6,7 @@ function BeginningTypography({ text, sx, component, variant }) {
         <Typography
             component={ component || "h1"}
             variant={variant || "h6"}
-            sx={{
+            style={{
                 fontStyle: 'bold',
                 fontFamily: 'Monospace',
                 ...sx

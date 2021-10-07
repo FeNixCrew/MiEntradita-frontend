@@ -5,7 +5,7 @@ export default function GridItem({ register, type, name, id, label, xs, content,
 
     return (
         <Grid item xs={xs} >
-            <InputLabel id={id} sx={{ paddingBottom: 1}}>{label}</InputLabel>
+            <InputLabel id={id} style={{ paddingBottom: 1}}>{label}</InputLabel>
             <TextField
                 {...register(name)}
                 error={showError}

@@ -36,7 +36,7 @@ function Searcher() {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
                 <BackdropInherit open={isLoading} />
-                <Paper elevation={4} square sx={{ m: 4, p: 4, backgroundColor: '#d7dbdd', borderRadius: 4 }}>
+                <Paper elevation={4} square style={{ marginTop: '5vh', padding: '3vh', backgroundColor: '#d7dbdd', borderRadius: 4 }}>
                     <Box sx={{
                         display: 'grid',
                         justifyContent: 'center',
