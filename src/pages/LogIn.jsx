@@ -7,11 +7,11 @@ import { ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 
-import { theme } from '../components/login/styles';
-import LoginForm from '../components/login/LoginForm';
+import { theme } from '../components/forms/login/styles';
+import LoginForm from '../components/forms/login/LoginForm';
 import BackdropInherit from '../components/feedback/Backdrop';
-import BeginningTypography from '../components/beginning/BeginningTypography';
-import BeginningAvatar from '../components/beginning/BegginnigAvatar';
+import BeginningTypography from '../components/BeginningTypography';
+import BeginningAvatar from '../components/BegginnigAvatar';
 
 import authService from '../services/AuthService';
 import { useToggle } from '../helpers/hooks/useToggle';

@@ -6,7 +6,7 @@ import BackdropInherit from '../components/feedback/Backdrop';
 import { useToggle } from '../helpers/hooks/useToggle';
 import SnackBar from '../components/feedback/SnackBar';
 import { useState } from 'react';
-import CreateMatchForm from '../components/admin/CreateMatchForm';
+import CreateMatchForm from '../components/forms/CreateMatchForm';
 import matchService from '../services/MatchService';
 import BurgerMenu from '../components/navigation/BurgerMenu';
 

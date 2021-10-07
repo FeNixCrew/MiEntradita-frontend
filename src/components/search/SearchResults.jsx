@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import BeginningTypography from "../beginning/BeginningTypography";
+import BeginningTypography from "../BeginningTypography";
 import SearchResult from "./SearchResult";
 
 function SearchResults({ results }) {

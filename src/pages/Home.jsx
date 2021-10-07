@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router';
 import BurgerMenu from '../components/navigation/BurgerMenu';
-import Spectator from '../components/user/Spectator';
+import Spectator from '../components/Spectator';
 import { exit } from '../helpers/usedFunctions';
 import { Searcher } from './Search';
 

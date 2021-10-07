@@ -4,7 +4,7 @@ import { useState } from "react";
 import SearchBar from "../components/search/search_bar/SearchBar";
 import SearchResults from '../components/search/SearchResults';
 import BackdropInherit from "../components/feedback/Backdrop";
-import BeginningTypography from "../components/beginning/BeginningTypography";
+import BeginningTypography from "../components/BeginningTypography";
 import matchService from "../services/MatchService";
 import { Paper } from "@mui/material";
 import BurgerMenu from "../components/navigation/BurgerMenu";
