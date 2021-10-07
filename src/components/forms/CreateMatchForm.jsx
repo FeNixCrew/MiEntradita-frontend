@@ -53,19 +53,21 @@ function CreateMatchForm({ onSubmit }) {
                             <Grid item xs={12} >
                             <InputLabel sx={{ paddingBottom: 1}}>Local</InputLabel>
                                 <Autocomplete
+                                    {...register('home')}
                                     freeSolo
                                     fullWidth
                                     options={renderTeams()}
-                                    renderInput={(params) => <TextField {...params} label="Selecciona un equipo" />}
+                                    renderInput={(params) => <TextField {...params} {...register('home')} label="Selecciona un equipo" />}
                                 />
                             </Grid>
                             <Grid item xs={12} >
                             <InputLabel sx={{ paddingBottom: 1}}>Visitante</InputLabel>
                                 <Autocomplete
+                                    {...register('away')}
                                     freeSolo
                                     fullWidth
                                     options={renderTeams()}
-                                    renderInput={(params) => <TextField {...params} label="Selecciona un equipo" />}
+                                    renderInput={(params) => <TextField {...params} {...register('away')} label="Selecciona un equipo" />}
                                 />
                             </Grid>
                             <GridItem

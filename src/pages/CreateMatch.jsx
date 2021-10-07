@@ -27,10 +27,10 @@ function CreateMatchComponent() {
                 setMessage("Partido creado exitosamente");
                 openSnackBar();
             })
-            .catch(_ => {
+            .catch(error => {
                 handleClose();
                 setSeverity("error");
-                setMessage("Partido no creado, ha ocurrido un error");
+                setMessage("Hubo un error al crear su partido");
                 openSnackBar();
             })
 

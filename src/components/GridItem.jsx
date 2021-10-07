@@ -1,6 +1,6 @@
 import { TextField, InputLabel, Grid } from '@mui/material';
 
-export default function GridItem({ register, type, name, id, label, xs, content }) {
+export default function GridItem({ register, type, name, id, label, xs, content, showError, helperText }) {
 
 
     return (
