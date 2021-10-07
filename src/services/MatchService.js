@@ -28,6 +28,12 @@ class SpectatorService extends AbstractService {
         const endpoint = '/teams'
         return this.axios.get(this.path + endpoint);
     }
+
+    async getMatchDetails(matchId) {
+        const endpoint = '/details'
+        const params = new URLSearchParams([['matchId', matchId]]);
+        return this.axios.get(this.path + endpoint, params)
+    }
 }
 
 export default new SpectatorService();
