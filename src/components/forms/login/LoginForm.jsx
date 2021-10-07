@@ -69,7 +69,7 @@ function LoginForm({ onSubmit, error, resetError }) {
             </Button>
             <Grid item>
                 <Link href="/register" variant="body2">
-                    {"Sin registrarse? Click aqui"}
+                    Sin registrarse?
                 </Link>
             </Grid>
         </Box>

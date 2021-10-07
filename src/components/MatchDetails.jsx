@@ -48,10 +48,10 @@ function MatchDetailsContent({ matchDetails }) {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 5 }}>
-      <Typography sx={{ paddingBottom: 3 }}><DateRangeIcon/><span style={{ fontStyle: 'italic' }}> {date}</span></Typography>
-      <Typography sx={{ paddingBottom: 3 }}><AccessTimeIcon/> <span style={{ fontStyle: 'italic' }}>{time}</span></Typography>
-      <Typography sx={{ paddingBottom: 3 }}><LocationOnIcon/> <span style={{ fontStyle: 'italic' }}> {stadium} </span> </Typography>
-      <Typography sx={{ paddingBottom: 3 }}><MonetizationOnIcon/> <span style={{ fontStyle: 'italic' }}>Precio por entrada:</span> ${ticketPrice}</Typography>
+      <Typography style={{ paddingBottom: 3 }}><DateRangeIcon/><span style={{ fontStyle: 'italic' }}> {date}</span></Typography>
+      <Typography style={{ paddingBottom: 3 }}><AccessTimeIcon/> <span style={{ fontStyle: 'italic' }}>{time}</span></Typography>
+      <Typography style={{ paddingBottom: 3 }}><LocationOnIcon/> <span style={{ fontStyle: 'italic' }}> {stadium} </span> </Typography>
+      <Typography style={{ paddingBottom: 3 }}><MonetizationOnIcon/> <span style={{ fontStyle: 'italic' }}>Precio por entrada:</span> ${ticketPrice}</Typography>
     </Box>
   )
 
@@ -81,7 +81,7 @@ export default function MatchDetails({ open, handleClose, matchId, title }) {
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <BootstrapDialogTitle onClose={handleClose}>
+        <BootstrapDialogTitle style={{color:'white'}} onClose={handleClose}>
           {title}
         </BootstrapDialogTitle>
         <DialogContent dividers>
