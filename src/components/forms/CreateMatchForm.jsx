@@ -1,5 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Button, Grid, Paper,InputLabel } from '@mui/material';
+import { Box, Button, Grid, Paper, InputLabel } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import GridItem from '../GridItem';
 import BeginningTypography from "../BeginningTypography";
@@ -8,9 +8,11 @@ import { useEffect, useState } from 'react';
 import BackdropInherit from '../feedback/Backdrop';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { Controller } from 'react-hook-form';
+import ControlledAutocomplete from './ControlledAutocomplete';
 
 function CreateMatchForm({ onSubmit }) {
-    const { register, handleSubmit } = useForm({
+    const { register, handleSubmit, control, formState: { errors } } = useForm({
         defaultValues: {
             date: (new Date().toJSON().split("T")[0]),
             time: ('16:00'),
@@ -21,6 +23,7 @@ function CreateMatchForm({ onSubmit }) {
         }
     });
     const [teams, setTeams] = useState(null);
+    const stadium = register('stadium', { required: true });
 
     useEffect(() => {
         matchService.teams()
@@ -30,6 +33,14 @@ function CreateMatchForm({ onSubmit }) {
 
     const renderTeams = () => {
         return teams.map((team) => team.name)
+    }
+
+    const showError = (entity) => {
+        return errors[entity] !== undefined;
+    }
+
+    const getError = (field, fieldName) => {
+        return (errors[field] && errors[field].type === 'required' && `El campo ${fieldName} es requerido`)
     }
 
     return (
@@ -51,27 +62,46 @@ function CreateMatchForm({ onSubmit }) {
                     >
                         <Grid container spacing={1} sx={{ display: 'flex' }}>
                             <Grid item xs={12} >
-                            <InputLabel sx={{ paddingBottom: 1}}>Local</InputLabel>
-                                <Autocomplete
-                                    {...register('home')}
-                                    freeSolo
-                                    fullWidth
+                                <InputLabel sx={{ paddingBottom: 1 }}>Local</InputLabel>
+                                <ControlledAutocomplete
+                                    control={control}
+                                    name="home"
                                     options={renderTeams()}
-                                    renderInput={(params) => <TextField {...params} {...register('home')} label="Selecciona un equipo" />}
+                                    renderInput={(params) =>
+                                        <TextField
+                                            {...params}
+                                            label="Selecciona un equipo"
+                                            error={showError('home')}
+                                            helperText={getError('home', "local")}
+                                        />
+                                    }
+                                    defaultValue={null}
+                                    rules={{ required: true }}
                                 />
+
                             </Grid>
                             <Grid item xs={12} >
-                            <InputLabel sx={{ paddingBottom: 1}}>Visitante</InputLabel>
-                                <Autocomplete
-                                    {...register('away')}
-                                    freeSolo
-                                    fullWidth
+                                <InputLabel sx={{ paddingBottom: 1 }}>Visitante</InputLabel>
+                                <ControlledAutocomplete
+                                    control={control}
+                                    name="away"
                                     options={renderTeams()}
-                                    renderInput={(params) => <TextField {...params} {...register('away')} label="Selecciona un equipo" />}
+                                    renderInput={(params) =>
+                                        <TextField
+                                            {...params}
+                                            label="Selecciona un equipo"
+                                            error={showError('away')}
+                                            helperText={getError('away', "visitante")}
+                                        />
+                                    }
+                                    defaultValue={null}
+                                    rules={{ required: true }}
                                 />
                             </Grid>
                             <GridItem
                                 register={register}
+                                showError={showError('stadium')}
+                                helperText={getError('stadium', 'estadio')}
                                 name="stadium"
                                 id="stadium-id"
                                 label="Estadio Local"

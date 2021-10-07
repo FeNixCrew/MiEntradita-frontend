@@ -18,7 +18,7 @@ function CreateMatchComponent() {
     const theme = createTheme();
 
     const onSubmit = (data) => {
-        let matchStartTime = new Date(data.date + "T" + data.time)
+        let matchStartTime = (data.date + "T" + data.time);
         handleToggle();
         matchService.create(data.home, data.away, parseInt(data.price), matchStartTime, data.stadium)
             .then(_ => {
@@ -28,9 +28,10 @@ function CreateMatchComponent() {
                 openSnackBar();
             })
             .catch(error => {
+                const response = error.response;
                 handleClose();
                 setSeverity("error");
-                setMessage("Hubo un error al crear su partido");
+                setMessage(response.data.message);
                 openSnackBar();
             })
 
