@@ -11,18 +11,19 @@ export default function Tickets({ tickets }) {
 
     return (
         <>
-            {
-                tickets.length > 0 ?
-                    <div style={{ display: 'flex', flexDirection: 'column', marginTop: '2vh', alignItems: 'center' }}>
+        <div style={{ margin: '2vh auto', display: 'flex', flexDirection: 'column', textAlign:'center', alignItems: 'center' }}>
+        {
+            tickets.length > 0 ?
+                      <div>  
                         <BeginningTypography text="Tus Entradas" variant="h5"/>
-
                         <Carousel autoPlay={false} animation="slide">
                             {renderTickets()}
-                        </Carousel>
+                        </Carousel> 
+                        </div>
+                        :
+                        <BeginningTypography text='No tienes entradas reservadas disponibles!' variant="h5"/>
+                    }
                     </div>
-                    :
-                    <h2> No tienes entradas reservadas disponibles!</h2>
-            }
         </>
     )
 }

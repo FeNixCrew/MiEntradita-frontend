@@ -35,22 +35,23 @@ export default function Ticket({ ticket }) {
   };
 
   return (
-    <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, auto-fit)' }}>
-      <Card className={classes.mainContainer}>
+    <Box style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, auto-fit)' }}>
+      <Card className={classes.mainContainer} style={{minWidth:'50vw'}}>
         <Typography
           variant="h5"
           component="div"
-          sx={{
-            m: 1,
-            letterSpacing: 4,
+          style={{
+            margin: 'auto',
+            padding: '1vh',
+            letterSpacing: 1,
             textAlign: 'center'
           }}>
-          <span img={ticket.homeSpan} />{ticket.home} vs {ticket.away}
+          {ticket.home} vs {ticket.away}
         </Typography>
         <Typography
           variant="h6"
           component="div"
-          sx={{
+          style={{
             m: 1,
             letterSpacing: 2,
             textAlign: 'center'
