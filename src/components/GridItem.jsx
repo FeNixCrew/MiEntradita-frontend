@@ -8,6 +8,8 @@ export default function GridItem({ register, type, name, id, label, xs, content,
             <InputLabel id={id} sx={{ paddingBottom: 1}}>{label}</InputLabel>
             <TextField
                 {...register(name)}
+                error={showError}
+                helperText={helperText}
                 id={id}
                 type={type || ""}
                 name={name}
