@@ -1,13 +1,12 @@
 import { TextField, InputLabel, Grid } from '@mui/material';
 
-export default function GridItem({ register, type, name, id, isSelect, label, xs, content }) {
+export default function GridItem({ register, type, name, id, label, xs, content, showError, helperText }) {
 
 
     return (
         <Grid item xs={xs} >
-            <InputLabel id={id}>{label}</InputLabel>
+            <InputLabel id={id} sx={{ paddingBottom: 1}}>{label}</InputLabel>
             <TextField
-                select={isSelect}
                 {...register(name)}
                 id={id}
                 type={type || ""}

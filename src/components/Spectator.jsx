@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import Tickets from '../ticket/TicketsCarousel';
-import BackdropInherit from '../feedback/Backdrop';
-import spectatorService from '../../services/SpectatorService';
+import Tickets from './ticket/TicketsCarousel';
+import BackdropInherit from './feedback/Backdrop';
+import spectatorService from '../services/SpectatorService';
 
 function Spectator() {
     const [tickets, setTickets] = useState(null);

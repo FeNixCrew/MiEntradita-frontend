@@ -6,11 +6,11 @@ import Box from '@mui/material/Box';
 import { ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 
-import RegisterForm from '../components/register/RegisterForm';
-import BeginningTypography from '../components/beginning/BeginningTypography';
-import BeginningAvatar from '../components/beginning/BegginnigAvatar';
+import RegisterForm from '../components/forms/register/RegisterForm';
+import BeginningTypography from '../components/BeginningTypography';
+import BeginningAvatar from '../components/BegginnigAvatar';
 import BackdropInherit from '../components/feedback/Backdrop';
-import { theme } from '../components/register/styles.js'
+import { theme } from '../components/forms/register/styles.js'
 
 import { useToggle } from '../helpers/hooks/useToggle';
 import authService from '../services/AuthService';

@@ -6,7 +6,7 @@ import BackdropInherit from '../components/feedback/Backdrop';
 import { useToggle } from '../helpers/hooks/useToggle';
 import SnackBar from '../components/feedback/SnackBar';
 import { useState } from 'react';
-import CreateMatchForm from '../components/admin/CreateMatchForm';
+import CreateMatchForm from '../components/forms/CreateMatchForm';
 import matchService from '../services/MatchService';
 import BurgerMenu from '../components/navigation/BurgerMenu';
 
@@ -20,17 +20,17 @@ function CreateMatchComponent() {
     const onSubmit = (data) => {
         let matchStartTime = new Date(data.date + "T" + data.time)
         handleToggle();
-        matchService.create(data.home, data.away, parseInt(data.price), matchStartTime)
+        matchService.create(data.home, data.away, parseInt(data.price), matchStartTime, data.stadium)
             .then(_ => {
                 handleClose();
                 setSeverity("success");
                 setMessage("Partido creado exitosamente");
                 openSnackBar();
             })
-            .catch(_ => {
+            .catch(error => {
                 handleClose();
                 setSeverity("error");
-                setMessage("Partido no creado, ha ocurrido un error");
+                setMessage("Hubo un error al crear su partido");
                 openSnackBar();
             })
 
