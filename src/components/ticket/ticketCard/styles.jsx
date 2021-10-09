@@ -17,7 +17,6 @@ export const useStyles = makeStyles({
     },
     downloadButton: {
       'margin': '2.5vh',
-      'margin-left': '20vh',
       'width': 80,
       'height': 40,
     },

@@ -1,34 +1,56 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
 import QrReader from 'react-qr-reader';
-import * as Api from '../../helpers/ApiRest';
-import { scannerStyle } from './styles';
+
 import Grid from '@mui/material/Grid';
-import Background from '../../assets/scannerBackground.png'
+import Background from '../assets/scannerBackground.png'
 import { CssBaseline } from '@material-ui/core';
 import Button from '@mui/material/Button';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import { Alert } from '../feedback/Alert'
-import { exit } from '../../helpers/usedFunctions'
-import BackdropInherit from '../feedback/Backdrop';
-import SnackBarScan from './SnackBarScan';
+
+import { Alert } from '../components/feedback/Alert'
+import BackdropInherit from '../components/feedback/Backdrop';
+import SnackBar from '../components/feedback/SnackBar';
+
+import { useToggle } from '../helpers/hooks/useToggle'
+import { exit } from '../helpers/usedFunctions';
+import matchService from '../services/MatchService';
+
+const scannerStyle = {
+  height: '64vh',
+  width: '64vh',
+}
 
 export default function QrScan() {
   const [scanMessage, setScanMessage] = useState(null);
   const [resultState, setResultState] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [openSnackBar, setOpenSnackBar] = useState(false);
+  const [open, handleClose, handleToggle] = useToggle();
+  const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
   const history = useHistory();
 
   const handleScan = data => {
     if (data) {
-      const { userId, matchId } = JSON.parse(data);
-      setOpen(true);
-      Api.comeIn(userId, matchId)
+      console.log(data);
+      let userId= null;
+      let matchId = null;
+
+      try {
+        const obtainedData = JSON.parse(data);
+        userId = obtainedData.userId;
+        matchId = obtainedData.matchId;
+      } catch(_) {
+        setResultState('error');
+        setScanMessage('Entrada inválida. Por favor, descargue su entrada desde nuestra web')
+        openSnackBar();
+      }
+
+      if(userId && matchId){
+        handleToggle();
+        matchService.comeIn(userId, matchId)
         .then(response => {
           setResultState('success');
           setScanMessage(response.data);
-          setOpenSnackBar(true);
+          openSnackBar();
         })
         .catch((err) => {
           setResultState('error');
@@ -37,9 +59,10 @@ export default function QrScan() {
           } else {
             setScanMessage('Hubo un error de sistema, por favor, pida asistencia')  
           }
-          setOpenSnackBar(true);
+          openSnackBar();
         });
-        setOpen(false);
+        handleClose();
+      }
     }
   }
 
@@ -100,11 +123,12 @@ export default function QrScan() {
           backgroundPosition: 'center',
         }}
       >
-        <SnackBarScan
-          openSnackBar={openSnackBar}
-          state={resultState}
-          scanMessage={scanMessage}
-          closeSnackBar={() => setOpenSnackBar(false)}
+        <SnackBar
+          openSnackBar={isOpenSnack}
+          severityState={resultState}
+          message={scanMessage}
+          closeSnackBar={closeSnackBar}
+          position={{vertical: 'top', horizontal: 'right'}}
         /> 
       </Grid>
     </Grid >

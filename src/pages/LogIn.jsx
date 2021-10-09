@@ -1,40 +1,34 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
-import Avatar from '@mui/material/Avatar';
+
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import ConfirmationNumber from '@mui/icons-material/ConfirmationNumber';
-import Typography from '@mui/material/Typography';
 import { ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Background from '../../assets/background.png';
-import { theme } from './styles';
-import LoginForm from './LoginForm'
-import BackdropInherit from '../feedback/Backdrop';
-import * as Api from '../../helpers/ApiRest.js';
+
+import { theme } from '../components/forms/login/styles';
+import LoginForm from '../components/forms/login/LoginForm';
+import BackdropInherit from '../components/feedback/Backdrop';
+import BeginningTypography from '../components/BeginningTypography';
+import BeginningAvatar from '../components/BegginnigAvatar';
+
+import authService from '../services/AuthService';
+import { useToggle } from '../helpers/hooks/useToggle';
+import Background from '../assets/background.png';
 
 function LogIn() {
-    const [open, setOpen] = useState(false);
+    const [open, handleClose, handleToggle] = useToggle();
     const [error, setError] = useState(null);
-    const history = useHistory()
-
-    const handleClose = () => {
-        setOpen(false);
-    }
-
-    const handleToggle = () => {
-        setOpen(!open);
-    }
+    const history = useHistory();
 
     const onSubmit = data => {
         handleToggle();
-        Api.login(data.username, data.password)
+        authService.login(data.username, data.password)
             .then(response => {
-                localStorage.setItem('spectatorId', response.data.id);
-                localStorage.setItem('username', response.data.username);
+                saveData(response);
                 handleClose();
-                push(response.data.username);
+                push(response.data.role, response.data.username);
             })
             .catch((aError) => {
                 const response = aError.response;
@@ -46,17 +40,27 @@ function LogIn() {
 
     const resetError = () => setError('');
 
-    const push = (username) => {
-        if (username === "scanner") {
-            history.push(`/${username}`);
-        } else {
-            history.push(`/user/${username}`);
+    const push = (role, username) => {
+        switch (role) {
+            case "ROLE_SCANNER":
+                history.push('/scanner');
+                break;
+            default:
+                history.push(`/${username}/home`);
+                break;
         }
+    }
+
+    const saveData = response => {
+        localStorage.setItem('spectatorId', response.data.id);
+        localStorage.setItem('username', response.data.username);
+        localStorage.setItem('role', response.data.role);
+        localStorage.setItem('auth', response.headers.authorization);
     }
 
     return (
         <ThemeProvider theme={theme}>
-           <BackdropInherit open={open} />
+            <BackdropInherit open={open} />
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid
@@ -76,26 +80,18 @@ function LogIn() {
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <Box
                         sx={{
-                            my: 8,
+                            my: 7,
                             mx: 4,
                             display: 'flex',
                             flexDirection: 'column',
-                            alignItems: 'center',
+                            alignItems: 'center'
                         }}
                     >
-                        <Avatar sx={{ m: 1, bgcolor: '#2e86c1' }}>
-                            <ConfirmationNumber />
-                        </Avatar>
-                        <Typography
-                            component="h1"
-                            variant="h6"
-                            sx={{
-                                fontStyle: 'bold',
-                                fontFamily: 'Monospace'
-                            }}>
-                            Bienvenido!
-                        </Typography>
-                        <LoginForm onSubmit={onSubmit} resetError={resetError} error={error}/>
+                        <BeginningAvatar />
+                        <BeginningTypography text="Bienvenido!" />
+
+                        <LoginForm onSubmit={onSubmit} resetError={resetError} error={error} />
+
                     </Box>
                 </Grid>
             </Grid>
