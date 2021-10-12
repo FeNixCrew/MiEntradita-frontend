@@ -8,6 +8,7 @@ import LogIn from './pages/LogIn'
 import Register from "./pages/Register";
 import QrScan from "./pages/QrScan";
 import Home from './pages/Home';
+import NotFound from './pages/NotFound'
 
 import { isScanner, isLogin, isAdmin } from "./helpers/usedFunctions";
 import Search from "./pages/Search";
@@ -26,10 +27,6 @@ const PrivateRoute = ({ isAuth, component: Component, ...rest }) => {
 
 function Error() {
   return <p>Error!</p>
-}
-
-function NotFound() {
-  return <p>404 not found!</p>
 }
 
 const Routes = () => (
