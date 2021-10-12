@@ -89,7 +89,6 @@ function LogIn() {
                     >
                         <BeginningAvatar />
                         <BeginningTypography text="Bienvenido!" />
-
                         <LoginForm onSubmit={onSubmit} resetError={resetError} error={error} />
 
                     </Box>
