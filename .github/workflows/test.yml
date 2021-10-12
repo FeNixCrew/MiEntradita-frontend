@@ -1,4 +1,4 @@
-name: [Front] MiEntradita CI
+name: MiEntradita CI
 
 on: [push, pull_request]
 
