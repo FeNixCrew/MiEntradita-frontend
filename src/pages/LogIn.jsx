@@ -15,6 +15,7 @@ import BeginningAvatar from '../components/BegginnigAvatar';
 
 import authService from '../services/AuthService';
 import { useToggle } from '../helpers/hooks/useToggle';
+import { saveData } from '../helpers/usedFunctions';
 import Background from '../assets/background.png';
 
 function LogIn() {
@@ -49,13 +50,6 @@ function LogIn() {
                 history.push(`/${username}/home`);
                 break;
         }
-    }
-
-    const saveData = response => {
-        localStorage.setItem('spectatorId', response.data.id);
-        localStorage.setItem('username', response.data.username);
-        localStorage.setItem('role', response.data.role);
-        localStorage.setItem('auth', response.headers.authorization);
     }
 
     return (

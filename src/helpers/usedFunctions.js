@@ -36,3 +36,10 @@ const customFormatter = (date, config) => {
 
 export const formatDateAndTime = date =>
   `${customFormatter(date, DATE_CONFIG)} ${customFormatter(date, TIME_CONFIG)}hs`;
+
+export const saveData = response => {
+  localStorage.setItem('spectatorId', response.data.id);
+  localStorage.setItem('username', response.data.username);
+  localStorage.setItem('role', response.data.role);
+  localStorage.setItem('auth', response.headers.authorization);
+}

@@ -13,6 +13,7 @@ import BackdropInherit from '../components/feedback/Backdrop';
 import { theme } from '../components/forms/register/styles.js'
 
 import { useToggle } from '../helpers/hooks/useToggle';
+import { saveData } from '../helpers/usedFunctions';
 import authService from '../services/AuthService';
 
 function Register() {
@@ -23,11 +24,21 @@ function Register() {
     const onSubmit = data => {
         handleToggle();
         authService.register(data.name, data.surname, data.username, data.email, parseInt(data.dni), data.password)
-            .then(response => {
-                localStorage.setItem('spectatorId', response.data.id);
-                localStorage.setItem('username', response.data.username);
+            .then(_ => login(data.username, data.password))
+            .catch((aError) => {
+                const response = aError.response;
+                if (response.status);
+                setError(response.data);
                 handleClose();
-                history.push("/login");
+            });
+    };
+
+    const login = (username, password) => {
+        authService.login(username, password)
+            .then(response => {
+                saveData(response);
+                handleClose();
+                history.push(`/${username}/home`);
             })
             .catch((aError) => {
                 const response = aError.response;
@@ -35,7 +46,7 @@ function Register() {
                 setError(response.data);
                 handleClose();
             })
-    };
+    }
 
     const resetError = () => setError('');
 
