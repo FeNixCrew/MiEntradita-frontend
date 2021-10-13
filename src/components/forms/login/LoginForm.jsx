@@ -38,6 +38,9 @@ function LoginForm({ onSubmit, error, resetError }) {
                     username.onChange(e);
                     resetError();
                 }}
+                inputProps={{
+                    'data-testid': 'username'
+                }}
             />
             <TextField
                 {...register("password")}
@@ -51,9 +54,12 @@ function LoginForm({ onSubmit, error, resetError }) {
                     password.onChange(e);
                     resetError();
                 }}
-            />
+                inputProps={{
+                    'data-testid': 'password'
+                }}
+                />
             <div>
-                {error && <Alert severity="error">{error.message}</Alert>}
+                {error && <Alert data-testid='error' severity="error">{error.message}</Alert>}
             </div>
 
             <Button
@@ -62,6 +68,8 @@ function LoginForm({ onSubmit, error, resetError }) {
                 }}
                 type="submit"
                 fullWidth
+                data-testid='login'
+                onClick={onSubmit}
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
             >

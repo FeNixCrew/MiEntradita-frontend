@@ -109,7 +109,9 @@ export default function QrScan() {
           onScan={handleScan}
           style={scannerStyle}
         />
-        <Alert severity="info" sx={{ textAlign: 'center', ml: '5%', mt: '2vh', mr: '5%'}}>Coloque su codigo QR frente a la camara y centrelo</Alert>
+        <Alert severity="info" sx={{ textAlign: 'center', ml: '5%', mt: '2vh', mr: '5%'}}>
+        Coloque su código QR frente a la cámara y céntrelo
+        </Alert>
       </Grid>
       </Grid>
       <Grid 

@@ -12,7 +12,7 @@ function SearchResult({ match }) {
     const [open, handleClose, handleToggle] = useToggle();
 
     return (
-        <>
+        <div data-testid='search-item'>
         <MatchDetails open={open} handleClose={handleClose} matchId={match.id} title={matchTitle} />
         <Grid item md={12} style={{marginTop:'2vh'}}>
             <Card style={{ padding: 1}}>
@@ -26,7 +26,7 @@ function SearchResult({ match }) {
                 </CardActions>
             </Card>
         </Grid>
-        </>
+        </div>
     );
 };
 

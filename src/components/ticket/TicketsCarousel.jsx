@@ -14,7 +14,7 @@ export default function Tickets({ tickets }) {
         <div style={{ margin: '2vh auto', display: 'flex', flexDirection: 'column', textAlign:'center', alignItems: 'center' }}>
         {
             tickets.length > 0 ?
-                      <div>  
+                      <div data-testid='carousel-div'>  
                         <BeginningTypography text="Tus Entradas" variant="h5"/>
                         <Carousel autoPlay={false} animation="slide">
                             {renderTickets()}
