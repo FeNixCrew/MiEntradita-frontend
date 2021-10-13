@@ -43,3 +43,6 @@ export const saveData = response => {
   localStorage.setItem('role', response.data.role);
   localStorage.setItem('auth', response.headers.authorization);
 }
+
+export const NotFoundMessage = "Recurso no encontrado"
+export const ServerErrorMessage = "Error de servidor"

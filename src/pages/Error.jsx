@@ -6,7 +6,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import { useHistory } from 'react-router';
 
 
-function NotFound() {
+function Error({statusCode, errorMessage}) {
     const theme = createTheme();
     const history = useHistory();
 
@@ -32,7 +32,7 @@ function NotFound() {
                         p: '1vh'
                     }}
                 >
-                    404
+                    {statusCode}
                 </Typography>
                 <Divider sx={{ borderColor: 'black', }} />
                 <Typography
@@ -47,7 +47,7 @@ function NotFound() {
 
                     }}
                 >
-                    Recurso no encontrado
+                    {errorMessage}
                 </Typography>
                 <Box
                     sx={{
@@ -75,4 +75,4 @@ function NotFound() {
     );
 }
 
-export default NotFound;
+export default Error;

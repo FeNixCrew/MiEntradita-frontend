@@ -8,12 +8,11 @@ import LogIn from './pages/LogIn'
 import Register from "./pages/Register";
 import QrScan from "./pages/QrScan";
 import Home from './pages/Home';
-import NotFound from './pages/NotFound'
-
-import { isScanner, isLogin, isAdmin } from "./helpers/usedFunctions";
+import Error from './pages/Error'
 import Search from "./pages/Search";
 import CreateMatch from "./pages/CreateMatch";
 
+import { isScanner, isLogin, isAdmin, NotFoundMessage, ServerErrorMessage } from "./helpers/usedFunctions";
 
 const PrivateRoute = ({ isAuth, component: Component, ...rest }) => {
   return (
@@ -25,8 +24,12 @@ const PrivateRoute = ({ isAuth, component: Component, ...rest }) => {
   )
 }
 
-function Error() {
-  return <p>Error!</p>
+const ErrorRoute = ({ statusCode, errorMessage, ...rest }) => {
+  return (
+    <Route {...rest} render={props => (
+      <Error statusCode={statusCode} errorMessage={errorMessage} />
+    )} />
+  );
 }
 
 const Routes = () => (
@@ -40,10 +43,10 @@ const Routes = () => (
       <PrivateRoute component={Home} path="/admin/home" isAuth={isAdmin} />
       <PrivateRoute component={CreateMatch} path="/admin/add-match" isAuth={isAdmin} />
       <PrivateRoute component={Search} path="/:username/search" isAuth={() => isAdmin() || isLogin()} />
-      <Route component={Error} path="/error"/>
       <Route path="/login" component={LogIn} />
       <Route path="/register" component={Register} />
-      <Route component={NotFound} path="*"/>
+      <ErrorRoute statusCode={503} errorMessage={ServerErrorMessage} path="/error"/>
+      <ErrorRoute statusCode={404} errorMessage={NotFoundMessage} path="*"/>
     </Switch>
   </Router>
 );
