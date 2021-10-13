@@ -8,15 +8,20 @@ import BeginningTypography from "../components/BeginningTypography";
 import matchService from "../services/MatchService";
 import { Paper } from "@mui/material";
 import BurgerMenu from "../components/navigation/BurgerMenu";
+import SnackBar from '../components/feedback/SnackBar';
+import { useToggle } from '../helpers/hooks/useToggle';
 
 
 function Searcher() {
     const [matchs, setMatchs] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
+    const [error, setError] = useState(null);
+
 
     const onChange = data => {
         const partialSearch = data.textSearched;
-        if (partialSearch.length > 0) {
+        if (partialSearch.length > 2) {
             setIsLoading(true);
             matchService.search(partialSearch)
                 .then(response => {
@@ -24,7 +29,8 @@ function Searcher() {
                     setIsLoading(false);
                 })
                 .catch(error => {
-                    console.log(error);
+                    setError(error.message);
+                    openSnackBar();
                 })
         } else {
             setMatchs(null);
@@ -36,6 +42,13 @@ function Searcher() {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
                 <BackdropInherit open={isLoading} />
+                <SnackBar
+                    openSnackBar={isOpenSnack}
+                    severityState="error"
+                    message={error}
+                    closeSnackBar={closeSnackBar}
+                    position={{ vertical: 'bottom', horizontal: 'left' }}
+                />
                 <Paper elevation={4} square style={{ marginTop: '5vh', padding: '3vh', backgroundColor: '#d7dbdd', borderRadius: 4 }}>
                     <Box sx={{
                         display: 'grid',
@@ -64,5 +77,5 @@ function Searcher() {
 export { Searcher };
 
 export default function Search() {
-    return <BurgerMenu children={<Searcher/>}/>
+    return <BurgerMenu children={<Searcher />} />
 }
