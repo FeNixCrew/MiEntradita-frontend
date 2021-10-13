@@ -28,8 +28,8 @@ function Searcher() {
                     setMatchs(response.data);
                     setIsLoading(false);
                 })
-                .catch(error => {
-                    setError(error.message);
+                .catch(_ => {
+                    setError('Error al buscar. Intente de nuevo.');
                     openSnackBar();
                 })
         } else {

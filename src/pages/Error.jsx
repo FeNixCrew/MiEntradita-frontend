@@ -2,7 +2,7 @@ import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material/styles';
 import { Divider, Grid, Fab, Box, IconButton } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import LoginIcon from '@mui/icons-material/Login';
+import HomeIcon from '@mui/icons-material/Home';
 import { useHistory } from 'react-router';
 
 
@@ -58,15 +58,15 @@ function Error({statusCode, errorMessage}) {
                     }}>
                     <IconButton>
                         <Fab
-                            sx={{
+                            style={{
                                 backgroundColor: '#2e86c1',
                                 color: 'black',
                                 ":hover": { color: '#2e86c1' }
                             }}
                             aria-label="login"
-                            onClick={() => history.push('/login')}
+                            onClick={() => history.push('/')}
                         >
-                            <LoginIcon />
+                            <HomeIcon />
                         </Fab>
                     </IconButton>
                 </Box>

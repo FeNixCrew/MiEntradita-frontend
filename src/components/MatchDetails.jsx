@@ -73,11 +73,11 @@ export default function MatchDetails({ open, handleClose, matchId, title }) {
           console.log("Error status code:" + response.status);
         }
       })
-      .catch((error) => {
-        setError(error);
+      .catch((_) => {
+        setError('Hubo un problema al obtener los detalles. Intente de nuevo.');
         openSnackBar();
       })
-  }, [matchId]);
+  }, [matchId, openSnackBar]);
 
   return (
     <div>

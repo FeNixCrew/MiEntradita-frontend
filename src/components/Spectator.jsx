@@ -17,11 +17,11 @@ function Spectator() {
             .then(response => {
                 setTickets(response.data);
             })
-            .catch((err) => {
-                setError(err);
+            .catch((_) => {
+                setError('Hubo un error al obtener sus entradas, por favor, intente de nuevo.');
                 openSnackBar();
             });
-    }, [history]);
+    }, [history, openSnackBar]);
 
     return (
         <>

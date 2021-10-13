@@ -66,8 +66,10 @@ export default function QrScan() {
     }
   }
 
-  const handleError = err => {
-    console.error(err);
+  const handleError = _ => {
+    setResultState('error');
+    setScanMessage('Error al escanear entrada. Intente de nuevo.')
+    openSnackBar();
   }
 
   return (

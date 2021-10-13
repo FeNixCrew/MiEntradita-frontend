@@ -33,8 +33,7 @@ function LogIn() {
             })
             .catch((aError) => {
                 const response = aError.response;
-                if (response.status);
-                setError(response.data);
+                setError(response.data.message);
                 handleClose();
             })
     };

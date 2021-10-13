@@ -7,7 +7,6 @@ const token = (path) => path.startsWith('auth/') ?
 
 const axios_api = axios.create({
   baseURL,
-  timeout: 5000,
 });
 
 const request = (method, endpoint, data, params) =>
@@ -19,18 +18,13 @@ const request = (method, endpoint, data, params) =>
     params
   });
 
-// TODO: ver como interceptar el error de otra forma
-const timeout = (error) => {
-  return error.message.split(' ')[0] === 'timeout'
-}
-
 const isUnauthorized = (status) => status === 403 || status === 401;
 
 
 axios_api.interceptors.response.use(
   (response) => Promise.resolve(response),
   (error) => {
-    if (timeout(error)) {
+    if (!error.response) {
       window.location = "/error"
     } else {
       const status = error.response.status;

@@ -36,7 +36,13 @@ const Routes = () => (
   <Router>
     <Switch>
       <Route exact path="/">
-        <Redirect to="/login" />
+        {
+          isLogin() ?
+            (isScanner() && <Redirect to="scanner"/>) ||
+            <Redirect to={`/${localStorage.username}/home`}/>
+          :
+          <Redirect to="/login" />
+        }
       </Route>
       <PrivateRoute component={Home} path="/:username/home" isAuth={isLogin} />
       <PrivateRoute component={QrScan} path="/scanner" isAuth={isScanner} />
