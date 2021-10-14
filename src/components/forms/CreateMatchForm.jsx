@@ -3,7 +3,7 @@ import { Box, Button, Grid, Paper, InputLabel } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import GridItem from '../GridItem';
 import BeginningTypography from "../BeginningTypography";
-import matchService from '../../services/MatchService';
+import teamService from '../../services/TeamService';
 import { useEffect, useState } from 'react';
 import BackdropInherit from '../feedback/Backdrop';
 import TextField from '@mui/material/TextField';
@@ -30,7 +30,7 @@ function CreateMatchForm({ onSubmit }) {
     register('price', { required: true, min: 500 });
 
     useEffect(() => {
-        matchService.teams()
+        teamService.teams()
             .then((response) => setTeams(response.data))
             .catch((error) => console.log(error.response));
     }, []);
