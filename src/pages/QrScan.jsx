@@ -11,13 +11,14 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import SyncIcon from '@mui/icons-material/Sync';
 
 import { Alert } from '../components/feedback/Alert'
 import BackdropInherit from '../components/feedback/Backdrop';
 import SnackBar from '../components/feedback/SnackBar';
 
 import { useToggle } from '../helpers/hooks/useToggle'
-import { exit } from '../helpers/usedFunctions';
+import { exit, formatDateAndTime } from '../helpers/usedFunctions';
 import matchService from '../services/MatchService';
 
 const scannerStyle = {
@@ -25,7 +26,7 @@ const scannerStyle = {
   width: '64vh',
 }
 
-const recentGames = [
+const availableMatchs = [
   {
     id: 999,
     home: 'x',
@@ -52,16 +53,32 @@ const recentGames = [
   },
 ]
 
-function AvailableMatch({match, setMatch}) {
-    const matchTitle = `${match.home} vs ${match.away}`;
+export default function QrScan() {
+  const [match, setMatch] = useState(null);
+  
+  return(
+    <div>
+      {
+        match ?
+          <Scanner match={match} setMatch={setMatch}/>
+          :
+          <SelectMatch setMatch={setMatch}/>
+      }
+    </div>
+  )
+}
 
+function AvailableMatch({match, setMatch}) {
     return (
         <div>
         <Grid item md={12} style={{marginTop:'2vh'}}>
             <Card style={{ padding: 1}}>
                 <CardContent style={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2" sx={{color: "#2e86c1"}}>
-                        {matchTitle}
+                        {`${match.home} vs ${match.away}`}
+                    </Typography>
+                    <Typography gutterBottom variant="h5" component="h2" sx={{color: "#2e86c1"}}>
+                      {formatDateAndTime(match.matchStartTime)}
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -73,11 +90,12 @@ function AvailableMatch({match, setMatch}) {
     );
 }
 function SelectMatch({setMatch}) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [matchs, setMatchs] = useState([]);
 
   useEffect(() => {
-    setMatchs(recentGames);
+    setIsLoading(true);
+    setMatchs(availableMatchs);
     setIsLoading(false);
   }, [matchs]);
 
@@ -92,28 +110,18 @@ function SelectMatch({setMatch}) {
     }}>
     <BackdropInherit open={isLoading} />
       { matchs.length === 0 ?
-          <h2>No hay partidos disponibles!</h2>
+          <h2>No hay partidos disponibles, inténtelo más tarde</h2>
           :
-          renderAvailableGames()
+          <div>
+            <h1>De qué partido desea validar entradas?</h1>
+            {renderAvailableGames()}
+          </div>
       }
     </div>
   )
 }
-export default function QrScan() {
-  const [match, setMatch] = useState(null);
-  
-  return(
-    <div>
-      {
-        match ?
-          <Scanner match={match}/>
-          :
-          <SelectMatch setMatch={setMatch}/>
-      }
-    </div>
-  )
-}
-function Scanner({match}) {
+
+function Scanner({match, setMatch}) {
   const [scanMessage, setScanMessage] = useState(null);
   const [resultState, setResultState] = useState(null);
   const [open, handleClose, handleToggle] = useToggle();
@@ -196,6 +204,16 @@ function Scanner({match}) {
           mt: '1vh'
         }}>
         <ExitToAppIcon />
+      </Button>
+      <Button
+        style={{
+          color: '#2e86c1'
+        }}
+        onClick={() => setMatch(null)}
+        sx={{
+          mt: '1vh'
+        }}>
+        <SyncIcon />
       </Button>
       <Grid
         sx={{
