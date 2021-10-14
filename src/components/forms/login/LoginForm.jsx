@@ -59,7 +59,7 @@ function LoginForm({ onSubmit, error, resetError }) {
                 }}
                 />
             <div>
-                {error && <Alert data-testid='error' severity="error">{error.message}</Alert>}
+                {error && <Alert severity="error">{error}</Alert>}
             </div>
 
             <Button

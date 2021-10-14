@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import matchService from '../services/MatchService.js';
 import { formatDateAndTime } from '../helpers/usedFunctions';
-import {  Box } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import Typography from '@mui/material/Typography';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -16,6 +16,8 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import SnackBar from '../components/feedback/SnackBar';
+import { useToggle } from '../helpers/hooks/useToggle'
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuDialogContent-root': {
@@ -48,17 +50,19 @@ function MatchDetailsContent({ matchDetails }) {
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 5 }}>
-      <Typography style={{ paddingBottom: 3 }}><DateRangeIcon/><span style={{ fontStyle: 'italic' }}> {date}</span></Typography>
-      <Typography style={{ paddingBottom: 3 }}><AccessTimeIcon/> <span style={{ fontStyle: 'italic' }}>{time}</span></Typography>
-      <Typography style={{ paddingBottom: 3 }}><LocationOnIcon/> <span style={{ fontStyle: 'italic' }}> {stadium} </span> </Typography>
-      <Typography style={{ paddingBottom: 3 }}><MonetizationOnIcon/> <span style={{ fontStyle: 'italic' }}>Precio por entrada:</span> ${ticketPrice}</Typography>
+      <Typography style={{ paddingBottom: 3 }}><DateRangeIcon /><span style={{ fontStyle: 'italic' }}> {date}</span></Typography>
+      <Typography style={{ paddingBottom: 3 }}><AccessTimeIcon /> <span style={{ fontStyle: 'italic' }}>{time}</span></Typography>
+      <Typography style={{ paddingBottom: 3 }}><LocationOnIcon /> <span style={{ fontStyle: 'italic' }}> {stadium} </span> </Typography>
+      <Typography style={{ paddingBottom: 3 }}><MonetizationOnIcon /> <span style={{ fontStyle: 'italic' }}>Precio por entrada:</span> ${ticketPrice}</Typography>
     </Box>
   )
 
 }
 
 export default function MatchDetails({ open, handleClose, matchId, title }) {
-  const [matchDetails, setMatchDetails] = useState(undefined); 
+  const [matchDetails, setMatchDetails] = useState(undefined);
+  const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     matchService.getMatchDetails(matchId)
@@ -70,19 +74,27 @@ export default function MatchDetails({ open, handleClose, matchId, title }) {
           console.log("Error status code:" + response.status);
         }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((_) => {
+        setError('Hubo un problema al obtener los detalles. Intente de nuevo.');
+        openSnackBar();
       })
-  }, [matchId]);
+  }, [matchId, openSnackBar]);
 
   return (
     <div>
+      <SnackBar
+        openSnackBar={isOpenSnack}
+        severityState="error"
+        message={error}
+        closeSnackBar={closeSnackBar}
+        position={{ vertical: 'bottom', horizontal: 'left' }}
+      />
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <BootstrapDialogTitle style={{color:'white'}} onClose={handleClose}>
+        <BootstrapDialogTitle style={{ color: 'white' }} onClose={handleClose}>
           {title}
         </BootstrapDialogTitle>
         <DialogContent dividers>

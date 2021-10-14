@@ -1,12 +1,12 @@
 import axios from 'axios';
 const baseURL = 'http://localhost:8081/api';
 
-const token = (path) => path.startsWith('auth/') ? 
-                                              {} : 
-                                              { authorization: localStorage.auth };
+const token = (path) => path.startsWith('auth/') ?
+  {} :
+  { authorization: localStorage.auth };
 
 const axios_api = axios.create({
-  baseURL
+  baseURL,
 });
 
 const request = (method, endpoint, data, params) =>
@@ -18,30 +18,28 @@ const request = (method, endpoint, data, params) =>
     params
   });
 
-  
-  axios_api.interceptors.response.use(
-    (response) =>
-    new Promise((resolve, _) => {
-      resolve(response);
-    }),
-    (error) => {
+const isUnauthorized = (status) => status === 403 || status === 401;
+
+
+axios_api.interceptors.response.use(
+  (response) => Promise.resolve(response),
+  (error) => {
+    if (!error.response) {
+      window.location = "/error"
+    } else {
       const status = error.response.status;
-      
-      const isUnauthorized = (status) => status === 403 || status === 401;
 
       if (isUnauthorized(status)) {
         localStorage.clear();
         window.location = '/';
       } else if (status === 400) {
-        return new Promise((_, reject) => {
-          reject(error);
-        });
+        return Promise.reject(error);
       } else {
-        // TODO: pasarle el status code con el error
         window.location = '/error';
       }
     }
-  );
+  }
+);
 
 const get = (url, params = {}) => request('get', url, {}, params)
 const post = (endpoint, data = {}) => request('post', endpoint, data, {});
