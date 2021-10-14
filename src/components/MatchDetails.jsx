@@ -67,6 +67,7 @@ export default function MatchDetails({ open, handleClose, matchId, title }) {
   useEffect(() => {
     matchService.getMatchDetails(matchId)
       .then((response) => {
+        console.log(response.data);
         if (response.status >= 200 && response.status < 300) {
           setMatchDetails(response.data);
         } else {
@@ -97,7 +98,7 @@ export default function MatchDetails({ open, handleClose, matchId, title }) {
           {title}
         </BootstrapDialogTitle>
         <DialogContent dividers>
-          <MatchDetailsContent matchDetails={matchDetails} />
+          {matchDetails && <MatchDetailsContent matchDetails={matchDetails} />}
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose}>

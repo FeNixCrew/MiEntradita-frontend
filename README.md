@@ -1,3 +1,10 @@
+![Actions Status: test](https://github.com/FeNixCrew/MiEntradita-frontend/workflows/MiEntradita%20CI/badge.svg) 
+# MiEntradita-frontend
+
+- Wiki y doc: https://github.com/FeNixCrew/MiEntradita-doc/wiki
+
+- Backend: https://github.com/FeNixCrew/MiEntradita-backend
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,4 +75,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# MiEntradita-frontend
