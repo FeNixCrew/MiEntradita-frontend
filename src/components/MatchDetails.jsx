@@ -67,12 +67,7 @@ export default function MatchDetails({ open, handleClose, matchId, title }) {
   useEffect(() => {
     matchService.getMatchDetails(matchId)
       .then((response) => {
-        console.log(response.data);
-        if (response.status >= 200 && response.status < 300) {
           setMatchDetails(response.data);
-        } else {
-          console.log("Error status code:" + response.status);
-        }
       })
       .catch((_) => {
         setError('Hubo un problema al obtener los detalles. Intente de nuevo.');

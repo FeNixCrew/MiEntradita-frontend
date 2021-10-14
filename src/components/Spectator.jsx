@@ -11,15 +11,19 @@ function Spectator() {
     const history = useHistory();
     const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
     const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        setIsLoading(true);
         spectatorService.pendingTickets()
             .then(response => {
                 setTickets(response.data);
+                setIsLoading(false);
             })
             .catch((_) => {
                 setError('Hubo un error al obtener sus entradas, por favor, intente de nuevo.');
                 openSnackBar();
+                setIsLoading(false);
             });
     }, [history, openSnackBar]);
 
@@ -35,7 +39,7 @@ function Spectator() {
 
             {
                 tickets === null ?
-                    <BackdropInherit open={true} />
+                    <BackdropInherit open={isLoading} />
                     :
                     <Tickets tickets={tickets} />
 

@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import QrReader from 'react-qr-reader';
 
 import Grid from '@mui/material/Grid';
 import Background from '../assets/scannerBackground.png'
 import { CssBaseline } from '@material-ui/core';
-import Button from '@mui/material/Button';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 
 import { Alert } from '../components/feedback/Alert'
 import BackdropInherit from '../components/feedback/Backdrop';
@@ -21,7 +25,95 @@ const scannerStyle = {
   width: '64vh',
 }
 
+const recentGames = [
+  {
+    id: 999,
+    home: 'x',
+    away: 'asd',
+    matchStartTime: new Date()
+  },
+  {
+    id: 2,
+    home: 'segundo',
+    away: 'equipo3',
+    matchStartTime: new Date()
+  },
+  {
+    id: 3,
+    home: 'equipo4',
+    away: 'equipo5',
+    matchStartTime: new Date()
+  },
+  {
+    id: 4,
+    home: 'equipo6',
+    away: 'equipo7',
+    matchStartTime: new Date()
+  },
+]
+
+function AvailableMatch({match, setMatch}) {
+    const matchTitle = `${match.home} vs ${match.away}`;
+
+    return (
+        <div>
+        <Grid item md={12} style={{marginTop:'2vh'}}>
+            <Card style={{ padding: 1}}>
+                <CardContent style={{ flexGrow: 1 }}>
+                    <Typography gutterBottom variant="h5" component="h2" sx={{color: "#2e86c1"}}>
+                        {matchTitle}
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    <Button size="small" style={{color: '#2e86c1'}} onClick={() => setMatch(match)}>Seleccionar</Button>
+                </CardActions>
+            </Card>
+        </Grid>
+        </div>
+    );
+}
+function SelectMatch({setMatch}) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [matchs, setMatchs] = useState([]);
+
+  useEffect(() => {
+    setMatchs(recentGames);
+    setIsLoading(false);
+  }, [matchs]);
+
+  const renderAvailableGames = () => matchs.map(match => <AvailableMatch match={match} setMatch={setMatch}/>);
+
+  return (
+    <div style={{
+      display: 'grid',
+      'grid-template-columns': 'repeat(auto-fit, auto-fit)',
+      'grid-gap': '1vw',
+      'justify-content': 'center',
+    }}>
+    <BackdropInherit open={isLoading} />
+      { matchs.length === 0 ?
+          <h2>No hay partidos disponibles!</h2>
+          :
+          renderAvailableGames()
+      }
+    </div>
+  )
+}
 export default function QrScan() {
+  const [match, setMatch] = useState(null);
+  
+  return(
+    <div>
+      {
+        match ?
+          <Scanner match={match}/>
+          :
+          <SelectMatch setMatch={setMatch}/>
+      }
+    </div>
+  )
+}
+function Scanner({match}) {
   const [scanMessage, setScanMessage] = useState(null);
   const [resultState, setResultState] = useState(null);
   const [open, handleClose, handleToggle] = useToggle();
@@ -44,6 +136,12 @@ export default function QrScan() {
         openSnackBar();
       }
 
+      if(matchId !== match.id) {
+        setResultState('error');
+        setScanMessage('Su entrada pertenece a otro partido.');
+        openSnackBar();
+        return;
+      }
       if(userId && matchId){
         handleToggle();
         matchService.comeIn(userId, matchId)

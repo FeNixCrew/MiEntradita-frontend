@@ -51,6 +51,7 @@ const Routes = () => (
       <PrivateRoute component={Search} path="/:username/search" isAuth={() => isAdmin() || isLogin()} />
       <Route path="/login" component={LogIn} />
       <Route path="/register" component={Register} />
+      <Route path='/testing' component={QrScan} />
       <ErrorRoute statusCode={503} errorMessage={ServerErrorMessage} path="/error"/>
       <ErrorRoute statusCode={404} errorMessage={NotFoundMessage} path="*"/>
     </Switch>
