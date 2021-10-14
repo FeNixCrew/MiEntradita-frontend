@@ -26,33 +26,6 @@ const scannerStyle = {
   width: '64vh',
 }
 
-const availableMatchs = [
-  {
-    id: 999,
-    home: 'x',
-    away: 'asd',
-    matchStartTime: new Date()
-  },
-  {
-    id: 2,
-    home: 'segundo',
-    away: 'equipo3',
-    matchStartTime: new Date()
-  },
-  {
-    id: 3,
-    home: 'equipo4',
-    away: 'equipo5',
-    matchStartTime: new Date()
-  },
-  {
-    id: 4,
-    home: 'equipo6',
-    away: 'equipo7',
-    matchStartTime: new Date()
-  },
-]
-
 export default function QrScan() {
   const [match, setMatch] = useState(null);
   
@@ -92,12 +65,23 @@ function AvailableMatch({match, setMatch}) {
 function SelectMatch({setMatch}) {
   const [isLoading, setIsLoading] = useState(false);
   const [matchs, setMatchs] = useState([]);
+  const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
+  const [scanMessage, setScanMessage] = useState(null);
+  const [resultState, setResultState] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    setMatchs(availableMatchs);
-    setIsLoading(false);
-  }, [matchs]);
+    matchService.getTodayMatchs()
+      .then(response => {
+        setMatchs(response.data);     
+      })
+      .catch(_ => {
+        setScanMessage('No se pudo obtener los partidos de hoy. Por favor, refresque la pagina.')
+        setResultState('error');
+        openSnackBar(); 
+      })
+      setIsLoading(false);
+  }, [openSnackBar]);
 
   const renderAvailableGames = () => matchs.map(match => <AvailableMatch match={match} setMatch={setMatch}/>);
 
@@ -117,6 +101,13 @@ function SelectMatch({setMatch}) {
             {renderAvailableGames()}
           </div>
       }
+    <SnackBar
+      openSnackBar={isOpenSnack}
+      severityState={resultState}
+      message={scanMessage}
+      closeSnackBar={closeSnackBar}
+      position={{vertical: 'bottom', horizontal: 'right'}}
+    /> 
     </div>
   )
 }
