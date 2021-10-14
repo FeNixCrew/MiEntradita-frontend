@@ -9,9 +9,9 @@ import { formatDateAndTime } from '../../helpers/usedFunctions';
 
 export default function AvailableMatch({match, setMatch}) {
     return (
-        <div>
+        <div >
         <Grid item md={12} style={{marginTop:'2vh'}}>
-            <Card style={{ padding: 1}}>
+            <Card style={{ padding: 1, backgroundColor: '#373737'}}>
                 <CardContent style={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2" sx={{color: "#2e86c1"}}>
                         {`${match.home} vs ${match.away}`}

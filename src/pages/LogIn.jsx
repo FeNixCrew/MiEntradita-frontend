@@ -26,14 +26,15 @@ function LogIn() {
         setIsLoading(true);
         authService.login(data.username, data.password)
             .then(response => {
+                setIsLoading(false);
                 saveData(response);
                 push(response.data.role, response.data.username);
             })
             .catch((aError) => {
                 const response = aError.response;
                 setError(response.data.message);
+                setIsLoading(false);
             })
-        setIsLoading(false);
     };
 
     const resetError = () => setError('');

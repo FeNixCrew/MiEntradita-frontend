@@ -7,7 +7,7 @@ export default function QrScan() {
   const [match, setMatch] = useState(null);
   
   return(
-    <div>
+    <div style={{ backgroundColor: '#212121' }}>
       {
         match ?
           <Scanner match={match} setMatch={setMatch}/>

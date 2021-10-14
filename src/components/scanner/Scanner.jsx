@@ -11,7 +11,6 @@ import SyncIcon from '@mui/icons-material/Sync';
 import { Alert } from '..//feedback/Alert'
 import BackdropInherit from '../feedback/Backdrop';
 import SnackBar from '../feedback/SnackBar';
-import BeginningTypography from '../BeginningTypography';
 
 import { useToggle } from '../../helpers/hooks/useToggle';
 import { exit } from '../../helpers/usedFunctions';
@@ -116,7 +115,6 @@ export default function Scanner({match, setMatch}) {
           }}>
           <SyncIcon />
         </Button>
-        <BeginningTypography sx={{color: 'white', marginLeft: '1vw'}} text={`${match.home} vs ${match.away}`} variant="h5"/>
         <Grid
           sx={{
             display: 'grid',
