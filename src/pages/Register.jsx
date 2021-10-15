@@ -3,14 +3,12 @@ import { useState } from 'react';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import { ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 
 import RegisterForm from '../components/forms/register/RegisterForm';
 import BeginningTypography from '../components/BeginningTypography';
 import BeginningAvatar from '../components/BegginnigAvatar';
 import BackdropInherit from '../components/feedback/Backdrop';
-import { theme } from '../components/forms/register/styles.js'
 
 import { useToggle } from '../helpers/hooks/useToggle';
 import { saveData } from '../helpers/usedFunctions';
@@ -51,7 +49,7 @@ function Register() {
     const resetError = () => setError('');
 
     return (
-        <ThemeProvider theme={theme}>
+        <>
             <BackdropInherit open={open} />
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
@@ -68,7 +66,7 @@ function Register() {
                     <RegisterForm onSubmit={onSubmit} error={error} resetError={resetError} />
                 </Box>
             </Container>
-        </ThemeProvider>
+        </>
     );
 }
 

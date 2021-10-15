@@ -9,7 +9,7 @@ export default function Home() {
 
     const handleChildren = () => {
         const role = localStorage.role;
-        return  role === 'ROLE_ADMIN' ?
+        return role === 'ROLE_ADMIN' ?
             <Searcher />
             :
             role === 'ROLE_USER' ?

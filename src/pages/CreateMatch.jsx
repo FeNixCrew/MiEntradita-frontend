@@ -1,5 +1,4 @@
-import { ThemeProvider } from '@emotion/react';
-import { CssBaseline, Container, createTheme } from '@mui/material';
+import { CssBaseline, Container } from '@mui/material';
 
 import BackdropInherit from '../components/feedback/Backdrop';
 
@@ -15,7 +14,6 @@ function CreateMatchComponent() {
     const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
     const [severity, setSeverity] = useState();
     const [message, setMessage] = useState();
-    const theme = createTheme();
 
     const onSubmit = (data) => {
         let matchStartTime = (data.date + "T" + data.time);
@@ -37,7 +35,7 @@ function CreateMatchComponent() {
     }
 
     return (
-        <ThemeProvider theme={theme} >
+        <>
             <BackdropInherit open={open} />
             <SnackBar
                 openSnackBar={isOpenSnack}
@@ -50,10 +48,10 @@ function CreateMatchComponent() {
                 <CssBaseline />
                 <CreateMatchForm onSubmit={onSubmit} />
             </Container >
-        </ThemeProvider >
+        </>
     );
 }
 
-export default function CreateMatch() { 
-    return <BurgerMenu children={<CreateMatchComponent/>} />
+export default function CreateMatch() {
+    return <BurgerMenu children={<CreateMatchComponent />} />
 }
