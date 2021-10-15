@@ -34,7 +34,6 @@ function CreateMatchComponent() {
                 setMessage(response.data.message);
                 openSnackBar();
             })
-
     }
 
     return (

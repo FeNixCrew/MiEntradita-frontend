@@ -16,6 +16,7 @@ import { Tooltip } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 
 const drawerWidth = 240;
 
@@ -109,11 +110,23 @@ export default function BurgerMenu({children}) {
       enabled: role && role === 'ROLE_USER'
     },
     {
+      text: 'Buscar partidos',
+      icon: <SearchIcon style={{color:'white'}} />,
+      onClick: () => history.push(`/${username}/home`),
+      enabled: role && role === 'ROLE_ADMIN'
+    },
+    {
       text: 'Agregar partido',
       icon: <AddIcon style={{color:'white'}} />,
       onClick: () => history.push(`/${username}/add-match`),
       enabled: role && role === 'ROLE_ADMIN'
     },
+    {
+      text: 'Mis Entradas',
+      icon: <ConfirmationNumberIcon style={{color:'white'}} />,
+      onClick: () => history.push(`/${username}/home`),
+      enabled: role && role === 'ROLE_USER'
+    }
   ];
 
   const handleDrawerOpen = () => {
