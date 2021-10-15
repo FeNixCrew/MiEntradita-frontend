@@ -14,15 +14,15 @@ function SearchResult({ match }) {
     return (
         <div data-testid='search-item'>
         {open && <MatchDetails open={open} handleClose={handleClose} matchId={match.id} title={matchTitle} />}
-        <Grid item md={12} style={{marginTop:'2vh'}}>
+        <Grid item md={12} style={{marginTop:'2vh', padding: '2vh'}}>
             <Card style={{ padding: 1}}>
                 <CardContent style={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2" sx={{color: "#2e86c1"}}>
+                    <Typography gutterBottom variant="h5" component="h2">
                         {matchTitle}
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small" style={{color: '#2e86c1'}} onClick={handleToggle}>Detalles de partido</Button>
+                    <Button size="small" onClick={handleToggle}>Detalles de partido</Button>
                 </CardActions>
             </Card>
         </Grid>

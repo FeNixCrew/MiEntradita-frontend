@@ -11,6 +11,8 @@ import Home from './pages/Home';
 import Error from './pages/Error'
 import Search from "./pages/Search";
 import CreateMatch from "./pages/CreateMatch";
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from './style/style';
 
 import { isScanner, isLogin, isAdmin, NotFoundMessage, ServerErrorMessage } from "./helpers/usedFunctions";
 
@@ -38,10 +40,10 @@ const Routes = () => (
       <Route exact path="/">
         {
           isLogin() ?
-            (isScanner() && <Redirect to="scanner"/>) ||
-            <Redirect to={`/${localStorage.username}/home`}/>
-          :
-          <Redirect to="/login" />
+            (isScanner() && <Redirect to="scanner" />) ||
+            <Redirect to={`/${localStorage.username}/home`} />
+            :
+            <Redirect to="/login" />
         }
       </Route>
       <PrivateRoute component={Home} path="/:username/home" isAuth={isLogin} />
@@ -51,12 +53,16 @@ const Routes = () => (
       <PrivateRoute component={Search} path="/:username/search" isAuth={() => isAdmin() || isLogin()} />
       <Route path="/login" component={LogIn} />
       <Route path="/register" component={Register} />
-      <ErrorRoute statusCode={503} errorMessage={ServerErrorMessage} path="/error"/>
-      <ErrorRoute statusCode={404} errorMessage={NotFoundMessage} path="*"/>
+      <ErrorRoute statusCode={503} errorMessage={ServerErrorMessage} path="/error" />
+      <ErrorRoute statusCode={404} errorMessage={NotFoundMessage} path="*" />
     </Switch>
   </Router>
 );
 
 export default function App() {
-  return (<Routes />);
+  return (
+    <ThemeProvider theme={theme}>
+      <Routes />
+    </ThemeProvider>
+  );
 }

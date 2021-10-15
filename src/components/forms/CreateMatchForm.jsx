@@ -138,7 +138,7 @@ function CreateMatchForm({ onSubmit }) {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                style={{ marginTop: 3, marginBottom: 2, maxWidth: '50%', backgroundColor: '#2e86c1' }}
+                                style={{ marginTop: 3, marginBottom: 2, maxWidth: '50%' }}
                             >
                                 <AddIcon style={{ marginRight: '1vw' }} /> Crear partido
                             </Button>

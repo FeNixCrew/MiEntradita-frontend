@@ -3,11 +3,9 @@ import { useHistory } from 'react-router';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import { ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 
-import { theme } from '../components/forms/login/styles';
 import LoginForm from '../components/forms/login/LoginForm';
 import BackdropInherit from '../components/feedback/Backdrop';
 import BeginningTypography from '../components/BeginningTypography';
@@ -51,7 +49,7 @@ function LogIn() {
     }
 
     return (
-        <ThemeProvider theme={theme}>
+        <>
             <BackdropInherit open={isLoading} />
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
@@ -86,7 +84,7 @@ function LogIn() {
                     </Box>
                 </Grid>
             </Grid>
-        </ThemeProvider>
+        </>
     );
 }
 

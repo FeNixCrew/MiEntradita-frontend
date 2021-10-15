@@ -41,9 +41,6 @@ export default function SelectMatch({ setMatch }) {
   return (
     <>
       <Button
-        style={{
-          color: '#2e86c1'
-        }}
         onClick={() => exit(history)}
         sx={{
           mt: '1vh'
@@ -62,11 +59,8 @@ export default function SelectMatch({ setMatch }) {
           <BackdropInherit open={isLoading} />
           : matchs.length === 0 ?
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <h2 style={{ color: '#EEEEEE' }}>No hay partidos disponibles, inténtelo más tarde</h2>
+              <h2>No hay partidos disponibles, inténtelo más tarde</h2>
               <Button
-                style={{
-                  color: '#2e86c1'
-                }}
                 onClick={() => exit(history)}
                 sx={{
                   mt: '1vh'
