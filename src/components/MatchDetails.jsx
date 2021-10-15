@@ -1,13 +1,9 @@
-import * as React from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import matchService from '../services/MatchService.js';
-import { formatDateAndTime } from '../helpers/usedFunctions';
+import { useEffect, useState } from 'react';
 import { Box } from '@material-ui/core';
 import Typography from '@mui/material/Typography';
 import DateRangeIcon from '@mui/icons-material/DateRange';
@@ -18,6 +14,8 @@ import Button from '@mui/material/Button';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SnackBar from '../components/feedback/SnackBar';
 import { useToggle } from '../helpers/hooks/useToggle'
+import matchService from '../services/MatchService.js';
+import { formatDateAndTime } from '../helpers/usedFunctions';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuDialogContent-root': {
@@ -67,12 +65,7 @@ export default function MatchDetails({ open, handleClose, matchId, title }) {
   useEffect(() => {
     matchService.getMatchDetails(matchId)
       .then((response) => {
-        console.log(response.data);
-        if (response.status >= 200 && response.status < 300) {
-          setMatchDetails(response.data);
-        } else {
-          console.log("Error status code:" + response.status);
-        }
+        setMatchDetails(response.data);
       })
       .catch((_) => {
         setError('Hubo un problema al obtener los detalles. Intente de nuevo.');

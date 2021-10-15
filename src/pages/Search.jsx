@@ -31,6 +31,7 @@ function Searcher() {
                 .catch(_ => {
                     setError('Error al buscar. Intente de nuevo.');
                     openSnackBar();
+                    setIsLoading(false);
                 })
         } else {
             setMatchs(null);

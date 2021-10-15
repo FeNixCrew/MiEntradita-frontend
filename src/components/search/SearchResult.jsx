@@ -13,7 +13,7 @@ function SearchResult({ match }) {
 
     return (
         <div data-testid='search-item'>
-        <MatchDetails open={open} handleClose={handleClose} matchId={match.id} title={matchTitle} />
+        {open && <MatchDetails open={open} handleClose={handleClose} matchId={match.id} title={matchTitle} />}
         <Grid item md={12} style={{marginTop:'2vh'}}>
             <Card style={{ padding: 1}}>
                 <CardContent style={{ flexGrow: 1 }}>

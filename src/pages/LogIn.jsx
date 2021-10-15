@@ -14,27 +14,26 @@ import BeginningTypography from '../components/BeginningTypography';
 import BeginningAvatar from '../components/BegginnigAvatar';
 
 import authService from '../services/AuthService';
-import { useToggle } from '../helpers/hooks/useToggle';
 import { saveData } from '../helpers/usedFunctions';
 import Background from '../assets/background.png';
 
 function LogIn() {
-    const [open, handleClose, handleToggle] = useToggle();
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const history = useHistory();
 
     const onSubmit = data => {
-        handleToggle();
+        setIsLoading(true);
         authService.login(data.username, data.password)
             .then(response => {
+                setIsLoading(false);
                 saveData(response);
-                handleClose();
                 push(response.data.role, response.data.username);
             })
             .catch((aError) => {
                 const response = aError.response;
                 setError(response.data.message);
-                handleClose();
+                setIsLoading(false);
             })
     };
 
@@ -53,7 +52,7 @@ function LogIn() {
 
     return (
         <ThemeProvider theme={theme}>
-            <BackdropInherit open={open} />
+            <BackdropInherit open={isLoading} />
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
                 <Grid
