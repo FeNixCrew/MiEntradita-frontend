@@ -19,12 +19,10 @@ function CreateMatchForm({ onSubmit }) {
             price: 500,
             home: '',
             away: '',
-            stadium: ''
         }
     });
     const [teams, setTeams] = useState(null);
 
-    register('stadium', { required: true });
     register('time', { required: true });
     register('date', { required: true });
     register('price', { required: true, min: 500 });
@@ -102,15 +100,6 @@ function CreateMatchForm({ onSubmit }) {
                                     rules={{ required: true }}
                                 />
                             </Grid>
-                            <GridItem
-                                register={register}
-                                showError={showError('stadium')}
-                                helperText={getError('stadium', 'Estadio')}
-                                name="stadium"
-                                id="stadium-id"
-                                label="Estadio Local"
-                                xs={12}
-                            />
                             <GridItem
                                 register={register}
                                 showError={showError('date')}

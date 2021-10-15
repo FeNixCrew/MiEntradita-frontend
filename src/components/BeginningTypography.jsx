@@ -1,9 +1,10 @@
 import Typography from '@mui/material/Typography';
 
 
-function BeginningTypography({ text, sx, component, variant }) {
+function BeginningTypography({ text, sx, component, variant, className }) {
     return (
         <Typography
+            className={className || ''}
             component={ component || "h1"}
             variant={variant || "h6"}
             style={{
