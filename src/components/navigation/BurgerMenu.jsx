@@ -16,7 +16,8 @@ import { Tooltip } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
-import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
+import AddModeratorIcon from '@mui/icons-material/AddModerator';
+import HomeIcon from '@mui/icons-material/Home';
 
 const drawerWidth = 240;
 
@@ -54,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerOpen: {
     width: drawerWidth,
-    backgroundColor: '#2e86c1',
+    backgroundColor: '#373737',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   drawerClose: {
-    backgroundColor: '#2e86c1',
+    backgroundColor: '#373737',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -104,14 +105,20 @@ export default function BurgerMenu({children}) {
 
   const drawerItems = [
     {
+      text: 'Inicio',
+      icon: <HomeIcon style={{color:'white'}} />,
+      onClick: () => history.push(`/${username}/home`),
+      enabled: role && role === 'ROLE_USER'
+    },
+    {
       text: 'Buscar partidos',
       icon: <SearchIcon style={{color:'white'}} />,
       onClick: () => history.push(`/${username}/search`),
       enabled: role && role === 'ROLE_USER'
     },
     {
-      text: 'Buscar partidos',
-      icon: <SearchIcon style={{color:'white'}} />,
+      text: 'Inicio',
+      icon: <HomeIcon style={{color:'white'}} />,
       onClick: () => history.push(`/${username}/home`),
       enabled: role && role === 'ROLE_ADMIN'
     },
@@ -122,10 +129,10 @@ export default function BurgerMenu({children}) {
       enabled: role && role === 'ROLE_ADMIN'
     },
     {
-      text: 'Mis Entradas',
-      icon: <ConfirmationNumberIcon style={{color:'white'}} />,
-      onClick: () => history.push(`/${username}/home`),
-      enabled: role && role === 'ROLE_USER'
+      text: 'Agregar equipo',
+      icon: <AddModeratorIcon style={{color:'white'}} />,
+      onClick: () => history.push(`/${username}/add-team`),
+      enabled: role && role === 'ROLE_ADMIN'
     }
   ];
 

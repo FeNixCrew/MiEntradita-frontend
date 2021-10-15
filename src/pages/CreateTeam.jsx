@@ -6,25 +6,25 @@ import BackdropInherit from '../components/feedback/Backdrop';
 import { useToggle } from '../helpers/hooks/useToggle';
 import SnackBar from '../components/feedback/SnackBar';
 import { useState } from 'react';
-import CreateMatchForm from '../components/forms/CreateMatchForm';
-import matchService from '../services/MatchService';
 import BurgerMenu from '../components/navigation/BurgerMenu';
+import CreateTeamForm from '../components/forms/CreateTeamForm';
+import teamService from '../services/TeamService';
 
-function CreateMatchComponent() {
-    const [open, handleClose, handleToggle] = useToggle();
+
+function CreateTeamComponent() {
     const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
+    const [open, handleClose, handleToggle] = useToggle();
     const [severity, setSeverity] = useState();
     const [message, setMessage] = useState();
     const theme = createTheme();
 
     const onSubmit = (data) => {
-        let matchStartTime = (data.date + "T" + data.time);
         handleToggle();
-        matchService.create(data.home, data.away, parseInt(data.price), matchStartTime)
+        teamService.create(data.name, data.knowName, data.stadium)
             .then(_ => {
                 handleClose();
                 setSeverity("success");
-                setMessage("Partido creado exitosamente");
+                setMessage("Equipo creado exitosamente");
                 openSnackBar();
             })
             .catch(error => {
@@ -48,12 +48,14 @@ function CreateMatchComponent() {
             />
             <Container component="main" maxWidth="md">
                 <CssBaseline />
-                <CreateMatchForm onSubmit={onSubmit} />
+                <CreateTeamForm onSubmit={onSubmit} />
             </Container >
         </ThemeProvider >
-    );
+    )
+
+
 }
 
-export default function CreateMatch() { 
-    return <BurgerMenu children={<CreateMatchComponent/>} />
+export default function CreateTeam() { 
+    return <BurgerMenu children={<CreateTeamComponent/>} />
 }

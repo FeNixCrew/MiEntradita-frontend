@@ -11,7 +11,7 @@ import ControlledAutocomplete from './ControlledAutocomplete';
 
 function CreateMatchForm({ onSubmit }) {
     const today = new Date();
-    const nextWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7, today.getHours(), today.getMinutes());
+    const nextWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7, today.getHours(), today.getMinutes());
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         defaultValues: {
             date: (nextWeek.toJSON().split("T")[0]),
@@ -24,7 +24,6 @@ function CreateMatchForm({ onSubmit }) {
     });
     const [teams, setTeams] = useState(null);
 
-    register('stadium', { required: true });
     register('time', { required: true });
     register('date', { required: true });
     register('price', { required: true, min: 500 });
@@ -49,6 +48,7 @@ function CreateMatchForm({ onSubmit }) {
 
     return (
         <>
+            <div style={{ paddingTop: '3vh' }} />
             {teams !== null ?
                 <>
                     <BeginningTypography text="Agregar partido" />
@@ -102,15 +102,6 @@ function CreateMatchForm({ onSubmit }) {
                                     rules={{ required: true }}
                                 />
                             </Grid>
-                            <GridItem
-                                register={register}
-                                showError={showError('stadium')}
-                                helperText={getError('stadium', 'Estadio')}
-                                name="stadium"
-                                id="stadium-id"
-                                label="Estadio Local"
-                                xs={12}
-                            />
                             <GridItem
                                 register={register}
                                 showError={showError('date')}
