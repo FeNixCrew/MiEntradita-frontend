@@ -27,7 +27,15 @@ describe('<App/> renderizando <LogIn/>', () => {
 
 test('Se puede enviar el formulario llenando los campos', () => {
   const loginCall = jest.spyOn(authService, 'login');
-  loginCall.mockImplementation(() => Promise.resolve({}));
+  const error = {
+          response: {
+            status: 400,
+            data: {
+                message: 'ocurrio algo malo',
+            }
+          }
+  };
+  loginCall.mockImplementation(() => Promise.reject(error));
   const { getByTestId } = render(<App/>);
   const usernameInput = getByTestId('username');
   const passwordInput = getByTestId('password');
