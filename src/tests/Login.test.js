@@ -1,11 +1,11 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import LoginForm from '../components/forms/login/LoginForm';
 import LogIn from '../pages/LogIn';
 
 describe('Inicio de la aplicacion', () => {
   test('La pagina de login posee una bienvenida', () => {
-    render(<LogIn />);
-    expect(screen.getByText(/bienvenido/i)).toBeInTheDocument();
+    const { getByTestId } = render(<LogIn />);
+    expect(getByTestId('welcome')).toBeInTheDocument();
   });
 
   test('Si se recibe un error, este es mostrado', () => {

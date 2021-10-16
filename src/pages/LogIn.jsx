@@ -5,10 +5,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import { Typography } from '@mui/material';
 
 import LoginForm from '../components/forms/login/LoginForm';
 import BackdropInherit from '../components/feedback/Backdrop';
-import BeginningTypography from '../components/BeginningTypography';
 import BeginningAvatar from '../components/BegginnigAvatar';
 
 import authService from '../services/AuthService';
@@ -78,7 +78,17 @@ function LogIn() {
                         }}
                     >
                         <BeginningAvatar />
-                        <BeginningTypography text="Bienvenido!" />
+                        <Typography
+                            component='h1'
+                            variant='h6'
+                            style={{
+                                fontStyle: 'bold',
+                                fontFamily: 'Monospace',
+                            }}
+                            data-testid='welcome'
+                        >
+                            Bienvenido!
+                        </Typography>
                         <LoginForm onSubmit={onSubmit} resetError={resetError} error={error} />
 
                     </Box>

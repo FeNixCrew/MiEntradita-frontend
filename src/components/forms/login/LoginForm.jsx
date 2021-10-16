@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 
 function LoginForm({ onSubmit, error, resetError }) {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, getValues, formState: { errors } } = useForm();
     const username = register('username', { required: true });
     const password = register('password', { required: true });
 
@@ -68,8 +68,11 @@ function LoginForm({ onSubmit, error, resetError }) {
                 }}
                 type="submit"
                 fullWidth
-                data-testid='login'
-                onClick={onSubmit}
+                data-testid='login-button'
+                onClick={() => {
+                    const { username, password } = getValues();
+                    if (username && password) onSubmit({username, password});
+                }}
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
             >
