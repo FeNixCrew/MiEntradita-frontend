@@ -5,7 +5,7 @@ import { act } from 'react-dom/test-utils';
 import authService from '../services/AuthService';
 import userEvent from '@testing-library/user-event';
 
-describe('Inicio de la aplicacion', () => {
+describe('<App/> renderizando <LogIn/>', () => {
   test('Al iniciar la aplicacion te dirige al /login', () => {
     render(<App />);
     expect(window.location.pathname).toEqual('/login');
@@ -13,10 +13,9 @@ describe('Inicio de la aplicacion', () => {
 
   test('No se envia el formulario de login si no se llenan todos los campos', () => {
     const loginCall = jest.fn();
-
-    loginCall.mockImplementation(() => Promise.reject(error));
     const { getByTestId } = render(<App/>);
     const usernameInput = getByTestId('username');
+
     act(() => {
       userEvent.type(usernameInput , 'usuario');
       fireEvent.click(getByTestId('login-button'));
@@ -45,7 +44,7 @@ test('Se puede enviar el formulario llenando los campos', () => {
 });
 
 
-test('recibir un error al enviar el formulario', () => {
+test('Se renderiza un error cuando sale algo mal al validar el usuario', () => {
   const loginCall = jest.spyOn(authService, 'login');
   const error = {
           response: {
