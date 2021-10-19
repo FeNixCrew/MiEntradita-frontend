@@ -15,6 +15,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './style/style';
 
 import { isScanner, isLogin, isAdmin, NotFoundMessage, ServerErrorMessage } from "./helpers/usedFunctions";
+import CreateTeam from "./pages/CreateTeam";
 
 const PrivateRoute = ({ isAuth, component: Component, ...rest }) => {
   return (
@@ -50,6 +51,7 @@ const Routes = () => (
       <PrivateRoute component={QrScan} path="/scanner" isAuth={isScanner} />
       <PrivateRoute component={Home} path="/admin/home" isAuth={isAdmin} />
       <PrivateRoute component={CreateMatch} path="/admin/add-match" isAuth={isAdmin} />
+      <PrivateRoute component={CreateTeam} path="/admin/add-team" isAuth={isAdmin} />
       <PrivateRoute component={Search} path="/:username/search" isAuth={() => isAdmin() || isLogin()} />
       <Route path="/login" component={LogIn} />
       <Route path="/register" component={Register} />

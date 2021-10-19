@@ -17,6 +17,7 @@ import { useHistory } from 'react-router';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import HomeIcon from '@mui/icons-material/Home';
+import AddModeratorIcon from '@mui/icons-material/AddModerator';
 
 const drawerWidth = 240;
 
@@ -114,7 +115,7 @@ export default function BurgerMenu({ children }) {
   const drawerItems = [
     {
       text: 'Inicio',
-      icon: <HomeIcon style={{ color: 'white' }} />,
+      icon: <HomeIcon style={{color:'white'}} />,
       onClick: () => history.push(`/${username}/home`),
       enabled: role && role === 'ROLE_USER'
     },
@@ -134,6 +135,12 @@ export default function BurgerMenu({ children }) {
       text: 'Agregar partido',
       icon: <AddIcon style={{ color: 'white' }} />,
       onClick: () => history.push(`/${username}/add-match`),
+      enabled: role && role === 'ROLE_ADMIN'
+    },
+    {
+      text: 'Agregar equipo',
+      icon: <AddModeratorIcon style={{color:'white'}} />,
+      onClick: () => history.push(`/${username}/add-team`),
       enabled: role && role === 'ROLE_ADMIN'
     }
   ];
