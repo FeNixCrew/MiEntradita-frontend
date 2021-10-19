@@ -106,7 +106,7 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
         </DialogContent>
         <DialogActions>
           {isUser() && <Button autoFocus onClick={() => reserveTicket(matchId)} disabled={available}>
-            Reservar Ticket
+            Reservar Entrada
           </Button>
           }
           <Button autoFocus onClick={handleClose}>
