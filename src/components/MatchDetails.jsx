@@ -16,6 +16,9 @@ import SnackBar from '../components/feedback/SnackBar';
 import { useToggle } from '../helpers/hooks/useToggle'
 import matchService from '../services/MatchService.js';
 import { formatDateAndTime } from '../helpers/usedFunctions';
+import { isUser } from "../helpers/usedFunctions";
+import spectatorService from '../services/SpectatorService';
+
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuDialogContent-root': {
@@ -57,21 +60,29 @@ function MatchDetailsContent({ matchDetails }) {
 
 }
 
-export default function MatchDetails({ open, handleClose, matchId, title }) {
+export default function MatchDetails({ open, handleClose, matchId, title, reserveTicket, isAvailable }) {
   const [matchDetails, setMatchDetails] = useState(undefined);
   const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
   const [error, setError] = useState(null);
+  const [available, setAvailable] = useState(true);
 
   useEffect(() => {
     matchService.getMatchDetails(matchId)
       .then((response) => {
         setMatchDetails(response.data);
+        return spectatorService.pendingTickets();
+      })
+      .then((response) => {
+        return response.data.some((ticket) => ticket.matchId === matchId)
+      }).then((isAvailable) => {
+        setAvailable(isAvailable);
       })
       .catch((_) => {
         setError('Hubo un problema al obtener los detalles. Intente de nuevo.');
         openSnackBar();
       })
-  }, [matchId, openSnackBar]);
+  }, [matchId, openSnackBar, setAvailable]);
+
 
   return (
     <div>
@@ -94,6 +105,10 @@ export default function MatchDetails({ open, handleClose, matchId, title }) {
           {matchDetails && <MatchDetailsContent matchDetails={matchDetails} />}
         </DialogContent>
         <DialogActions>
+          {isUser() && <Button autoFocus onClick={() => reserveTicket(matchId)} disabled={available}>
+            Reservar Ticket
+          </Button>
+          }
           <Button autoFocus onClick={handleClose}>
             Volver
           </Button>
