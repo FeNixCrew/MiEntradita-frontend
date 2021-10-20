@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
 import matchService from '../services/MatchService';
-import MatchDetails from '../components/MatchDetails';
+import MatchDetails from '../components/details/MatchDetails.jsx';
 
 describe('Detalles de partido', () => {
 
