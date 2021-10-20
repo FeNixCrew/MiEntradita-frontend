@@ -1,6 +1,5 @@
 import AbstractService from "./AbstractService";
 
-
 class TeamService extends AbstractService{
     constructor(){
         super('/team')
@@ -16,6 +15,12 @@ class TeamService extends AbstractService{
     async teams() {
         const endpoint = '/all'
         return this.axios.get(this.path + endpoint);
+    }
+
+    async details(teamName) {
+        const endpoint = '/details';
+        const params = new URLSearchParams([['teamName', teamName]]);
+        return this.axios.get(this.path + endpoint, params);
     }
 
 }

@@ -1,7 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Button, Grid, Paper, InputLabel } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import GridItem from '../GridItem';
+import GridItem from '../layout/GridItem';
 import BeginningTypography from "../BeginningTypography";
 import teamService from '../../services/TeamService';
 import { useEffect, useState } from 'react';
