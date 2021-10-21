@@ -44,17 +44,16 @@ function SearchResult({ match }) {
     const matchTitle = `${match.home} vs ${match.away}`
 
     useEffect(() => {
-        if (isUser()) getReserved(spectatorService.pendingTickets())
+        if (isUser()) {
+            spectatorService.pendingTickets()
+                .then((response) => {
+                    return response.data.some((ticket) => ticket.matchId === match.id)
+                }).then((isAvailable) => {
+                    setReserved(isAvailable);
+                })
+        }
     }, [match])
 
-    const getReserved = (promise) => {
-        return promise
-            .then((response) => {
-                return response.data.some((ticket) => ticket.matchId === match.id)
-            }).then((isAvailable) => {
-                setReserved(isAvailable);
-            })
-    }
 
     const handleOpenTeamDetails = (team) => {
         setTeam(team);
