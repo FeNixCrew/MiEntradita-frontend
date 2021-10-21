@@ -6,45 +6,36 @@ import SnackBar from '../feedback/SnackBar';
 import { useToggle } from '../../helpers/hooks/useToggle'
 import matchService from '../../services/MatchService.js';
 import { isUser } from "../../helpers/usedFunctions";
-import spectatorService from '../../services/SpectatorService';
 import { BootstrapDialog } from './modal/BoostrapDialog';
 import { BootstrapDialogTitle } from './modal/BoostrapDialogTitle';
 import MatchDetailsContent from './MatchDetailsConten';
 import Confirmation from '../Confirmation';
 
-export default function MatchDetails({ open, handleClose, matchId, title, reserveTicket }) {
+export default function MatchDetails({ open, handleClose, matchId, title, reserveTicket, isAvailable }) {
   const [matchDetails, setMatchDetails] = useState(undefined);
   const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
   const [isOpen, closeConfirmation, openConfirmation] = useToggle();
   const [error, setError] = useState(null);
-  const [available, setAvailable] = useState(true);
 
   useEffect(() => {
     matchService.getMatchDetails(matchId)
       .then((response) => {
         setMatchDetails(response.data);
-        return spectatorService.pendingTickets();
-      })
-      .then((response) => {
-        return response.data.some((ticket) => ticket.matchId === matchId)
-      }).then((isAvailable) => {
-        setAvailable(isAvailable);
       })
       .catch((_) => {
         setError('Hubo un problema al obtener los detalles. Intente de nuevo.');
         openSnackBar();
       })
-  }, [matchId, openSnackBar, setAvailable]);
+  }, [matchId, openSnackBar]);
 
   const confirm = () => {
     closeConfirmation();
     reserveTicket(matchId);
   }
 
-
   return (
     <div>
-      <Confirmation open={isOpen} handleClose={closeConfirmation} confirm={confirm} title={title}/> 
+      <Confirmation open={isOpen} handleClose={closeConfirmation} confirm={confirm} title={title} />
       <SnackBar
         openSnackBar={isOpenSnack}
         severityState="error"
@@ -64,7 +55,7 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
           {matchDetails && <MatchDetailsContent matchDetails={matchDetails} />}
         </DialogContent>
         <DialogActions>
-          {isUser() && <Button autoFocus onClick={openConfirmation} disabled={available}>
+          {isUser() && <Button autoFocus onClick={openConfirmation} disabled={isAvailable}>
             Reservar Entrada
           </Button>
           }

@@ -11,14 +11,16 @@ import spectatorService from '../../services/SpectatorService';
 import SnackBar from '../feedback/SnackBar';
 import { makeStyles } from '@material-ui/core';
 import TeamDetails from '../details/TeamDetails';
+import { isUser } from "../../helpers/usedFunctions";
+
 
 const useStyle = makeStyles((theme) => ({
     root: {
-        marginTop: '2vh', 
+        marginTop: '2vh',
         padding: '2vh'
     },
     reserved: {
-        color: 'grey', 
+        color: 'grey',
         fontStyle: 'italic'
     },
     clickeable: {
@@ -42,13 +44,17 @@ function SearchResult({ match }) {
     const matchTitle = `${match.home} vs ${match.away}`
 
     useEffect(() => {
-        spectatorService.pendingTickets()
-        .then((response) => {
-            return response.data.some((ticket) => ticket.matchId === match.id)
-          }).then((isAvailable) => {
-            setReserved(isAvailable);
-          })
-    })
+        if (isUser()) getReserved(spectatorService.pendingTickets())
+    }, [match])
+
+    const getReserved = (promise) => {
+        return promise
+            .then((response) => {
+                return response.data.some((ticket) => ticket.matchId === match.id)
+            }).then((isAvailable) => {
+                setReserved(isAvailable);
+            })
+    }
 
     const handleOpenTeamDetails = (team) => {
         setTeam(team);
@@ -86,8 +92,8 @@ function SearchResult({ match }) {
                 closeSnackBar={closeSnackBar}
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
-            {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket}/>}
-            {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={team}/>}
+            {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} />}
+            {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={team} />}
             <Grid item md={12} className={classes.root}>
                 <Card style={{ padding: 1 }}>
                     <CardContent style={{ flexGrow: 1 }}>
@@ -96,7 +102,7 @@ function SearchResult({ match }) {
                         </Typography>
                         {reserved && <Typography gutterBottom variant="div" component="p" className={classes.reserved}>
                             Reservado
-                        </Typography> }
+                        </Typography>}
                     </CardContent>
                     <CardActions>
                         <Button size="small" onClick={handleToggleMDetails}>Detalles de partido</Button>
