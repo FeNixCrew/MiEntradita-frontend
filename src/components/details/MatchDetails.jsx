@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import SnackBar from '../feedback/SnackBar';
 import { useToggle } from '../../helpers/hooks/useToggle'
 import matchService from '../../services/MatchService.js';
-import { isUser } from "../../helpers/usedFunctions";
 import { BootstrapDialog } from './modal/BoostrapDialog';
 import { BootstrapDialogTitle } from './modal/BoostrapDialogTitle';
 import MatchDetailsContent from './MatchDetailsConten';
@@ -55,7 +54,7 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
           {matchDetails && <MatchDetailsContent matchDetails={matchDetails} />}
         </DialogContent>
         <DialogActions>
-          {isUser() && <Button autoFocus onClick={openConfirmation} disabled={isAvailable}>
+          {isAvailable !== null && <Button autoFocus onClick={openConfirmation} disabled={isAvailable}>
             Reservar Entrada
           </Button>
           }

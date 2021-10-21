@@ -11,8 +11,6 @@ import spectatorService from '../../services/SpectatorService';
 import SnackBar from '../feedback/SnackBar';
 import { makeStyles } from '@material-ui/core';
 import TeamDetails from '../details/TeamDetails';
-import { isUser } from "../../helpers/usedFunctions";
-
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -38,22 +36,14 @@ function SearchResult({ match }) {
     const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
     const [severity, setSeverity] = useState(null);
     const [message, setMessage] = useState(null);
-    const [reserved, setReserved] = useState(false);
+    const [reserved, setReserved] = useState(match.isReserved);
     const classes = useStyle();
     const [team, setTeam] = useState('');
-    const matchTitle = `${match.home} vs ${match.away}`
+    const matchTitle = `${match.home} vs ${match.away}`;
 
     useEffect(() => {
-        if (isUser()) {
-            spectatorService.pendingTickets()
-                .then((response) => {
-                    return response.data.some((ticket) => ticket.matchId === match.id)
-                }).then((isAvailable) => {
-                    setReserved(isAvailable);
-                })
-        }
-    }, [match])
-
+        setReserved(match.isReserved);
+    }, [match.isReserved])
 
     const handleOpenTeamDetails = (team) => {
         setTeam(team);
@@ -68,6 +58,7 @@ function SearchResult({ match }) {
         spectatorService.reserveTicket(matchId)
             .then((_) => {
                 handleCloseMDetails();
+                match.isReserved = true;
                 setReserved(true);
                 setSeverity("success");
                 setMessage("Entrada reservada");
