@@ -10,10 +10,12 @@ import spectatorService from '../../services/SpectatorService';
 import { BootstrapDialog } from './modal/BoostrapDialog';
 import { BootstrapDialogTitle } from './modal/BoostrapDialogTitle';
 import MatchDetailsContent from './MatchDetailsConten';
+import Confirmation from '../Confirmation';
 
 export default function MatchDetails({ open, handleClose, matchId, title, reserveTicket }) {
   const [matchDetails, setMatchDetails] = useState(undefined);
   const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
+  const [isOpen, closeConfirmation, openConfirmation] = useToggle();
   const [error, setError] = useState(null);
   const [available, setAvailable] = useState(true);
 
@@ -34,9 +36,15 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
       })
   }, [matchId, openSnackBar, setAvailable]);
 
+  const confirm = () => {
+    closeConfirmation();
+    reserveTicket(matchId);
+  }
+
 
   return (
     <div>
+      <Confirmation open={isOpen} handleClose={closeConfirmation} confirm={confirm} title={title}/> 
       <SnackBar
         openSnackBar={isOpenSnack}
         severityState="error"
@@ -56,7 +64,7 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
           {matchDetails && <MatchDetailsContent matchDetails={matchDetails} />}
         </DialogContent>
         <DialogActions>
-          {isUser() && <Button autoFocus onClick={() => reserveTicket(matchId)} disabled={available}>
+          {isUser() && <Button autoFocus onClick={openConfirmation} disabled={available}>
             Reservar Entrada
           </Button>
           }
