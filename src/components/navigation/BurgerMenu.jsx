@@ -16,12 +16,23 @@ import { Tooltip } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
+import HomeIcon from '@mui/icons-material/Home';
+import AddModeratorIcon from '@mui/icons-material/AddModerator';
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+  },
+  logo: {
+    hover: {
+      color: '#0056b3',
+      fontWeight: 'bolder',
+      '& $icon': {
+        color: theme.palette.primary.main,
+      }
+    }
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -53,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerOpen: {
     width: drawerWidth,
-    backgroundColor: '#2e86c1',
+    backgroundColor: '#373737',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -63,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   drawerClose: {
-    backgroundColor: '#2e86c1',
+    backgroundColor: '#373737',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -93,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BurgerMenu({children}) {
+export default function BurgerMenu({ children }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -103,17 +114,35 @@ export default function BurgerMenu({children}) {
 
   const drawerItems = [
     {
+      text: 'Inicio',
+      icon: <HomeIcon style={{color:'white'}} />,
+      onClick: () => history.push(`/${username}/home`),
+      enabled: role && role === 'ROLE_USER'
+    },
+    {
+      text: 'Inicio',
+      icon: <HomeIcon style={{ color: 'white' }} />,
+      onClick: () => history.push(`/${username}/home`),
+      enabled: role && role === 'ROLE_ADMIN'
+    },
+    {
       text: 'Buscar partidos',
-      icon: <SearchIcon style={{color:'white'}} />,
+      icon: <SearchIcon style={{ color: 'white' }} />,
       onClick: () => history.push(`/${username}/search`),
       enabled: role && role === 'ROLE_USER'
     },
     {
       text: 'Agregar partido',
-      icon: <AddIcon style={{color:'white'}} />,
+      icon: <AddIcon style={{ color: 'white' }} />,
       onClick: () => history.push(`/${username}/add-match`),
       enabled: role && role === 'ROLE_ADMIN'
     },
+    {
+      text: 'Agregar equipo',
+      icon: <AddModeratorIcon style={{color:'white'}} />,
+      onClick: () => history.push(`/${username}/add-team`),
+      enabled: role && role === 'ROLE_ADMIN'
+    }
   ];
 
   const handleDrawerOpen = () => {
@@ -143,23 +172,23 @@ export default function BurgerMenu({children}) {
       >
         <div className={classes.toolbar}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon style={{color:'white'}} /> : <ChevronLeftIcon style={{color:'white'}}/>}
+            {theme.direction === 'rtl' ? <ChevronRightIcon style={{ color: 'white' }} /> : <ChevronLeftIcon style={{ color: 'white' }} />}
           </IconButton>
         </div>
         <Divider />
         <List>
           {drawerItems.map((item) => (
-            item.enabled && 
-              <Tooltip key={item.text} title={item.text} placement="right" disableHoverListener={open}>
-                <ListItem 
-                  button
-                  key={item.text} 
-                  onClick={item.onClick}
-                >
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText style={{color:'white'}} primary={item.text} />
-                </ListItem>
-              </Tooltip>
+            item.enabled &&
+            <Tooltip key={item.text} title={item.text} placement="right" disableHoverListener={open}>
+              <ListItem
+                button
+                key={item.text}
+                onClick={item.onClick}
+              >
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText style={{ color: 'white' }} primary={item.text} />
+              </ListItem>
+            </Tooltip>
           ))}
         </List>
       </Drawer>

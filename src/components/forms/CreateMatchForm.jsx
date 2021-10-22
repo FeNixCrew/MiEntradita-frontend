@@ -1,9 +1,9 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Button, Grid, Paper, InputLabel } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import GridItem from '../GridItem';
+import GridItem from '../layout/GridItem';
 import BeginningTypography from "../BeginningTypography";
-import matchService from '../../services/MatchService';
+import teamService from '../../services/TeamService';
 import { useEffect, useState } from 'react';
 import BackdropInherit from '../feedback/Backdrop';
 import TextField from '@mui/material/TextField';
@@ -11,7 +11,7 @@ import ControlledAutocomplete from './ControlledAutocomplete';
 
 function CreateMatchForm({ onSubmit }) {
     const today = new Date();
-    const nextWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate()+7, today.getHours(), today.getMinutes());
+    const nextWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7, today.getHours(), today.getMinutes());
     const { register, handleSubmit, control, formState: { errors } } = useForm({
         defaultValues: {
             date: (nextWeek.toJSON().split("T")[0]),
@@ -19,18 +19,16 @@ function CreateMatchForm({ onSubmit }) {
             price: 500,
             home: '',
             away: '',
-            stadium: ''
         }
     });
     const [teams, setTeams] = useState(null);
 
-    register('stadium', { required: true });
     register('time', { required: true });
     register('date', { required: true });
     register('price', { required: true, min: 500 });
 
     useEffect(() => {
-        matchService.teams()
+        teamService.teams()
             .then((response) => setTeams(response.data))
             .catch((error) => console.log(error.response));
     }, []);
@@ -49,9 +47,10 @@ function CreateMatchForm({ onSubmit }) {
 
     return (
         <>
+            <div style={{ paddingTop: '3vh' }} />
             {teams !== null ?
                 <>
-                    <BeginningTypography text="Agregar partido" />
+                    <BeginningTypography text="Nuevo partido" />
                     <Paper
                         component="form"
                         noValidate
@@ -102,15 +101,6 @@ function CreateMatchForm({ onSubmit }) {
                                     rules={{ required: true }}
                                 />
                             </Grid>
-                            <GridItem
-                                register={register}
-                                showError={showError('stadium')}
-                                helperText={getError('stadium', 'Estadio')}
-                                name="stadium"
-                                id="stadium-id"
-                                label="Estadio Local"
-                                xs={12}
-                            />
                             <GridItem
                                 register={register}
                                 showError={showError('date')}

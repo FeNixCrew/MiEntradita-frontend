@@ -16,7 +16,7 @@ function SearchResults({ results }) {
                     {renderResult()}
                 </div>
                 :
-                <BeginningTypography text='no se han encontrado partidos :(' />
+                <BeginningTypography text='No se han encontrado partidos :(' />
             }
         </Grid>
     );

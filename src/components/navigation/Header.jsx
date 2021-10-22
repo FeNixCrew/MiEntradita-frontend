@@ -6,14 +6,14 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useHistory } from "react-router";
 import { exit } from "../../helpers/usedFunctions";
-import { Typography } from "@mui/material";
+import BeginningTypography from "../BeginningTypography";
 
-export default function Header({styleClasses, open, handleDrawerOpen}) {
+export default function Header({ styleClasses, open, handleDrawerOpen }) {
   const classes = styleClasses;
   const history = useHistory();
   const goHome = () => {
     let username = localStorage.getItem('username');
-        history.push(`/${username}/home`)
+    history.push(`/${username}/home`)
   }
 
   return (
@@ -29,8 +29,8 @@ export default function Header({styleClasses, open, handleDrawerOpen}) {
             color="inherit"
             onClick={handleDrawerOpen}
             className={clsx(classes.menuButton, {
-            [classes.hide]: open,
-          })}
+              [classes.hide]: open,
+            })}
             aria-label="open drawer"
             edge="start"
           >
@@ -38,21 +38,21 @@ export default function Header({styleClasses, open, handleDrawerOpen}) {
           </IconButton>
           <IconButton onClick={goHome}>
           <Avatar style={{ m: 1, mr: 3 }} src={Logo} />
-      <Typography
-          style={{
-              flexGrow: 1,
-              letterSpacing: 2,
-              fontSize: 20,
-              color: 'white',
-              fontFamily: 'Monospace',
-              marginLeft: '2vh'
-          }}>
-          Mi Entradita
-          </Typography>
           </IconButton>
+          <BeginningTypography
+            text="Mi Entradita"
+            className={classes.logo}
+            sx={{
+              flexGrow: 1,
+              letterSpacing: 3,
+              fontSize: 23,
+              color: 'white',
+              marginLeft: '2vh',
+            }}
+          />
           <div style={{ marginLeft: "auto" }}>
             <Button onClick={() => exit(history)} >
-                <LogoutIcon sx={{ color: 'white' }} />
+              <LogoutIcon sx={{ color: 'white' }} />
             </Button>
           </div>
         </Toolbar>

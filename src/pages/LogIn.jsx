@@ -3,38 +3,57 @@ import { useHistory } from 'react-router';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import { ThemeProvider } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import { Typography } from '@mui/material';
 
-import { theme } from '../components/forms/login/styles';
 import LoginForm from '../components/forms/login/LoginForm';
 import BackdropInherit from '../components/feedback/Backdrop';
-import BeginningTypography from '../components/BeginningTypography';
 import BeginningAvatar from '../components/BegginnigAvatar';
 
 import authService from '../services/AuthService';
-import { useToggle } from '../helpers/hooks/useToggle';
+import { saveData } from '../helpers/usedFunctions';
 import Background from '../assets/background.png';
+import { makeStyles } from '@material-ui/core';
+
+const useStyle = makeStyles((theme) => ({
+    root: {
+        height: '100vh'
+    },
+    loginImage: {
+        backgroundImage: `url(${Background})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: theme.palette.mode === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    },
+    boxContainer: {
+        marginTop: '10vh',
+        marginBottom: '4vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+    }
+}))
 
 function LogIn() {
-    const [open, handleClose, handleToggle] = useToggle();
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const history = useHistory();
+    const classes = useStyle();
 
     const onSubmit = data => {
-        handleToggle();
+        setIsLoading(true);
         authService.login(data.username, data.password)
             .then(response => {
+                setIsLoading(false);
                 saveData(response);
-                handleClose();
                 push(response.data.role, response.data.username);
             })
             .catch((aError) => {
                 const response = aError.response;
-                if (response.status);
-                setError(response.data);
-                handleClose();
+                setError(response.data.message);
+                setIsLoading(false);
             })
     };
 
@@ -51,51 +70,38 @@ function LogIn() {
         }
     }
 
-    const saveData = response => {
-        localStorage.setItem('spectatorId', response.data.id);
-        localStorage.setItem('username', response.data.username);
-        localStorage.setItem('role', response.data.role);
-        localStorage.setItem('auth', response.headers.authorization);
-    }
-
     return (
-        <ThemeProvider theme={theme}>
-            <BackdropInherit open={open} />
-            <Grid container component="main" sx={{ height: '100vh' }}>
+        <>
+            <BackdropInherit open={isLoading} />
+            <Grid container component="main" className={classes.root}>
                 <CssBaseline />
                 <Grid
+                    className={classes.loginImage}
                     item
                     xs={false}
                     sm={4}
                     md={7}
-                    sx={{
-                        backgroundImage: `url(${Background})`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundColor: (t) =>
-                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                    }}
                 />
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                    <Box
-                        sx={{
-                            my: 7,
-                            mx: 4,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center'
-                        }}
-                    >
+                    <Box className={classes.boxContainer}>
                         <BeginningAvatar />
-                        <BeginningTypography text="Bienvenido!" />
-
+                        <Typography
+                            style={{
+                                fontStyle: 'bold',
+                                fontFamily: 'Monospace',
+                            }}
+                            component='h1'
+                            variant='h6'
+                            data-testid='welcome'
+                        >
+                            Bienvenido!
+                        </Typography>
                         <LoginForm onSubmit={onSubmit} resetError={resetError} error={error} />
 
                     </Box>
                 </Grid>
             </Grid>
-        </ThemeProvider>
+        </>
     );
 }
 

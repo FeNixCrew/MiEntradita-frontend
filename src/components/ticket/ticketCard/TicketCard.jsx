@@ -35,47 +35,50 @@ export default function Ticket({ ticket }) {
   };
 
   return (
-    <Box style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, auto-fit)' }}>
-      <Card className={classes.mainContainer} style={{minWidth:'50vw'}}>
-        <Typography
-          variant="h5"
-          component="div"
-          style={{
-            margin: 'auto',
-            padding: '1vh',
-            letterSpacing: 1,
-            textAlign: 'center'
-          }}>
-          {ticket.home} vs {ticket.away}
-        </Typography>
-        <Typography
-          variant="h6"
-          component="div"
-          style={{
-            m: 1,
-            letterSpacing: 2,
-            textAlign: 'center'
-          }}
-        >
-          {horarioFormateado}
-        </Typography>
-        <div className={classes.qrContainer}>
-          <QRCode
-            id="QRCodeGen"
-            className={classes.qr}
-            value={JSON.stringify(ticketQr)} />
-          <div style={{ display: 'grid', justifyContent: 'center' }}>
-            <Button
-              className={classes.downloadButton}
-              variant="contained"
-              color="primary"
-              size="small"
-              onClick={() => onImageCownload()}>
-              <GetAppIcon />
-            </Button>
+    <div>
+      <Box style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, auto-fit)' }}>
+        <Card  className={classes.mainContainer} style={{minWidth:'50vw'}}>
+          <Typography
+            variant="h5"
+            component="div"
+            style={{
+              margin: 'auto',
+              padding: '1vh',
+              letterSpacing: 1,
+              textAlign: 'center'
+            }}>
+            {ticket.home} vs {ticket.away}
+          </Typography>
+          <Typography
+            variant="h6"
+            component="div"
+            style={{
+              m: 1,
+              letterSpacing: 2,
+              textAlign: 'center'
+            }}
+          >
+            {horarioFormateado}
+          </Typography>
+          <div className={classes.qrContainer}>
+            <QRCode
+              id="QRCodeGen"
+              className={classes.qr}
+              value={JSON.stringify(ticketQr)} />
+            <div style={{ display: 'grid', justifyContent: 'center' }}>
+              <Button
+                className={classes.downloadButton}
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={() => onImageCownload()}>
+                <GetAppIcon />
+              </Button>
+            </div>
           </div>
-        </div>
-      </Card>
-    </Box>
+        </Card>
+      </Box>
+    </div>
+
   )
 }
