@@ -12,6 +12,13 @@ class SpectatorService extends AbstractService {
 
         return this.axios.get(this.path + endpoint, params);
     }
+
+    async reserveTicket(matchId) {
+        const endpoint = '/new-reserve';
+        const params = new URLSearchParams([['spectatorId', localStorage.spectatorId], ['matchId', matchId]]);
+
+        return this.axios.post(this.path + endpoint, params);
+    }
 }
 
 export default new SpectatorService();

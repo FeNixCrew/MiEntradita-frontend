@@ -13,11 +13,24 @@ import BackdropInherit from '../components/feedback/Backdrop';
 import { useToggle } from '../helpers/hooks/useToggle';
 import { saveData } from '../helpers/usedFunctions';
 import authService from '../services/AuthService';
+import { makeStyles } from '@material-ui/core';
+
+
+const useStyle = makeStyles((theme) => ({
+    boxContainer: {
+        marginTop: 0.5,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    }
+}))
+
 
 function Register() {
     const [open, handleClose, handleToggle] = useToggle();
     const [error, setError] = useState(null);
     const history = useHistory();
+    const classes = useStyle();
 
     const onSubmit = data => {
         handleToggle();
@@ -53,14 +66,7 @@ function Register() {
             <BackdropInherit open={open} />
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 0.5,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
+                <Box className={classes.boxContainer}>
                     <BeginningAvatar />
                     <BeginningTypography text="Registrarse" />
                     <RegisterForm onSubmit={onSubmit} error={error} resetError={resetError} />

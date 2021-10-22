@@ -14,11 +14,33 @@ import BeginningAvatar from '../components/BegginnigAvatar';
 import authService from '../services/AuthService';
 import { saveData } from '../helpers/usedFunctions';
 import Background from '../assets/background.png';
+import { makeStyles } from '@material-ui/core';
+
+const useStyle = makeStyles((theme) => ({
+    root: {
+        height: '100vh'
+    },
+    loginImage: {
+        backgroundImage: `url(${Background})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: theme.palette.mode === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    },
+    boxContainer: {
+        marginTop: '10vh',
+        marginBottom: '4vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+    }
+}))
 
 function LogIn() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const history = useHistory();
+    const classes = useStyle();
 
     const onSubmit = data => {
         setIsLoading(true);
@@ -51,40 +73,25 @@ function LogIn() {
     return (
         <>
             <BackdropInherit open={isLoading} />
-            <Grid container component="main" sx={{ height: '100vh' }}>
+            <Grid container component="main" className={classes.root}>
                 <CssBaseline />
                 <Grid
+                    className={classes.loginImage}
                     item
                     xs={false}
                     sm={4}
                     md={7}
-                    sx={{
-                        backgroundImage: `url(${Background})`,
-                        backgroundRepeat: 'no-repeat',
-                        backgroundColor: (t) =>
-                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                    }}
                 />
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                    <Box
-                        sx={{
-                            my: 7,
-                            mx: 4,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center'
-                        }}
-                    >
+                    <Box className={classes.boxContainer}>
                         <BeginningAvatar />
                         <Typography
-                            component='h1'
-                            variant='h6'
                             style={{
                                 fontStyle: 'bold',
                                 fontFamily: 'Monospace',
                             }}
+                            component='h1'
+                            variant='h6'
                             data-testid='welcome'
                         >
                             Bienvenido!

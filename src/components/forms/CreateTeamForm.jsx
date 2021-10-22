@@ -1,4 +1,4 @@
-import GridItem from "../GridItem";
+import GridItem from "../layout/GridItem";
 import { Box, Button, Grid, Paper } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
