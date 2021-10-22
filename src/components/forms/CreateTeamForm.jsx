@@ -30,7 +30,7 @@ function CreateTeamForm({ onSubmit }) {
     return (
         <> 
             <div style={{ paddingTop: '3vh' }} />
-            <BeginningTypography text="Agregar partido" />
+            <BeginningTypography text="Nuevo Equipo" />
             <Paper
                 component="form"
                 noValidate
@@ -82,7 +82,7 @@ function CreateTeamForm({ onSubmit }) {
                         variant="contained"
                         style={{ marginTop: 3, marginBottom: 2, maxWidth: '50%', backgroundColor: '#2e86c1' }}
                     >
-                        <AddModeratorIcon style={{ marginRight: '1vw' }} /> Crear partido
+                        <AddModeratorIcon style={{ marginRight: '1vw' }} /> Crear equipo
                     </Button>
                 </Box>
             </Paper>

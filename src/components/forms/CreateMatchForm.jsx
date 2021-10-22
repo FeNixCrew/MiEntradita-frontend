@@ -50,7 +50,7 @@ function CreateMatchForm({ onSubmit }) {
             <div style={{ paddingTop: '3vh' }} />
             {teams !== null ?
                 <>
-                    <BeginningTypography text="Agregar partido" />
+                    <BeginningTypography text="Nuevo partido" />
                     <Paper
                         component="form"
                         noValidate
