@@ -1,10 +1,9 @@
 import React from 'react';
-import { Card, Button, Typography } from '@material-ui/core';
-import GetAppIcon from '@material-ui/icons/GetApp';
+import { Card, Button, CardContent, CardMedia, Grid } from '@material-ui/core';
+import DownloadIcon from '@mui/icons-material/Download';
 import QRCode from 'react-qr-code';
 import { useStyles } from './styles';
 import { formatDateAndTime, label } from '../../../helpers/usedFunctions';
-import { Box } from '@mui/system';
 import CoustomTypography from '../../CoustomTypography';
 
 export default function Ticket({ ticket }) {
@@ -35,43 +34,51 @@ export default function Ticket({ ticket }) {
   };
 
   return (
-    <div>
-      <Box style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, auto-fit)' }}>
-        <Card className={classes.mainContainer} style={{ minWidth: '50vw' }}>
-            <CoustomTypography
-              text={`${ticket.home} vs ${ticket.away}`}
-              variant="h5"
-              component="div"
-              sx={{
-                margin: 'auto',
-                padding: '1vh',
-                letterSpacing: 1,
-                fontWeight: 700,
-                textAlign: 'center'
-              }} />
-            <CoustomTypography
-              text={horarioFormateado}
-              variant="p"
-              component="div"
-              sx={{
-                m: 1,
-                fontSize: 17,
-                letterSpacing: 1,
-                fontStyle: 'italic',
-                textAlign: 'center'
-              }}
-            />
-            <div className={classes.qrContainer}>
-              <QRCode
-                id="QRCodeGen"
-                className={classes.qr}
-                value={JSON.stringify(ticketQr)} 
-                onClick={() => onImageCownload()}/>
-                <Typography>{label("Pulsa para descargar")}</Typography>
-            </div>
-        </Card>
-      </Box>
-    </div>
+
+    <Card className={classes.mainContainer}>
+      <CardContent className={classes.cardContent}>
+        <CoustomTypography
+          text={`${ticket.home} vs ${ticket.away}`}
+          variant="h5"
+          component="div"
+          sx={{
+            padding: '1vh',
+            letterSpacing: 1,
+            fontWeight: 700,
+            textAlign: 'center'
+          }} />
+        <CoustomTypography
+          text={horarioFormateado}
+          variant="p"
+          component="div"
+          sx={{
+            m: 1,
+            fontSize: 17,
+            letterSpacing: 1,
+            fontStyle: 'italic',
+            textAlign: 'center'
+          }}
+        />
+        <Button
+          className={classes.downloadButton}
+          variant="contained"
+          onClick={() => onImageCownload()}
+        >
+          <DownloadIcon />
+        </Button>
+      </CardContent>
+      <CardMedia
+        className={classes.cardMedia}
+        sx={{ width: 160, display: { xs: 'none', sm: 'block' } }}
+      >
+        <QRCode
+          className={classes.qr}
+          id="QRCodeGen"
+          value={JSON.stringify(ticketQr)}
+          onClick={() => onImageCownload()} />
+      </CardMedia>
+    </Card>
+
 
   )
 }

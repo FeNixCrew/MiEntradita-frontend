@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const useStyles = makeStyles({
   root: {
-    minWidth: 275,
+    minWidth: '275vh',
   },
   bullet: {
     display: 'inline-block',
@@ -10,13 +10,13 @@ export const useStyles = makeStyles({
     transform: 'scale(0.8)',
   },
   title: {
-    fontSize: 14,
+    fontSize: 15,
   },
   pos: {
     marginBottom: 12,
   },
   downloadButton: {
-    'margin-bottom': '3vh',
+    'margin-top': '2vh',
     'width': 40,
     'height': 40,
   },
@@ -24,20 +24,36 @@ export const useStyles = makeStyles({
     '&:hover': {
       cursor: 'pointer',
     },
-    'margin-top': '2vh',
-    'margin-left': '5vh',
+    'margin-top': '4vh',
+    'margin-bottom': '4vh',
     'margin-right': '5vh',
     
   },
-  qrContainer: {
-    display: 'grid',
-    justifyContent: 'center',
-    'margin-bottom': '5vh'
+  cardContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    maxHeight: '70vh'
   },
+  cardMedia: {
+    marginLeft: 'auto'
+  },
+
   mainContainer: {
-    'background-color': '#eecf92',
-    'display': 'grid',
+    'background-color': '#ffe0b2',
     'border-radius': '6px',
-    'justify-content': 'center'
-  }
+    minWidth: '60vw', 
+    maxWidth: '60vw',
+    minHeight: '20vw',
+    display: 'flex', 
+    flexDirection: 'rows', 
+    alignItems: 'center'
+  },
+  downloadButton: {
+    backgroundColor: '#2e86c1',
+    padding: '1vh',
+    'margin': '2.5vh',
+    'width': 50,
+    'height': 40,
+  },
 });
