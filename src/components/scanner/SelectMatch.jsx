@@ -6,7 +6,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 import BackdropInherit from '../feedback/Backdrop';
 import SnackBar from '../feedback/SnackBar';
-import BeginningTypography from '../BeginningTypography';
+import CoustomTypography from '../CoustomTypography';
 
 import { useToggle } from '../../helpers/hooks/useToggle';
 import matchService from '../../services/MatchService';
@@ -70,7 +70,7 @@ export default function SelectMatch({ setMatch }) {
             </div>
             :
             <div>
-              <BeginningTypography text="De qué partido desea validar entradas?" variant="h4" sx={{ color: '#EEEEEE' }} />
+              <CoustomTypography text="De qué partido desea validar entradas?" variant="h4" sx={{ color: '#EEEEEE' }} />
               {renderAvailableGames()}
             </div>
         }

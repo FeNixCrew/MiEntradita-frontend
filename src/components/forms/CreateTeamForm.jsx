@@ -2,8 +2,8 @@ import GridItem from "../layout/GridItem";
 import { Box, Button, Grid, Paper } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
-import BeginningTypography from "../BeginningTypography";
-
+import CoustomTypography from "../CoustomTypography";
+import { label } from '../../helpers/usedFunctions'
 
 
 function CreateTeamForm({ onSubmit }) {
@@ -30,7 +30,7 @@ function CreateTeamForm({ onSubmit }) {
     return (
         <> 
             <div style={{ paddingTop: '3vh' }} />
-            <BeginningTypography text="Nuevo Equipo" />
+            <CoustomTypography text={label("Nuevo Equipo")} />
             <Paper
                 component="form"
                 noValidate
@@ -51,7 +51,7 @@ function CreateTeamForm({ onSubmit }) {
                         name="name"
                         type="text"
                         id="name-id"
-                        label="Nombre de equipo"
+                        givenLabel="Nombre de equipo"
                         xs={12}
                     />
                     <GridItem
@@ -61,7 +61,7 @@ function CreateTeamForm({ onSubmit }) {
                         name="knowName"
                         type="text"
                         id="knowName-id"
-                        label="Nombre conocido"
+                        givenLabel="Nombre conocido"
                         xs={12}
                     />
                     <GridItem
@@ -71,7 +71,7 @@ function CreateTeamForm({ onSubmit }) {
                         name="stadium"
                         type="text"
                         id="stadium-id"
-                        label="Estadio"
+                        givenLabel="Estadio"
                         xs={12}
                     />
                 </Grid>
@@ -82,7 +82,7 @@ function CreateTeamForm({ onSubmit }) {
                         variant="contained"
                         style={{ marginTop: 3, marginBottom: 2, maxWidth: '50%', backgroundColor: '#2e86c1' }}
                     >
-                        <AddModeratorIcon style={{ marginRight: '1vw' }} /> Crear equipo
+                        <AddModeratorIcon style={{ marginRight: '1vw' }} /> {label("Crear equipo")}
                     </Button>
                 </Box>
             </Paper>

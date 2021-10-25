@@ -8,6 +8,7 @@ import teamService from '../../services/TeamService.js';
 import { BootstrapDialog } from './modal/BoostrapDialog';
 import { BootstrapDialogTitle } from './modal/BoostrapDialogTitle';
 import TeamDetailsContent  from './TeamDetailsContent';
+import { label } from '../../helpers/usedFunctions';
 
 export default function TeamDetails({ open, handleClose, teamName }) {
     const [teamDetails, setTeamDetails] = useState(undefined);
@@ -47,7 +48,7 @@ export default function TeamDetails({ open, handleClose, teamName }) {
                 </DialogContent>
                 <DialogActions>
                     <Button autoFocus onClick={handleClose}>
-                        Volver
+                        {label("Volver")}
                     </Button>
                 </DialogActions>
             </BootstrapDialog>

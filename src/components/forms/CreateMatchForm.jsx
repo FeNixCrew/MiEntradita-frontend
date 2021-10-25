@@ -2,12 +2,13 @@ import AddIcon from '@mui/icons-material/Add';
 import { Box, Button, Grid, Paper, InputLabel } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import GridItem from '../layout/GridItem';
-import BeginningTypography from "../BeginningTypography";
+import CoustomTypography from "../CoustomTypography";
 import teamService from '../../services/TeamService';
 import { useEffect, useState } from 'react';
 import BackdropInherit from '../feedback/Backdrop';
 import TextField from '@mui/material/TextField';
 import ControlledAutocomplete from './ControlledAutocomplete';
+import { label } from '../../helpers/usedFunctions'
 
 function CreateMatchForm({ onSubmit }) {
     const today = new Date();
@@ -50,7 +51,7 @@ function CreateMatchForm({ onSubmit }) {
             <div style={{ paddingTop: '3vh' }} />
             {teams !== null ?
                 <>
-                    <BeginningTypography text="Nuevo partido" />
+                    <CoustomTypography text="Nuevo partido" />
                     <Paper
                         component="form"
                         noValidate
@@ -65,7 +66,7 @@ function CreateMatchForm({ onSubmit }) {
                     >
                         <Grid container spacing={1} style={{ display: 'flex' }}>
                             <Grid item xs={12} >
-                                <InputLabel style={{ paddingBottom: '1vh' }}>Local</InputLabel>
+                                <InputLabel style={{ paddingBottom: '1vh' }}>{label("Local")}</InputLabel>
                                 <ControlledAutocomplete
                                     control={control}
                                     name="home"
@@ -73,7 +74,7 @@ function CreateMatchForm({ onSubmit }) {
                                     renderInput={(params) =>
                                         <TextField
                                             {...params}
-                                            label="Selecciona un equipo"
+                                            label="Seleccionar un equipo"
                                             error={showError('home')}
                                             helperText={getError('home', "Equipo local")}
                                         />
@@ -84,7 +85,7 @@ function CreateMatchForm({ onSubmit }) {
 
                             </Grid>
                             <Grid item xs={12} >
-                                <InputLabel style={{ paddingBottom: 1 }}>Visitante</InputLabel>
+                                <InputLabel style={{ paddingBottom: 1 }}>{label("Visitante")}</InputLabel>
                                 <ControlledAutocomplete
                                     control={control}
                                     name="away"
@@ -92,7 +93,7 @@ function CreateMatchForm({ onSubmit }) {
                                     renderInput={(params) =>
                                         <TextField
                                             {...params}
-                                            label="Selecciona un equipo"
+                                            label="Seleccionar un equipo"
                                             error={showError('away')}
                                             helperText={getError('away', "Equipo visitante")}
                                         />
@@ -108,7 +109,7 @@ function CreateMatchForm({ onSubmit }) {
                                 name="date"
                                 type="date"
                                 id="date-id"
-                                label="Fecha de partido"
+                                givenLabel="Fecha de partido"
                                 xs={12}
                             />
 
@@ -119,7 +120,7 @@ function CreateMatchForm({ onSubmit }) {
                                 name="time"
                                 type="time"
                                 id="time-id"
-                                label="Hora de partido"
+                                givenLabel="Hora de partido"
                                 xs={12}
                             />
                             <GridItem
@@ -129,7 +130,7 @@ function CreateMatchForm({ onSubmit }) {
                                 name="price"
                                 type="number"
                                 id="price-id"
-                                label="Precio de entrada"
+                                givenLabel="Precio de entrada"
                                 xs={12}
                             />
 
@@ -141,7 +142,7 @@ function CreateMatchForm({ onSubmit }) {
                                 variant="contained"
                                 style={{ marginTop: 3, marginBottom: 2, maxWidth: '50%', backgroundColor: '#2e86c1' }}
                             >
-                                <AddIcon style={{ marginRight: '1vw' }} /> Crear partido
+                                <AddIcon style={{ marginRight: '1vw' }} /> {label("Crear partido")}
                             </Button>
                         </Box>
                     </Paper>

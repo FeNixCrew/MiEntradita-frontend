@@ -5,6 +5,8 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useForm } from "react-hook-form";
 import { Alert } from '@mui/material';
+import { label } from '../../../helpers/usedFunctions'
+
 
 function RegisterForm({ onSubmit, error, resetError }) {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
@@ -57,7 +59,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         fullWidth
                         helperText={getError('required', 'name', 'nombre')}
                         id="name"
-                        label="Nombre"
+                        label={label("Nombre")}
                         autoFocus
                         onChange={e => {
                             name.onChange(e);
@@ -71,7 +73,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         fullWidth
                         error={showError('surname')}
                         id="surname"
-                        label="Apellido"
+                        label={label("Apellido")}
                         name="surname"
                         helperText={getError('required', 'surname', 'apellido')}
                         autoComplete="lname"
@@ -87,7 +89,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         fullWidth
                         error={showError('username')}
                         name="username"
-                        label="Usuario"
+                        label={label("Usuario")}
                         id="username"
                         helperText={
                             getError('required', 'username', 'usuario') || 
@@ -106,7 +108,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         fullWidth
                         error={showError('dni')}
                         name="dni"
-                        label="DNI"
+                        label={label("DNI")}
                         id="dni"
                         helperText={getError('required', 'dni', 'dni') || getError('pattern', 'dni', 'dni')}
                         onChange={e => {
@@ -121,7 +123,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         fullWidth
                         error={showError('email')}
                         id="email"
-                        label="Email"
+                        label={label("Email")}
                         name="email"
                         autoComplete="email"
                         helperText={getError('required', 'email', 'email') || getError('pattern', 'email', 'email')}
@@ -137,7 +139,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         fullWidth
                         error={showError('password')}
                         name="password"
-                        label="Contraseña"
+                        label={label("Contraseña")}
                         type="password"
                         id="password"
                         autoComplete="new-password"
@@ -154,7 +156,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         error={showError('confirmPassword')}
                         fullWidth
                         name="confirmPassword"
-                        label="Confirmar Contraseña"
+                        label={label("Confirmar Contraseña")}
                         type="password"
                         id="confirmPassword"
                         helperText={getError('validate', 'confirmPassword')}
@@ -174,12 +176,12 @@ function RegisterForm({ onSubmit, error, resetError }) {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
             >
-                Registrarse
+                {label("Registrarse")}
             </Button>
             <Grid container justifyContent="flex-end">
                 <Grid item sx={{ mb: 2 }}>
                     <Link href="/login" variant="body2">
-                        Ya tienes una cuenta?
+                    {label("¿ Ya tienes una cuenta?")}
                     </Link>
                 </Grid>
             </Grid>

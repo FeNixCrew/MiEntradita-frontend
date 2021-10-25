@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import { makeStyles } from "@material-ui/core";
+import { label } from '../../../helpers/usedFunctions'
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -17,7 +18,7 @@ const useStyle = makeStyles((theme) => ({
         padding: '2vh'
     },
     textField: {
-        width: '41vh'
+        width: '41vh',
     },
     button: {
         backgroundColor: '#2e86c1',
@@ -32,6 +33,8 @@ function LoginForm({ onSubmit, error, resetError }) {
     const password = register('password', { required: true });
     const classes = useStyle();
 
+  
+
     return (
         <Box
             className={classes.root}
@@ -44,7 +47,7 @@ function LoginForm({ onSubmit, error, resetError }) {
                 error={errors.username && errors.username.type === "required"}
                 className={classes.textField}
                 margin="normal"
-                label="Usuario"
+                label={label('Usuario')}
                 type="text"
                 autoFocus
                 helperText={errors.username && "El campo usuario no puede estar vacio"}
@@ -61,7 +64,7 @@ function LoginForm({ onSubmit, error, resetError }) {
                 className={classes.textField}
                 error={errors.password && errors.password.type === "required"}
                 margin="normal"
-                label="Contraseña"
+                label={label('Contrasña')}
                 type="password"
                 helperText={errors.password && "El campo contraseña no puede estar vacio"}
                 onChange={(e) => {
@@ -86,12 +89,12 @@ function LoginForm({ onSubmit, error, resetError }) {
                     }}
                     variant="contained"
                 >
-                    Ingresar
+                    {label("Ingresar")}
                 </Button>
             </div>
             <Grid item>
                 <Link href="/register" variant="body2">
-                    Sin registrarse?
+                    {label("¿Sin registrarse?")}
                 </Link>
             </Grid>
         </Box>

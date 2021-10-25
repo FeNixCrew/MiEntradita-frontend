@@ -9,6 +9,7 @@ import { BootstrapDialog } from './modal/BoostrapDialog';
 import { BootstrapDialogTitle } from './modal/BoostrapDialogTitle';
 import MatchDetailsContent from './MatchDetailsConten';
 import Confirmation from '../Confirmation';
+import { label } from '../../helpers/usedFunctions';
 
 export default function MatchDetails({ open, handleClose, matchId, title, reserveTicket, isAvailable }) {
   const [matchDetails, setMatchDetails] = useState(undefined);
@@ -55,11 +56,11 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
         </DialogContent>
         <DialogActions>
           {isAvailable !== null && <Button autoFocus onClick={openConfirmation} disabled={isAvailable}>
-            Reservar Entrada
+            {label("Reservar Entrada")}
           </Button>
           }
           <Button autoFocus onClick={handleClose}>
-            Volver
+          {label("Volver")}
           </Button>
         </DialogActions>
       </BootstrapDialog>

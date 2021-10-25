@@ -4,7 +4,7 @@ import { useState } from "react";
 import SearchBar from "../components/search/search_bar/SearchBar";
 import SearchResults from '../components/search/SearchResults';
 import BackdropInherit from "../components/feedback/Backdrop";
-import BeginningTypography from "../components/BeginningTypography";
+import CoustomTypography from "../components/CoustomTypography";
 import matchService from "../services/MatchService";
 import { Paper } from "@mui/material";
 import BurgerMenu from "../components/navigation/BurgerMenu";
@@ -60,7 +60,7 @@ function Searcher() {
                 matchs ?
                     <SearchResults results={matchs} />
                     :
-                    <BeginningTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
+                    <CoustomTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
             }
         </div>
     );

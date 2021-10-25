@@ -1,7 +1,7 @@
 import Avatar from '@mui/material/Avatar';
 import ConfirmationNumber from '@mui/icons-material/ConfirmationNumber';
 
-function BeginningAvatar() {
+function CoustomAvatar() {
     return( 
         <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
             <ConfirmationNumber />
@@ -9,4 +9,4 @@ function BeginningAvatar() {
     )
 }
 
-export default BeginningAvatar;
+export default CoustomAvatar;

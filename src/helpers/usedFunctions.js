@@ -50,3 +50,7 @@ export const saveData = response => {
 
 export const NotFoundMessage = "Recurso no encontrado"
 export const ServerErrorMessage = "Error de servidor"
+
+export const label = (text) => {
+  return <span style={{fontFamily: 'Quicksand'}}>{text}</span>
+}

@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import BeginningTypography from "../BeginningTypography";
+import CoustomTypography from "../CoustomTypography";
 import SearchResult from "./SearchResult";
 
 function SearchResults({ results }) {
@@ -12,11 +12,11 @@ function SearchResults({ results }) {
         <Grid container style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, auto-fit)', justifyContent: 'center' }}>
             {results.length > 0 ?
                 <div>
-                    <BeginningTypography text='Resultados:' />
+                    <CoustomTypography text='Resultados:' />
                     {renderResult()}
                 </div>
                 :
-                <BeginningTypography text='No se han encontrado partidos :(' />
+                <CoustomTypography text='No se han encontrado partidos :(' />
             }
         </Grid>
     );

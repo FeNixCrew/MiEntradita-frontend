@@ -11,6 +11,7 @@ import spectatorService from '../../services/SpectatorService';
 import SnackBar from '../feedback/SnackBar';
 import { makeStyles } from '@material-ui/core';
 import TeamDetails from '../details/TeamDetails';
+import { label } from '../../helpers/usedFunctions'
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -24,10 +25,10 @@ const useStyle = makeStyles((theme) => ({
     clickeable: {
         '&:hover': {
             color: '#2e86c1',
-            cursor: 'pointer'
+            cursor: 'pointer',
         },
-    }
-
+        fontFamily: 'Quicksand'
+    },
 }))
 
 function SearchResult({ match }) {
@@ -87,15 +88,15 @@ function SearchResult({ match }) {
             <Grid item md={12} className={classes.root}>
                 <Card style={{ padding: 1 }}>
                     <CardContent style={{ flexGrow: 1 }}>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            {titleElement(match.home)} vs {titleElement(match.away)}
+                        <Typography style={{ fontFamily: 'Quicksand' }} gutterBottom variant="h5" component="h2">
+                            {titleElement(match.home)} vs {titleElement(match.away)} 
                         </Typography>
                         {reserved && <Typography gutterBottom variant="div" component="p" className={classes.reserved}>
-                            Reservado
+                            {label("Reservado")}
                         </Typography>}
                     </CardContent>
                     <CardActions>
-                        <Button size="small" onClick={handleToggleMDetails}>Detalles de partido</Button>
+                        <Button size="small" onClick={handleToggleMDetails}>{label("Detalles de partido")}</Button>
                     </CardActions>
                 </Card>
             </Grid>

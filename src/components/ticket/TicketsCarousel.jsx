@@ -1,7 +1,7 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
 import Ticket from './ticketCard/TicketCard';
-import BeginningTypography from '../BeginningTypography';
+import CoustomTypography from '../CoustomTypography';
 
 export default function Tickets({ tickets }) {
 
@@ -15,13 +15,13 @@ export default function Tickets({ tickets }) {
         {
             tickets.length > 0 ?
                       <div data-testid='carousel-div'>  
-                        <BeginningTypography text="Tus Entradas" variant="h5"/>
+                        <CoustomTypography text="Tus Entradas" variant="h5"/>
                         <Carousel autoPlay={false} animation="slide">
                             {renderTickets()}
                         </Carousel> 
                         </div>
                         :
-                        <BeginningTypography text='No tienes entradas reservadas disponibles!' variant="h5"/>
+                        <CoustomTypography text='No tienes entradas reservadas disponibles!' variant="h5"/>
                     }
                     </div>
         </>

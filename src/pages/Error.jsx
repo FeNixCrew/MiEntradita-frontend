@@ -25,7 +25,7 @@ function Error({statusCode, errorMessage}) {
                     variant='h1'
                     sx={{
                         color: '#2e86c1',
-                        fontFamily: 'Monospace',
+                        fontFamily: 'Roboto, monospace',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
