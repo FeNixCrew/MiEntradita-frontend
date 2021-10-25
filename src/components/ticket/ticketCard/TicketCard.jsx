@@ -3,7 +3,7 @@ import { Card, Button, CardContent, CardMedia, Grid } from '@material-ui/core';
 import DownloadIcon from '@mui/icons-material/Download';
 import QRCode from 'react-qr-code';
 import { useStyles } from './styles';
-import { formatDateAndTime, label } from '../../../helpers/usedFunctions';
+import { formatDateAndTime } from '../../../helpers/usedFunctions';
 import CoustomTypography from '../../CoustomTypography';
 
 export default function Ticket({ ticket }) {

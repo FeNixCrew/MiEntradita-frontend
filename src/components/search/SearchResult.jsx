@@ -11,7 +11,7 @@ import spectatorService from '../../services/SpectatorService';
 import SnackBar from '../feedback/SnackBar';
 import { makeStyles } from '@material-ui/core';
 import TeamDetails from '../details/TeamDetails';
-import { label } from '../../helpers/usedFunctions'
+import { label, formatDateAndTime } from '../../helpers/usedFunctions'
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -41,6 +41,8 @@ function SearchResult({ match }) {
     const classes = useStyle();
     const [team, setTeam] = useState('');
     const matchTitle = `${match.home} vs ${match.away}`;
+    const horarioFormateado = formatDateAndTime(match.matchStartTime);
+
 
     useEffect(() => {
         setReserved(match.isReserved);
@@ -85,11 +87,23 @@ function SearchResult({ match }) {
             />
             {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} />}
             {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={team} />}
-            <Grid item md={12} className={classes.root}>
-                <Card style={{ padding: 1, width: 'auto', height: 'auto' , backgroundColor: '#eecf92' }}>
+            <Grid item xs={12} className={classes.root}>
+                <Card style={{ padding: 1, width: 'auto', height: 'auto', backgroundColor: '#ecf0f1', maxWidth: '36vw' }}>
                     <CardContent style={{ flexGrow: 1 }}>
                         <Typography style={{ fontFamily: 'Quicksand' }} gutterBottom variant="h5" component="h2">
-                            {titleElement(match.home)} vs {titleElement(match.away)} 
+                            {titleElement(match.home)} vs {titleElement(match.away)}
+                        </Typography>
+                        <Typography
+                            style={{
+                                fontFamily: 'Quicksand',
+                                fontStyle: 'italic',
+                                paddingBottom: '1vh'
+                            }}
+                            gutterBottom
+                            variant="div"
+                            component="p"
+                        >
+                            {horarioFormateado}
                         </Typography>
                         {reserved && <Typography gutterBottom variant="div" component="p" className={classes.reserved}>
                             {label("Reservado")}

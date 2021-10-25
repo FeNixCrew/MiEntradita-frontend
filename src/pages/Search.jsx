@@ -48,7 +48,7 @@ function Searcher() {
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
             <div component={Paper} style={{
-                backgroundColor: '#eecf92',
+                backgroundColor: '#ecf0f1',
                 display: 'flex',
                 borderRadius: 5,
                 padding: '3vh',
