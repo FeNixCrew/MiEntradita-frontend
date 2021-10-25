@@ -36,7 +36,7 @@ function CreateTeamForm({ onSubmit }) {
                 noValidate
                 onSubmit={handleSubmit(onSubmit)}
                 style={{
-                    backgroundColor: '#d7dbdd',
+                    backgroundColor: '#ecf0f1',
                     padding: '2vh',
                     borderRadius: 2,
                     marginBottom: '1vh'
