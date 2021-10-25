@@ -47,15 +47,20 @@ function Searcher() {
                 closeSnackBar={closeSnackBar}
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
-            <Paper sx={{ marginTop: '5vh', marginLeft: 'auto', marginRight: 'auto', padding: '3vh', borderRadius: 2 }}>
-                <Box sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}>
-                    <SearchBar onChange={onChange} />
-                </Box>
-            </Paper>
+            <div component={Paper} style={{
+                backgroundColor: '#eecf92',
+                display: 'flex',
+                borderRadius: 5,
+                padding: '3vh',
+                flexDirection: 'column',
+                alignItems: 'center',
+                marginBottom: '2vh',
+                marginTop: '5vh',
+                marginLeft: 'auto',
+                marginRight: 'auto'
+            }}>
+                <SearchBar onChange={onChange} />
+            </div>
             {
                 matchs ?
                     <SearchResults results={matchs} />

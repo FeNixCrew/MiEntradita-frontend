@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
-import RegisterForm from '../components/forms/register/RegisterForm';
+import RegisterForm from '../components/forms/RegisterForm';
 import CoustomTypography from '../components/CoustomTypography';
 import CoustomAvatar from '../components/CoustomAvatar';
 import BackdropInherit from '../components/feedback/Backdrop';

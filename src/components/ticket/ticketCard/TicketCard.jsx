@@ -1,9 +1,9 @@
 import React from 'react';
-import { Card, Button } from '@material-ui/core';
+import { Card, Button, Typography } from '@material-ui/core';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import QRCode from 'react-qr-code';
 import { useStyles } from './styles';
-import { formatDateAndTime } from '../../../helpers/usedFunctions';
+import { formatDateAndTime, label } from '../../../helpers/usedFunctions';
 import { Box } from '@mui/system';
 import CoustomTypography from '../../CoustomTypography';
 
@@ -65,17 +65,9 @@ export default function Ticket({ ticket }) {
               <QRCode
                 id="QRCodeGen"
                 className={classes.qr}
-                value={JSON.stringify(ticketQr)} />
-              <div style={{ display: 'grid', justifyContent: 'center' }}>
-                <Button
-                  className={classes.downloadButton}
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  onClick={() => onImageCownload()}>
-                  <GetAppIcon />
-                </Button>
-              </div>
+                value={JSON.stringify(ticketQr)} 
+                onClick={() => onImageCownload()}/>
+                <Typography>{label("Pulsa para descargar")}</Typography>
             </div>
         </Card>
       </Box>

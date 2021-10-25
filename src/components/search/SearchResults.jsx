@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, Container } from "@mui/material";
 import CoustomTypography from "../CoustomTypography";
 import SearchResult from "./SearchResult";
 
@@ -13,7 +13,11 @@ function SearchResults({ results }) {
             {results.length > 0 ?
                 <div>
                     <CoustomTypography text='Resultados:' />
-                    {renderResult()}
+                    <Container sx={{ py: 4 }} maxWidth="lg">
+                        <Grid container spacing={4}>
+                            {renderResult()}
+                        </Grid>
+                    </Container>
                 </div>
                 :
                 <CoustomTypography text='No se han encontrado partidos :(' />

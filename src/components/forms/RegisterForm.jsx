@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useForm } from "react-hook-form";
 import { Alert } from '@mui/material';
-import { label } from '../../../helpers/usedFunctions'
+import { label } from '../../helpers/usedFunctions'
 
 
 function RegisterForm({ onSubmit, error, resetError }) {

@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import { makeStyles } from "@material-ui/core";
-import { label } from '../../../helpers/usedFunctions'
+import { label } from '../../helpers/usedFunctions'
 
 const useStyle = makeStyles((theme) => ({
     root: {

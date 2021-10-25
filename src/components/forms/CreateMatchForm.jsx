@@ -7,7 +7,7 @@ import teamService from '../../services/TeamService';
 import { useEffect, useState } from 'react';
 import BackdropInherit from '../feedback/Backdrop';
 import TextField from '@mui/material/TextField';
-import ControlledAutocomplete from './ControlledAutocomplete';
+import ControlledAutocomplete from '../layout/ControlledAutocomplete';
 import { label } from '../../helpers/usedFunctions'
 
 function CreateMatchForm({ onSubmit }) {

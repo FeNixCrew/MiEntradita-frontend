@@ -7,7 +7,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
 
-import LoginForm from '../components/forms/login/LoginForm';
+import LoginForm from '../components/forms/LoginForm';
 import BackdropInherit from '../components/feedback/Backdrop';
 import CoustomAvatar from '../components/CoustomAvatar';
 

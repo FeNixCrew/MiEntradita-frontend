@@ -86,7 +86,7 @@ function SearchResult({ match }) {
             {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} />}
             {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={team} />}
             <Grid item md={12} className={classes.root}>
-                <Card style={{ padding: 1 }}>
+                <Card style={{ padding: 1, width: 'auto', height: 'auto' , backgroundColor: '#eecf92' }}>
                     <CardContent style={{ flexGrow: 1 }}>
                         <Typography style={{ fontFamily: 'Quicksand' }} gutterBottom variant="h5" component="h2">
                             {titleElement(match.home)} vs {titleElement(match.away)} 
