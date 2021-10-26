@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Button, CardContent, CardMedia } from '@material-ui/core';
+import {  Button, CardContent, CardMedia } from '@material-ui/core';
 import DownloadIcon from '@mui/icons-material/Download';
 import QRCode from 'react-qr-code';
 import { formatDateAndTime } from '../../../helpers/usedFunctions';
@@ -34,7 +34,7 @@ export default function Ticket({ ticket, styleClasses }) {
 
   return (
 
-    <Card className={classes.mainContainer}>
+    <div className={classes.mainContainer}>
       <CardContent className={classes.cardContent}>
         <CoustomTypography
           text={`${ticket.home} vs ${ticket.away}`}
@@ -76,7 +76,7 @@ export default function Ticket({ ticket, styleClasses }) {
           value={JSON.stringify(ticketQr)}
           onClick={() => onImageCownload()} />
       </CardMedia>
-    </Card>
+    </div>
 
 
   )

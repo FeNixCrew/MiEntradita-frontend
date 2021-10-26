@@ -20,7 +20,7 @@ export const useStylesDesktop = makeStyles({
       cursor: 'pointer',
     },
     'margin-top': '4vh',
-    'margin-bottom': '4vh',
+    'margin-bottom': '1vh',
     'margin-right': '5vh',
 
   },
@@ -35,14 +35,13 @@ export const useStylesDesktop = makeStyles({
   },
 
   mainContainer: {
-    'background-color': '#ffe0b2',
-    'border-radius': '6px',
     minWidth: '60vw',
     maxWidth: '60vw',
     minHeight: '20vw',
     display: 'flex',
     flexDirection: 'rows',
-    alignItems: 'center'
+    alignItems: 'center',
+    
   },
   downloadButton: {
     backgroundColor: '#2e86c1',
@@ -81,19 +80,16 @@ export const useStylesMobile = makeStyles((theme) => ({
     maxHeight: '70vh'
   },
   qr: {
-    'margin-left': '2vh',
-    'margin-right': '2vh',
-    'margin-bottom': '3vh'
+    'margin-left': '1vh',
+    'margin-right': '1vh',
+    'margin-bottom': '1vh'
   },
   cardMedia: {
     display: 'grid',
     justifyContent: 'center'
   },
   mainContainer: {
-    'background-color': '#ffe0b2',
-    'margin': '1vh',
     'display': 'grid',
-    'border-radius': '6px',
     'justify-content': 'center'
   }
 }))
