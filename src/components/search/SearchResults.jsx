@@ -1,4 +1,4 @@
-import { Grid, Container } from "@mui/material";
+import { Grid } from "@mui/material";
 import CoustomTypography from "../CoustomTypography";
 import SearchResult from "./SearchResult";
 

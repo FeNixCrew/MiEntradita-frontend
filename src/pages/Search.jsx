@@ -1,4 +1,3 @@
-import { Box } from "@mui/system";
 import { useState } from "react";
 
 import SearchBar from "../components/search/search_bar/SearchBar";

@@ -17,8 +17,8 @@ describe('Buscador', () => {
 
     test('Cuando la busqueda tiene resultados, se muestra un titulo indicandolo', () => {
       render(<SearchResults results={[
-        {id: 1, home: 'a', away: 'b'},
-        {id: 2, home: 'd', away: 'e'},
+        {id: 1, home: 'a', away: 'b', matchStartTime: "2021-10-26T10:32:47.013646"},
+        {id: 2, home: 'd', away: 'e', matchStartTime: "2021-10-26T10:32:47.013646"},
       ]}/>)
 
       expect(screen.getByText(/resultados:/i)).toBeInTheDocument();
@@ -26,8 +26,8 @@ describe('Buscador', () => {
 
     test('Cuando la busqueda tiene resultados, cada elemento del mismo esta representado', () => {
       const { getAllByTestId } = render(<SearchResults results={[
-                                  {id: 1, home: 'a', away: 'b'},
-                                  {id: 2, home: 'd', away: 'e'},
+                                  {id: 1, home: 'a', away: 'b', matchStartTime: "2021-10-26T10:32:47.013646"},
+                                  {id: 2, home: 'd', away: 'e', matchStartTime: "2021-10-26T10:32:47.013646"},
                                 ]}/>)
 
       expect(getAllByTestId('search-item').length).toEqual(2);

@@ -1,13 +1,12 @@
 import React from 'react';
-import { Card, Button, CardContent, CardMedia, Grid } from '@material-ui/core';
+import { Card, Button, CardContent, CardMedia } from '@material-ui/core';
 import DownloadIcon from '@mui/icons-material/Download';
 import QRCode from 'react-qr-code';
-import { useStyles } from './styles';
 import { formatDateAndTime } from '../../../helpers/usedFunctions';
 import CoustomTypography from '../../CoustomTypography';
 
-export default function Ticket({ ticket }) {
-  const classes = useStyles();
+export default function Ticket({ ticket, styleClasses }) {
+  const classes = styleClasses();
   const horarioFormateado = formatDateAndTime(ticket.matchStartTime);
   const ticketQr = {
     userId: ticket.userId,
