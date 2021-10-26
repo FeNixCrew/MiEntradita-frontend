@@ -12,12 +12,12 @@ export default function AvailableMatch({ match, setMatch }) {
     return (
         <div>
             <Grid item md={12} sx={{ marginTop: '5vh' }}>
-                <Card style={{ padding: 1, backgroundColor: '#eecf92' }}>
+                <Card style={{ padding: 1, backgroundColor: '#ecf0f1' }}>
                     <CardContent style={{ flexGrow: 1 }}>
                         <Typography gutterBottom variant="h5" component="h2" sx={{ color: 'black' }}>
                             {`${match.home} vs ${match.away}`}
                         </Typography>
-                        <Typography gutterBottom variant="h5" component="h2" sx={{ color: 'black' }}>
+                        <Typography gutterBottom variant="h6" component="h2" sx={{ color: 'black', fontStyle: 'italic' }}>
                             {formatDateAndTime(match.matchStartTime)}
                         </Typography>
                     </CardContent>
