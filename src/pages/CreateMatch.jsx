@@ -3,17 +3,15 @@ import { CssBaseline, Container } from '@mui/material';
 import BackdropInherit from '../components/feedback/Backdrop';
 
 import { useToggle } from '../helpers/hooks/useToggle';
+import { useSnackbar } from '../helpers/hooks/useSnackbar';
 import SnackBar from '../components/feedback/SnackBar';
-import { useState } from 'react';
 import CreateMatchForm from '../components/forms/CreateMatchForm';
 import matchService from '../services/MatchService';
 import BurgerMenu from '../components/navigation/BurgerMenu';
 
 function CreateMatchComponent() {
     const [open, handleClose, handleToggle] = useToggle();
-    const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
-    const [severity, setSeverity] = useState();
-    const [message, setMessage] = useState();
+    const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
 
     const onSubmit = (data) => {
         let matchStartTime = (data.date + "T" + data.time);
@@ -21,16 +19,12 @@ function CreateMatchComponent() {
         matchService.create(data.home, data.away, parseInt(data.price), matchStartTime)
             .then(_ => {
                 handleClose();
-                setSeverity("success");
-                setMessage("Partido creado exitosamente");
-                openSnackBar();
+                setSuccess("Partido creado exitosamente");
             })
             .catch(error => {
                 const response = error.response;
                 handleClose();
-                setSeverity("error");
-                setMessage(response.data.message);
-                openSnackBar();
+                setError(response.data.message);
             })
     }
 

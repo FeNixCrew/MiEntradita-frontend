@@ -4,18 +4,16 @@ import { CssBaseline, Container, createTheme } from '@mui/material';
 import BackdropInherit from '../components/feedback/Backdrop';
 
 import { useToggle } from '../helpers/hooks/useToggle';
+import { useSnackbar } from '../helpers/hooks/useSnackbar';
 import SnackBar from '../components/feedback/SnackBar';
-import { useState } from 'react';
 import BurgerMenu from '../components/navigation/BurgerMenu';
 import CreateTeamForm from '../components/forms/CreateTeamForm';
 import teamService from '../services/TeamService';
 
 
 function CreateTeamComponent() {
-    const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
     const [open, handleClose, handleToggle] = useToggle();
-    const [severity, setSeverity] = useState();
-    const [message, setMessage] = useState();
+    const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const theme = createTheme();
 
     const onSubmit = (data) => {
@@ -23,16 +21,12 @@ function CreateTeamComponent() {
         teamService.create(data.name, data.knowName, data.stadium)
             .then(_ => {
                 handleClose();
-                setSeverity("success");
-                setMessage("Equipo creado exitosamente");
-                openSnackBar();
+                setSuccess("Equipo creado exitosamente");
             })
             .catch(error => {
                 const response = error.response;
                 handleClose();
-                setSeverity("error");
-                setMessage(response.data.message);
-                openSnackBar();
+                setError(response.data.message);
             })
     }
 

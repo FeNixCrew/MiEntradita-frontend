@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useHistory } from 'react-router';
 import QrReader from 'react-qr-reader';
 
@@ -13,6 +12,7 @@ import BackdropInherit from '../feedback/Backdrop';
 import SnackBar from '../feedback/SnackBar';
 
 import { useToggle } from '../../helpers/hooks/useToggle';
+import { useSnackbar } from '../../helpers/hooks/useSnackbar';
 import { exit } from '../../helpers/usedFunctions';
 import matchService from '../../services/MatchService';
 
@@ -22,11 +22,9 @@ const scannerStyle = {
   }
 
 export default function Scanner({match, setMatch}) {
-    const [scanMessage, setScanMessage] = useState(null);
-    const [resultState, setResultState] = useState(null);
     const [open, handleClose, handleToggle] = useToggle();
-    const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
     const history = useHistory();
+    const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
   
     const handleScan = data => {
       if (data) {
@@ -39,33 +37,22 @@ export default function Scanner({match, setMatch}) {
           userId = obtainedData.userId;
           matchId = obtainedData.matchId;
         } catch(_) {
-          setResultState('error');
-          setScanMessage('Entrada inválida. Por favor, descargue su entrada desde nuestra web')
-          openSnackBar();
+          setError('Entrada inválida. Por favor, descargue su entrada desde nuestra web');
         }
   
         if(matchId !== match.id) {
-          setResultState('error');
-          setScanMessage('Su entrada pertenece a otro partido.');
-          openSnackBar();
+          setError('Su entrada pertenece a otro partido.');
           return;
         }
         if(userId && matchId){
           handleToggle();
           matchService.comeIn(userId, matchId)
           .then(_ => {
-            setResultState('success');
-            setScanMessage('Bienvenido al partido! Esperamos que disfrute del encuentro.');
-            openSnackBar();
+            setSuccess('Bienvenido al partido! Esperamos que disfrute del encuentro.');
           })
           .catch((err) => {
-            setResultState('error');
-            if (err.response.status ===400){
-              setScanMessage(err.response.data.message);
-            } else {
-              setScanMessage('Hubo al validar su entrada. Intente de nuevo.')  
-            }
-            openSnackBar();
+            const msg = err.response.status===400 ? err.response.data.message : 'Hubo al validar su entrada. Intente de nuevo.';
+            setError(msg);
           });
           handleClose();
         }
@@ -73,9 +60,7 @@ export default function Scanner({match, setMatch}) {
     }
   
     const handleError = _ => {
-      setResultState('error');
-      setScanMessage('Error al escanear entrada. Intente de nuevo.')
-      openSnackBar();
+      setError('Error al escanear entrada. Intente de nuevo.')
     }
   
     return (
@@ -145,8 +130,8 @@ export default function Scanner({match, setMatch}) {
         >
           <SnackBar
             openSnackBar={isOpenSnack}
-            severityState={resultState}
-            message={scanMessage}
+            severityState={severity}
+            message={message}
             closeSnackBar={closeSnackBar}
             position={{vertical: 'top', horizontal: 'right'}}
           /> 

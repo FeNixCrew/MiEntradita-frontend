@@ -8,14 +8,12 @@ import matchService from "../services/MatchService";
 import { Paper } from "@mui/material";
 import BurgerMenu from "../components/navigation/BurgerMenu";
 import SnackBar from '../components/feedback/SnackBar';
-import { useToggle } from '../helpers/hooks/useToggle';
+import { useSnackbar } from '../helpers/hooks/useSnackbar';
 
 function Searcher() {
     const [matchs, setMatchs] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
-    const [error, setError] = useState(null);
-
+    const {setError, isOpenSnack, closeSnackBar, severity, message} = useSnackbar();
 
     const onChange = data => {
         const partialSearch = data.textSearched;
@@ -26,9 +24,8 @@ function Searcher() {
                     setMatchs(response.data);
                     setIsLoading(false);
                 })
-                .catch(_ => {
+                .catch(__ => {
                     setError('Error al buscar. Intente de nuevo.');
-                    openSnackBar();
                     setIsLoading(false);
                 })
         } else {
@@ -41,8 +38,8 @@ function Searcher() {
             <BackdropInherit open={isLoading} />
             <SnackBar
                 openSnackBar={isOpenSnack}
-                severityState="error"
-                message={error}
+                severityState={severity}
+                message={message}
                 closeSnackBar={closeSnackBar}
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
