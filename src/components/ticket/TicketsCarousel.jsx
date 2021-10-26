@@ -60,7 +60,7 @@ export default function Tickets({ tickets }) {
                             </Carousel>
                         </div>
                         :
-                        <CoustomTypography text='No tienes entradas reservadas disponibles!' variant="h5" />
+                        <CoustomTypography text='¡No tienes entradas reservadas disponibles!' variant="h5" />
                 }
             </div>
         </>

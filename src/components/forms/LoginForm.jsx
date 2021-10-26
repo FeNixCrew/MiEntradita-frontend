@@ -33,8 +33,6 @@ function LoginForm({ onSubmit, error, resetError }) {
     const password = register('password', { required: true });
     const classes = useStyle();
 
-  
-
     return (
         <Box
             className={classes.root}
@@ -64,7 +62,7 @@ function LoginForm({ onSubmit, error, resetError }) {
                 className={classes.textField}
                 error={errors.password && errors.password.type === "required"}
                 margin="normal"
-                label={label('Contrasña')}
+                label={label('Contraseña')}
                 type="password"
                 helperText={errors.password && "El campo contraseña no puede estar vacio"}
                 onChange={(e) => {

@@ -93,7 +93,7 @@ function LogIn() {
                             variant='h5'
                             data-testid='welcome'
                         >
-                            Bienvenido!
+                            ¡Bienvenido!
                         </Typography>
                         <LoginForm onSubmit={onSubmit} resetError={resetError} error={error} />
 
