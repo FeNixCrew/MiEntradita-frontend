@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { useToggle } from '../../helpers/hooks/useToggle';
+import { useSnackbar } from '../../helpers/hooks/useSnackbar';
 import MatchDetails from '../details/MatchDetails';
 import spectatorService from '../../services/SpectatorService';
 import SnackBar from '../feedback/SnackBar';
@@ -34,9 +35,7 @@ const useStyle = makeStyles((theme) => ({
 function SearchResult({ match }) {
     const [openMatchDetails, handleCloseMDetails, handleToggleMDetails] = useToggle();
     const [openTeamDetails, handleCloseTDetails, handleToggleTDetails] = useToggle();
-    const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
-    const [severity, setSeverity] = useState(null);
-    const [message, setMessage] = useState(null);
+    const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [reserved, setReserved] = useState(match.isReserved);
     const classes = useStyle();
     const [team, setTeam] = useState('');
@@ -63,16 +62,12 @@ function SearchResult({ match }) {
                 handleCloseMDetails();
                 match.isReserved = true;
                 setReserved(true);
-                setSeverity("success");
-                setMessage("Entrada reservada");
-                openSnackBar();
+                setSuccess("Entrada reservada");
             })
             .catch((error) => {
                 const response = error.response;
                 handleCloseMDetails();
-                setSeverity("error");
-                setMessage(response.data.message);
-                openSnackBar();
+                setError(response.data.message);
             })
     }
 
