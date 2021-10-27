@@ -110,7 +110,7 @@ function SearchResult({ match }) {
                         </Typography>}
                     </CardContent>
                     <CardActions>
-                        <Button size="small" onClick={handleToggleMDetails}>{label("Detalles de partido")}</Button>
+                        <Button size="small" style={{ color: '#2e86c1' }} onClick={handleToggleMDetails}>Detalles de partido</Button>
                     </CardActions>
                 </Card>
             </Grid>

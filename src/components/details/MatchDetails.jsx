@@ -55,12 +55,12 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
           {matchDetails && <MatchDetailsContent matchDetails={matchDetails} />}
         </DialogContent>
         <DialogActions>
-          {isAvailable !== null && <Button autoFocus onClick={openConfirmation} disabled={isAvailable}>
-            {label("Reservar Entrada")}
+          {isAvailable !== null && <Button  style={{ color: '#2e86c1' }} autoFocus onClick={openConfirmation} disabled={isAvailable}>
+            Reservar Entrada
           </Button>
           }
-          <Button autoFocus onClick={handleClose}>
-          {label("Volver")}
+          <Button  style={{ color: '#2e86c1' }} autoFocus onClick={handleClose}>
+            Volver
           </Button>
         </DialogActions>
       </BootstrapDialog>
