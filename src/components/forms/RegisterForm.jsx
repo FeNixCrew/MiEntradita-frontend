@@ -33,13 +33,13 @@ function RegisterForm({ onSubmit, error, resetError }) {
     const getErrorText = (type, field) => {
         switch (type) {
             case 'required':
-                return `El campo ${field} es requerido`;
+                return label(`El campo ${field} es requerido`, true);
             case 'minLength':
-                return `Su ${field} debe contener de mas de 6 caracteres`;
+                return label(`Su ${field} debe contener de mas de 6 caracteres`, true);
             case 'validate':
-                return "Las contraseñas deben coincidir";
+                return label("Las contraseñas deben coincidir", true);
             default:
-                return `Su ${field} es invalido`;
+                return label(`Su ${field} es invalido`, true);
         }
     }
 
@@ -59,7 +59,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         fullWidth
                         helperText={getError('required', 'name', 'nombre')}
                         id="name"
-                        label={label("Nombre")}
+                        label={label("Nombre", true)}
                         autoFocus
                         onChange={e => {
                             name.onChange(e);
@@ -73,7 +73,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         fullWidth
                         error={showError('surname')}
                         id="surname"
-                        label={label("Apellido")}
+                        label={label("Apellido", true)}
                         name="surname"
                         helperText={getError('required', 'surname', 'apellido')}
                         autoComplete="lname"
@@ -89,7 +89,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         fullWidth
                         error={showError('username')}
                         name="username"
-                        label={label("Usuario")}
+                        label={label("Usuario", true)}
                         id="username"
                         helperText={
                             getError('required', 'username', 'usuario') || 
@@ -108,7 +108,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         fullWidth
                         error={showError('dni')}
                         name="dni"
-                        label={label("DNI")}
+                        label={label("DNI", true)}
                         id="dni"
                         helperText={getError('required', 'dni', 'dni') || getError('pattern', 'dni', 'dni')}
                         onChange={e => {
@@ -123,7 +123,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         fullWidth
                         error={showError('email')}
                         id="email"
-                        label={label("Email")}
+                        label={label("Email", true)}
                         name="email"
                         autoComplete="email"
                         helperText={getError('required', 'email', 'email') || getError('pattern', 'email', 'email')}
@@ -139,7 +139,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         fullWidth
                         error={showError('password')}
                         name="password"
-                        label={label("Contraseña")}
+                        label={label("Contraseña", true)}
                         type="password"
                         id="password"
                         autoComplete="new-password"
@@ -156,7 +156,7 @@ function RegisterForm({ onSubmit, error, resetError }) {
                         error={showError('confirmPassword')}
                         fullWidth
                         name="confirmPassword"
-                        label={label("Confirmar Contraseña")}
+                        label={label("Confirmar Contraseña", true)}
                         type="password"
                         id="confirmPassword"
                         helperText={getError('validate', 'confirmPassword')}
