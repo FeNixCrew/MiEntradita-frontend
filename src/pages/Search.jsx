@@ -9,11 +9,33 @@ import { Paper } from "@mui/material";
 import BurgerMenu from "../components/navigation/BurgerMenu";
 import SnackBar from '../components/feedback/SnackBar';
 import { useSnackbar } from '../helpers/hooks/useSnackbar';
+import { makeStyles } from "@material-ui/core";
+
+const useStyle = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+    },
+    searchBarContainer: {
+        backgroundColor: '#ecf0f1',
+        display: 'flex',
+        borderRadius: 5,
+        padding: '3vh',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginBottom: '2vh',
+        marginTop: '5vh',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+}))
 
 function Searcher() {
     const [matchs, setMatchs] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const {setError, isOpenSnack, closeSnackBar, severity, message} = useSnackbar();
+    const { setError, isOpenSnack, closeSnackBar, severity, message } = useSnackbar();
+    const classes = useStyle();
 
     const onChange = data => {
         const partialSearch = data.textSearched;
@@ -34,7 +56,7 @@ function Searcher() {
     }
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div className={classes.root}>
             <BackdropInherit open={isLoading} />
             <SnackBar
                 openSnackBar={isOpenSnack}
@@ -43,18 +65,7 @@ function Searcher() {
                 closeSnackBar={closeSnackBar}
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
-            <div component={Paper} style={{
-                backgroundColor: '#ecf0f1',
-                display: 'flex',
-                borderRadius: 5,
-                padding: '3vh',
-                flexDirection: 'column',
-                alignItems: 'center',
-                marginBottom: '2vh',
-                marginTop: '5vh',
-                marginLeft: 'auto',
-                marginRight: 'auto'
-            }}>
+            <div component={Paper} className={classes.searchBarContainer}>
                 <SearchBar onChange={onChange} />
             </div>
             {
