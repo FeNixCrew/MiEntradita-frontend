@@ -9,6 +9,31 @@ import BackdropInherit from '../feedback/Backdrop';
 import TextField from '@mui/material/TextField';
 import ControlledAutocomplete from '../layout/ControlledAutocomplete';
 import { label } from '../../helpers/usedFunctions'
+import { makeStyles } from '@material-ui/core';
+
+const useStyle = makeStyles((theme) => ({
+    root: {
+        paddingTop: '1vh'
+    },
+    formContainer: {
+        backgroundColor: '#ecf0f1',
+        padding: '2vh',
+        borderRadius: 2,
+        marginBottom: '1vh'
+    },
+    buttonContainer: {
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        paddingTop: '1vh' 
+    },
+    button: {
+        marginBottom: '1vh',
+        maxWidth: '50%',
+        backgroundColor: '#2e86c1'
+    }
+}))
+
 
 function CreateMatchForm({ onSubmit }) {
     const today = new Date();
@@ -23,6 +48,7 @@ function CreateMatchForm({ onSubmit }) {
         }
     });
     const [teams, setTeams] = useState(null);
+    const classes = useStyle();
 
     register('time', { required: true });
     register('date', { required: true });
@@ -48,7 +74,7 @@ function CreateMatchForm({ onSubmit }) {
 
     return (
         <>
-            <div style={{ paddingTop: '3vh' }} />
+            <div className={classes.root} />
             {teams !== null ?
                 <>
                     <CoustomTypography text="Nuevo partido" />
@@ -56,12 +82,7 @@ function CreateMatchForm({ onSubmit }) {
                         component="form"
                         noValidate
                         onSubmit={handleSubmit(onSubmit)}
-                        style={{
-                            backgroundColor: '#ecf0f1',
-                            padding: '2vh',
-                            borderRadius: 2,
-                            marginBottom: '1vh'
-                        }}
+                        className={classes.formContainer}
                         elevation={6}
                     >
                         <Grid container spacing={1} style={{ display: 'flex' }}>
@@ -135,12 +156,12 @@ function CreateMatchForm({ onSubmit }) {
                             />
 
                         </Grid>
-                        <Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 2 }}>
+                        <Box className={classes.buttonContainer}>
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                style={{ marginTop: 3, marginBottom: 2, maxWidth: '50%', backgroundColor: '#2e86c1' }}
+                                className={classes.button}
                             >
                                 <AddIcon style={{ marginRight: '1vw' }} /> {label("Crear partido")}
                             </Button>
