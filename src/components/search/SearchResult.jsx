@@ -36,7 +36,7 @@ const useStyle = makeStyles((theme) => ({
             color: '#2e86c1',
             cursor: 'pointer',
         },
-        fontWeight: 'bold'
+        fontWeight: 500
     },
     matchTime: {
         fontFamily: 'Quicksand',
