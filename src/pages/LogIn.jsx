@@ -47,7 +47,7 @@ function LogIn() {
         spectatorService.getFavouriteTeam()
             .then((response) => {
                 if(response.data) {
-                    localStorage.setItem('favouriteTeam', response.data.name);
+                    localStorage.setItem('favouriteTeamId', response.data.id);
                 }
             })
             .catch((error) => {
@@ -63,10 +63,13 @@ function LogIn() {
             .then(response => {
                 setIsLoading(false);
                 saveData(response);
-                if(response.data.role === 'ROLE_USER') {
+                push(response.data.role, response.data.username);
+                return response.data.role
+            })
+            .then((role) => {
+                if(role === 'ROLE_USER') {
                     getFavouriteTeam();
                 }
-                push(response.data.role, response.data.username);
             })
             .catch((aError) => {
                 const response = aError.response;

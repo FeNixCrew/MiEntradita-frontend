@@ -11,6 +11,7 @@ import SnackBar from '../components/feedback/SnackBar';
 import { useSnackbar } from '../helpers/hooks/useSnackbar';
 import { isUser } from '../helpers/usedFunctions';
 import { makeStyles } from "@material-ui/core";
+import spectatorService from '../services/SpectatorService'
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -41,16 +42,16 @@ function Searcher() {
 
     useEffect(()=> {
         if(isUser()){
-            const savedTeamId = parseInt(localStorage.teamId) || null;
+            const savedTeamId = parseInt(localStorage.favouriteTeamId) || null;
             setTeamId(savedTeamId);
         }
     }, []);
 
     const onChangeTeam = (newTeamId) => {
-        const newValue = teamId === newTeamId ? null : newTeamId; 
-        setTeamId(newValue);
-        localStorage.teamId = newValue;
-        console.log(localStorage.teamId);
+        setTeamId(newTeamId);
+        localStorage.favouriteTeamId = newTeamId;
+        spectatorService.markAsFavourite(newTeamId);
+        
     }
 
     const onChange = data => {

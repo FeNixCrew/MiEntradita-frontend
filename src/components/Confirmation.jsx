@@ -6,7 +6,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { label } from '../helpers/usedFunctions';
 
-export default function Confirmation({ open, handleClose, confirm, title }) {
+export default function Confirmation({ open, handleClose, confirm, title, text }) {
     return (
         <div>
             <Dialog
@@ -20,7 +20,7 @@ export default function Confirmation({ open, handleClose, confirm, title }) {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        {label("Esta seguro que desea reservar una entrada para este partido?")}
+                        {label(text)}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

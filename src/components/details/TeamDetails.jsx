@@ -12,12 +12,15 @@ import { isUser } from '../../helpers/usedFunctions';
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
+import Confirmation from '../Confirmation';
+
 
 export default function TeamDetails({ open, handleClose, teamName, teamId, onChangeTeam }) {
     const [teamDetails, setTeamDetails] = useState(undefined);
     const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
     const [error, setError] = useState(null);
-    const [isFavorite, setIsFavorite] = useState(null);
+    const [isFavorite, setIsFavorite] = useState(false);
+    const [isOpen, closeConfirmation, openConfirmation] = useToggle();
 
     useEffect(() => {
         teamService.details(teamName)
@@ -32,12 +35,35 @@ export default function TeamDetails({ open, handleClose, teamName, teamId, onCha
             })
     }, [teamName, openSnackBar, teamId]);
 
+    const haveFavouriteTeam = () => {
+        return localStorage.favouriteTeamId !== undefined;
+    }
+
     const handleClick = () => {
+        if (!isFavorite && haveFavouriteTeam()) {
+            openConfirmation();
+        } else {
+            setIsFavorite(false);
+            onChangeTeam(teamDetails.id);
+        }
+
+    }
+
+    const handleConfirmation = () => {
+        closeConfirmation();
+        setIsFavorite(false);
         onChangeTeam(teamDetails.id);
     }
 
     return (
         <div>
+            <Confirmation
+                open={isOpen}
+                handleClose={closeConfirmation}
+                confirm={handleConfirmation}
+                title="Equipo favorito"
+                text="Esta seguro que desea cambiar su equipo favorito?"
+            />
             <SnackBar
                 openSnackBar={isOpenSnack}
                 severityState="error"
@@ -50,18 +76,18 @@ export default function TeamDetails({ open, handleClose, teamName, teamId, onCha
                 aria-labelledby="customized-dialog-title"
                 open={open}
             >
-            {
-                teamDetails &&
-                <BootstrapDialogTitle style={{ color: 'white' }} onClose={handleClose}>
-                    {teamDetails.name}
-                    {isUser() && <Checkbox
-                        checked={isFavorite}
-                        style={{ display: 'inline-flex', position: 'absolute', right: 0, paddingRight: '3vh' }}
-                        icon={<FavoriteBorder />}
-                        checkedIcon={<Favorite sx={{ color: '#c0392b' }} />}
-                        onClick={handleClick} />}
-                </BootstrapDialogTitle>
-            }
+                {
+                    teamDetails &&
+                    <BootstrapDialogTitle style={{ color: 'white' }} onClose={handleClose}>
+                        {teamDetails.name}
+                        {isUser() && <Checkbox
+                            checked={isFavorite}
+                            style={{ display: 'inline-flex', position: 'absolute', right: 0, paddingRight: '3vh' }}
+                            icon={<FavoriteBorder />}
+                            checkedIcon={<Favorite sx={{ color: '#c0392b' }} />}
+                            onClick={handleClick} />}
+                    </BootstrapDialogTitle>
+                }
                 <DialogContent dividers>
                     {teamDetails && <TeamDetailsContent teamDetails={teamDetails} />}
                 </DialogContent>
