@@ -12,6 +12,7 @@ import BackdropInherit from '../components/feedback/Backdrop';
 import CoustomAvatar from '../components/CoustomAvatar';
 
 import authService from '../services/AuthService';
+import spectatorService from '../services/SpectatorService'
 import { saveData } from '../helpers/usedFunctions';
 import Background from '../assets/background.png';
 import { makeStyles } from '@material-ui/core';
@@ -42,12 +43,29 @@ function LogIn() {
     const history = useHistory();
     const classes = useStyle();
 
+    const getFavouriteTeam = () => {
+        spectatorService.getFavouriteTeam()
+            .then((response) => {
+                if(response.data) {
+                    localStorage.setItem('favouriteTeam', response.data.name);
+                }
+            })
+            .catch((error) => {
+                const response = error.response;
+                setError(response.data.message);
+                setIsLoading(false);
+            })
+    }
+    
     const onSubmit = data => {
         setIsLoading(true);
         authService.login(data.username, data.password)
             .then(response => {
                 setIsLoading(false);
                 saveData(response);
+                if(response.data.role === 'ROLE_USER') {
+                    getFavouriteTeam();
+                }
                 push(response.data.role, response.data.username);
             })
             .catch((aError) => {
