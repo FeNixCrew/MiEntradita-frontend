@@ -7,9 +7,9 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
 
-import LoginForm from '../components/forms/login/LoginForm';
+import LoginForm from '../components/forms/LoginForm';
 import BackdropInherit from '../components/feedback/Backdrop';
-import BeginningAvatar from '../components/BegginnigAvatar';
+import CoustomAvatar from '../components/CoustomAvatar';
 
 import authService from '../services/AuthService';
 import { saveData } from '../helpers/usedFunctions';
@@ -84,17 +84,16 @@ function LogIn() {
                 />
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <Box className={classes.boxContainer}>
-                        <BeginningAvatar />
+                        <CoustomAvatar />
                         <Typography
                             style={{
-                                fontStyle: 'bold',
-                                fontFamily: 'Monospace',
+                                fontFamily: 'Quicksand',
                             }}
-                            component='h1'
-                            variant='h6'
+                            component='h2'
+                            variant='h5'
                             data-testid='welcome'
                         >
-                            Bienvenido!
+                            ¡Bienvenido!
                         </Typography>
                         <LoginForm onSubmit={onSubmit} resetError={resetError} error={error} />
 

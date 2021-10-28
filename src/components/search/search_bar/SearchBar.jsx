@@ -17,6 +17,7 @@ function SearchBar({ onChange }) {
                 </SearchIconWrapper>
                 <StyledInputBase
                     {...register("textSearched")}
+                    style={{ fontFamily: 'Quicksand'}}
                     placeholder="Buscar..."
                     inputProps={{ 'aria-label': 'search' }}
                 />

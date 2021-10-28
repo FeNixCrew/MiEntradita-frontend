@@ -1,4 +1,4 @@
-import { AppBar, IconButton, Toolbar, Button, Avatar } from "@material-ui/core";
+import { AppBar, IconButton, Toolbar, Button, Avatar, Typography } from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
 import Logo from '../../assets/logo1.png';
@@ -6,7 +6,6 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useHistory } from "react-router";
 import { exit } from "../../helpers/usedFunctions";
-import BeginningTypography from "../BeginningTypography";
 
 export default function Header({ styleClasses, open, handleDrawerOpen }) {
   const classes = styleClasses;
@@ -39,17 +38,7 @@ export default function Header({ styleClasses, open, handleDrawerOpen }) {
           <IconButton onClick={goHome}>
           <Avatar style={{ m: 1, mr: 3 }} src={Logo} />
           </IconButton>
-          <BeginningTypography
-            text="Mi Entradita"
-            className={classes.logo}
-            sx={{
-              flexGrow: 1,
-              letterSpacing: 3,
-              fontSize: 23,
-              color: 'white',
-              marginLeft: '2vh',
-            }}
-          />
+          <Typography className={classes.logo}>Mi Entradita</Typography>
           <div style={{ marginLeft: "auto" }}>
             <Button onClick={() => exit(history)} >
               <LogoutIcon sx={{ color: 'white' }} />

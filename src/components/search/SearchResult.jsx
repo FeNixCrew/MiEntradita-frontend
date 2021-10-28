@@ -6,11 +6,13 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { useToggle } from '../../helpers/hooks/useToggle';
+import { useSnackbar } from '../../helpers/hooks/useSnackbar';
 import MatchDetails from '../details/MatchDetails';
 import spectatorService from '../../services/SpectatorService';
 import SnackBar from '../feedback/SnackBar';
 import { makeStyles } from '@material-ui/core';
 import TeamDetails from '../details/TeamDetails';
+import { label, formatDateAndTime } from '../../helpers/usedFunctions'
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -19,27 +21,41 @@ const useStyle = makeStyles((theme) => ({
     },
     reserved: {
         color: 'grey',
-        fontStyle: 'italic'
+        fontStyle: 'italic',
+        fontSize: 15
+    },
+    cardComp: {
+        padding: '1vh',
+        width: 'auto',
+        height: 'auto',
+        backgroundColor: '#ecf0f1',
+        maxWidth: '36vw'
     },
     clickeable: {
         '&:hover': {
             color: '#2e86c1',
-            cursor: 'pointer'
+            cursor: 'pointer',
         },
+        fontWeight: 500
+    },
+    matchTime: {
+        fontFamily: 'Quicksand',
+        fontStyle: 'italic',
+        paddingBottom: '1vh',
+        fontSize: 15
     }
-
 }))
 
 function SearchResult({ match }) {
     const [openMatchDetails, handleCloseMDetails, handleToggleMDetails] = useToggle();
     const [openTeamDetails, handleCloseTDetails, handleToggleTDetails] = useToggle();
-    const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
-    const [severity, setSeverity] = useState(null);
-    const [message, setMessage] = useState(null);
+    const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [reserved, setReserved] = useState(match.isReserved);
     const classes = useStyle();
     const [team, setTeam] = useState('');
     const matchTitle = `${match.home} vs ${match.away}`;
+    const horarioFormateado = formatDateAndTime(match.matchStartTime);
+
 
     useEffect(() => {
         setReserved(match.isReserved);
@@ -60,16 +76,12 @@ function SearchResult({ match }) {
                 handleCloseMDetails();
                 match.isReserved = true;
                 setReserved(true);
-                setSeverity("success");
-                setMessage("Entrada reservada");
-                openSnackBar();
+                setSuccess("Entrada reservada");
             })
             .catch((error) => {
                 const response = error.response;
                 handleCloseMDetails();
-                setSeverity("error");
-                setMessage(response.data.message);
-                openSnackBar();
+                setError(response.data.message);
             })
     }
 
@@ -84,18 +96,26 @@ function SearchResult({ match }) {
             />
             {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} />}
             {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={team} />}
-            <Grid item md={12} className={classes.root}>
-                <Card style={{ padding: 1 }}>
+            <Grid item xs={12} className={classes.root}>
+                <Card className={classes.cardComp}>
                     <CardContent style={{ flexGrow: 1 }}>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography style={{ fontFamily: 'Quicksand' }} gutterBottom variant="h5" component="h2">
                             {titleElement(match.home)} vs {titleElement(match.away)}
                         </Typography>
+                        <Typography
+                            className={classes.matchTime}
+                            gutterBottom
+                            variant="div"
+                            component="p"
+                        >
+                            {horarioFormateado}
+                        </Typography>
                         {reserved && <Typography gutterBottom variant="div" component="p" className={classes.reserved}>
-                            Reservado
+                            {label("Reservado")}
                         </Typography>}
                     </CardContent>
                     <CardActions>
-                        <Button size="small" onClick={handleToggleMDetails}>Detalles de partido</Button>
+                        <Button size="small" sx={{ color: '#2e86c1' }} onClick={handleToggleMDetails}>Detalles de partido</Button>
                     </CardActions>
                 </Card>
             </Grid>

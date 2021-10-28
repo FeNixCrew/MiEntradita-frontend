@@ -1,17 +1,38 @@
 import AccessibilityIcon from '@mui/icons-material/Accessibility';
 import ShieldIcon from '@mui/icons-material/Shield';
-import { Box } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
 import Typography from '@mui/material/Typography';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { label } from '../../helpers/usedFunctions';
+
+const useStyle = makeStyles((theme) => ({
+    root: {
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        paddingTop: '5vh'
+    },
+    typ: {
+        paddingBottom: '2vh',
+        fontFamily: 'Quicksand',
+        fontSize: '20px'    
+    },
+    span: {
+        fontStyle: 'italic',
+        fontFamily: 'Quicksand',
+        fontSize: '17px' 
+    }
+}))
 
 export default function TeamDetailsContent({ teamDetails }) {
     const { name, knowName, stadium } = teamDetails;
+    const classes = useStyle();
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: 5 }}>
-            <Typography style={{ paddingBottom: 3 }}><ShieldIcon /><span style={{ fontStyle: 'italic' }}> {name}</span></Typography>
-            <Typography style={{ paddingBottom: 3 }}><AccessibilityIcon />Popularmente llamado: <span style={{ fontStyle: 'italic' }}>{knowName}</span></Typography>
-            <Typography style={{ paddingBottom: 3 }}><LocationOnIcon /><span style={{ fontStyle: 'italic' }}> {stadium} </span> </Typography>
+        <Box className={classes.root}>
+            <Typography className={classes.typ}><ShieldIcon /><span className={classes.span}> {name}</span></Typography>
+            <Typography className={classes.typ}><AccessibilityIcon />{label("Popularmente llamado: ")}<span className={classes.span}>{knowName}</span></Typography>
+            <Typography className={classes.typ}><LocationOnIcon /><span className={classes.span}> {stadium} </span> </Typography>
         </Box>
     )
 

@@ -1,22 +1,41 @@
-import { Box } from "@mui/system";
 import { useState } from "react";
 
 import SearchBar from "../components/search/search_bar/SearchBar";
 import SearchResults from '../components/search/SearchResults';
 import BackdropInherit from "../components/feedback/Backdrop";
-import BeginningTypography from "../components/BeginningTypography";
+import CoustomTypography from "../components/CoustomTypography";
 import matchService from "../services/MatchService";
 import { Paper } from "@mui/material";
 import BurgerMenu from "../components/navigation/BurgerMenu";
 import SnackBar from '../components/feedback/SnackBar';
-import { useToggle } from '../helpers/hooks/useToggle';
+import { useSnackbar } from '../helpers/hooks/useSnackbar';
+import { makeStyles } from "@material-ui/core";
+
+const useStyle = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+    },
+    searchBarContainer: {
+        backgroundColor: '#ecf0f1',
+        display: 'flex',
+        borderRadius: 5,
+        padding: '3vh',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginBottom: '2vh',
+        marginTop: '5vh',
+        marginLeft: 'auto',
+        marginRight: 'auto'
+    },
+}))
 
 function Searcher() {
     const [matchs, setMatchs] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
-    const [error, setError] = useState(null);
-
+    const { setError, isOpenSnack, closeSnackBar, severity, message } = useSnackbar();
+    const classes = useStyle();
 
     const onChange = data => {
         const partialSearch = data.textSearched;
@@ -27,9 +46,8 @@ function Searcher() {
                     setMatchs(response.data);
                     setIsLoading(false);
                 })
-                .catch(_ => {
+                .catch(__ => {
                     setError('Error al buscar. Intente de nuevo.');
-                    openSnackBar();
                     setIsLoading(false);
                 })
         } else {
@@ -38,29 +56,23 @@ function Searcher() {
     }
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div className={classes.root}>
             <BackdropInherit open={isLoading} />
             <SnackBar
                 openSnackBar={isOpenSnack}
-                severityState="error"
-                message={error}
+                severityState={severity}
+                message={message}
                 closeSnackBar={closeSnackBar}
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
-            <Paper sx={{ marginTop: '5vh', marginLeft: 'auto', marginRight: 'auto', padding: '3vh', borderRadius: 2 }}>
-                <Box sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}>
-                    <SearchBar onChange={onChange} />
-                </Box>
-            </Paper>
+            <div component={Paper} className={classes.searchBarContainer}>
+                <SearchBar onChange={onChange} />
+            </div>
             {
                 matchs ?
                     <SearchResults results={matchs} />
                     :
-                    <BeginningTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
+                    <CoustomTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
             }
         </div>
     );

@@ -2,9 +2,36 @@ import GridItem from "../layout/GridItem";
 import { Box, Button, Grid, Paper } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
-import BeginningTypography from "../BeginningTypography";
+import CoustomTypography from "../CoustomTypography";
+import { label } from '../../helpers/usedFunctions'
+import { makeStyles } from "@material-ui/core";
 
-
+const useStyle = makeStyles((theme) => ({
+    root: {
+        paddingTop: '3vh'
+    },
+    container: {
+        backgroundColor: '#ecf0f1',
+        padding: '2vh',
+        borderRadius: 2,
+        marginBottom: '1vh'
+    },
+    formContainer: {
+        display: 'flex'
+    },
+    buttonContainer: {
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        paddingTop: '2vh'
+    },
+    button: {
+        marginTop: 3, 
+        marginBottom: 2, 
+        maxWidth: '50%', 
+        backgroundColor: '#2e86c1'
+    }
+}))
 
 function CreateTeamForm({ onSubmit }) {
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -19,6 +46,8 @@ function CreateTeamForm({ onSubmit }) {
     register('knowName', { required: true });
     register('stadium', { required: true });
 
+    const classes = useStyle();
+
     const showError = (entity) => {
         return errors[entity] !== undefined;
     }
@@ -28,22 +57,17 @@ function CreateTeamForm({ onSubmit }) {
     }
 
     return (
-        <> 
-            <div style={{ paddingTop: '3vh' }} />
-            <BeginningTypography text="Nuevo Equipo" />
+        <>
+            <div className={classes.root} />
+            <CoustomTypography text={label("Nuevo Equipo")} />
             <Paper
                 component="form"
                 noValidate
                 onSubmit={handleSubmit(onSubmit)}
-                style={{
-                    backgroundColor: '#d7dbdd',
-                    padding: '2vh',
-                    borderRadius: 2,
-                    marginBottom: '1vh'
-                }}
+                className={classes.container}
                 elevation={6}
             >
-                <Grid container spacing={1} style={{ display: 'flex' }}>
+                <Grid container spacing={1} className={classes.formContainer}>
                     <GridItem
                         register={register}
                         showError={showError('name')}
@@ -51,7 +75,7 @@ function CreateTeamForm({ onSubmit }) {
                         name="name"
                         type="text"
                         id="name-id"
-                        label="Nombre de equipo"
+                        givenLabel="Nombre de equipo"
                         xs={12}
                     />
                     <GridItem
@@ -61,7 +85,7 @@ function CreateTeamForm({ onSubmit }) {
                         name="knowName"
                         type="text"
                         id="knowName-id"
-                        label="Nombre conocido"
+                        givenLabel="Nombre conocido"
                         xs={12}
                     />
                     <GridItem
@@ -71,18 +95,18 @@ function CreateTeamForm({ onSubmit }) {
                         name="stadium"
                         type="text"
                         id="stadium-id"
-                        label="Estadio"
+                        givenLabel="Estadio"
                         xs={12}
                     />
                 </Grid>
-                <Box style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingTop: '2vh' }}>
+                <Box className={classes.buttonContainer}>
                     <Button
                         type="submit"
                         fullWidth
                         variant="contained"
-                        style={{ marginTop: 3, marginBottom: 2, maxWidth: '50%', backgroundColor: '#2e86c1' }}
+                        className={classes.button}
                     >
-                        <AddModeratorIcon style={{ marginRight: '1vw' }} /> Crear equipo
+                        <AddModeratorIcon style={{ marginRight: '1vw' }} /> {label("Crear equipo")}
                     </Button>
                 </Box>
             </Paper>
