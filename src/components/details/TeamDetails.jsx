@@ -36,7 +36,7 @@ export default function TeamDetails({ open, handleClose, teamName, teamId, onCha
     }, [teamName, openSnackBar, teamId]);
 
     const haveFavouriteTeam = () => {
-        return localStorage.favouriteTeamId !== undefined;
+        return localStorage.favouriteTeamId;
     }
 
     const handleClick = () => {

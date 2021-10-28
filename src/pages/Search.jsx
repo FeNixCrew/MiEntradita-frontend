@@ -48,8 +48,9 @@ function Searcher() {
     }, []);
 
     const onChangeTeam = (newTeamId) => {
-        setTeamId(newTeamId);
-        localStorage.favouriteTeamId = newTeamId;
+        const newValue = teamId === newTeamId ? undefined : newTeamId;
+        localStorage.favouriteTeamId = newValue;
+        setTeamId(newValue);
         spectatorService.markAsFavourite(newTeamId);
         
     }
