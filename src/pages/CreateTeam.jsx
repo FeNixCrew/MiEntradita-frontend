@@ -1,17 +1,14 @@
-import BurgerMenu from '../components/navigation/BurgerMenu';
 import CreateTeamForm from '../components/forms/CreateTeamForm';
 import teamService from '../services/TeamService';
-import CreateEntity from '../components/layout/CreateEntityComponent';
+import AbstractAdminForm from '../components/layout/AbstractAdminForm';
 
 
-function CreateTeamComponent() {
-    const resultPromise = (data) => {
+function CreateTeam() {
+    const promise = (data) => {
         return teamService.create(data.name, data.knowName, data.stadium)
     }
 
-    return <CreateEntity Children={CreateTeamForm} resultPromise={resultPromise} entityName={"Equipo"} />
+    return <AbstractAdminForm Children={CreateTeamForm} promise={promise} entityName={"Equipo"} />
 }
 
-export default function CreateTeam() {
-    return <BurgerMenu children={<CreateTeamComponent />} />
-}
+export default CreateTeam;

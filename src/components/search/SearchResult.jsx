@@ -21,15 +21,29 @@ const useStyle = makeStyles((theme) => ({
     },
     reserved: {
         color: 'grey',
-        fontStyle: 'italic'
+        fontStyle: 'italic',
+        fontSize: 15
+    },
+    cardComp: {
+        padding: '1vh',
+        width: 'auto',
+        height: 'auto',
+        backgroundColor: '#ecf0f1',
+        maxWidth: '36vw'
     },
     clickeable: {
         '&:hover': {
             color: '#2e86c1',
             cursor: 'pointer',
         },
-        fontFamily: 'Quicksand'
+        fontWeight: 'bold'
     },
+    matchTime: {
+        fontFamily: 'Quicksand',
+        fontStyle: 'italic',
+        paddingBottom: '1vh',
+        fontSize: 15
+    }
 }))
 
 function SearchResult({ match }) {
@@ -83,17 +97,13 @@ function SearchResult({ match }) {
             {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} />}
             {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={team} />}
             <Grid item xs={12} className={classes.root}>
-                <Card style={{ padding: 1, width: 'auto', height: 'auto', backgroundColor: '#ecf0f1', maxWidth: '36vw' }}>
+                <Card className={classes.cardComp}>
                     <CardContent style={{ flexGrow: 1 }}>
                         <Typography style={{ fontFamily: 'Quicksand' }} gutterBottom variant="h5" component="h2">
                             {titleElement(match.home)} vs {titleElement(match.away)}
                         </Typography>
                         <Typography
-                            style={{
-                                fontFamily: 'Quicksand',
-                                fontStyle: 'italic',
-                                paddingBottom: '1vh'
-                            }}
+                            className={classes.matchTime}
                             gutterBottom
                             variant="div"
                             component="p"
@@ -105,7 +115,7 @@ function SearchResult({ match }) {
                         </Typography>}
                     </CardContent>
                     <CardActions>
-                        <Button size="small" style={{ color: '#2e86c1' }} onClick={handleToggleMDetails}>Detalles de partido</Button>
+                        <Button size="small" sx={{ color: '#2e86c1' }} onClick={handleToggleMDetails}>Detalles de partido</Button>
                     </CardActions>
                 </Card>
             </Grid>

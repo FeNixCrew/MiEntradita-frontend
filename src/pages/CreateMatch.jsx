@@ -1,19 +1,16 @@
 import CreateMatchForm from '../components/forms/CreateMatchForm';
 import matchService from '../services/MatchService';
-import BurgerMenu from '../components/navigation/BurgerMenu';
-import CreateEntity from '../components/layout/CreateEntityComponent';
+import AbstractAdminForm from '../components/layout/AbstractAdminForm';
 
 
-function CreateMatchComponent() {
+function CreateMatch() {
 
-    const resultPromise = (data) => {
+    const promise = (data) => {
         let matchStartTime = (data.date + "T" + data.time);
         return matchService.create(data.home, data.away, parseInt(data.price), matchStartTime)
     }
 
-    return <CreateEntity Children={CreateMatchForm} resultPromise={resultPromise} entityName={"Partido"} />
+    return <AbstractAdminForm Children={CreateMatchForm} promise={promise} entityName={"Partido"} />
 }
 
-export default function CreateMatch() {
-    return <BurgerMenu children={<CreateMatchComponent />} />
-}
+export default CreateMatch;

@@ -5,14 +5,15 @@ import BackdropInherit from '../feedback/Backdrop';
 import { useToggle } from '../../helpers/hooks/useToggle';
 import { useSnackbar } from '../../helpers/hooks/useSnackbar';
 import SnackBar from '../feedback/SnackBar';
+import BurgerMenu from '../navigation/BurgerMenu'
 
-function CreateEntity({ Children, resultPromise, entityName }) {
+function AbstractAdminFormComponent({ Children, promise, entityName }) {
     const [open, handleClose, handleToggle] = useToggle();
     const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
 
     const onSubmit = (data) => {
         handleToggle();
-        resultPromise(data)
+        promise(data)
             .then(_ => {
                 handleClose();
                 setSuccess(`${entityName} creado exitosamente`);
@@ -42,4 +43,6 @@ function CreateEntity({ Children, resultPromise, entityName }) {
     );
 }
 
-export default CreateEntity;
+export default function AbstractAdminForm({ Children, promise, entityName }) {
+    return <BurgerMenu children={<AbstractAdminFormComponent Children={Children} promise={promise} entityName={entityName} />} />
+}
