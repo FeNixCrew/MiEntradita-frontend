@@ -2,10 +2,10 @@ import { Grid } from "@mui/material";
 import CoustomTypography from "../CoustomTypography";
 import SearchResult from "./SearchResult";
 
-function SearchResults({ results }) {
+function SearchResults({ results, teamId, onChangeTeam }) {
 
     const renderResult = () => {
-        return results.map((result, i) => <SearchResult key={i} match={result} />);
+        return results.map((result, i) => <SearchResult key={i} match={result} teamId={teamId} onChangeTeam={onChangeTeam} />);
     };
 
     return (

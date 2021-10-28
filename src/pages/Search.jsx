@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import SearchBar from "../components/search/search_bar/SearchBar";
 import SearchResults from '../components/search/SearchResults';
@@ -9,6 +9,7 @@ import { Paper } from "@mui/material";
 import BurgerMenu from "../components/navigation/BurgerMenu";
 import SnackBar from '../components/feedback/SnackBar';
 import { useSnackbar } from '../helpers/hooks/useSnackbar';
+import { isUser } from '../helpers/usedFunctions';
 import { makeStyles } from "@material-ui/core";
 
 const useStyle = makeStyles((theme) => ({
@@ -35,7 +36,22 @@ function Searcher() {
     const [matchs, setMatchs] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const { setError, isOpenSnack, closeSnackBar, severity, message } = useSnackbar();
+    const [teamId, setTeamId] = useState(null);
     const classes = useStyle();
+
+    useEffect(()=> {
+        if(isUser()){
+            const savedTeamId = parseInt(localStorage.teamId) || null;
+            setTeamId(savedTeamId);
+        }
+    }, []);
+
+    const onChangeTeam = (newTeamId) => {
+        const newValue = teamId === newTeamId ? null : newTeamId; 
+        setTeamId(newValue);
+        localStorage.teamId = newValue;
+        console.log(localStorage.teamId);
+    }
 
     const onChange = data => {
         const partialSearch = data.textSearched;
@@ -70,7 +86,7 @@ function Searcher() {
             </div>
             {
                 matchs ?
-                    <SearchResults results={matchs} />
+                    <SearchResults results={matchs} teamId={teamId} onChangeTeam={onChangeTeam} />
                     :
                     <CoustomTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
             }

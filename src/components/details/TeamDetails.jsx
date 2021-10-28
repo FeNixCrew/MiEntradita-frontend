@@ -13,40 +13,27 @@ import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 
-export default function TeamDetails({ open, handleClose, teamName }) {
+export default function TeamDetails({ open, handleClose, teamName, teamId, onChangeTeam }) {
     const [teamDetails, setTeamDetails] = useState(undefined);
     const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
     const [error, setError] = useState(null);
-    const [isFav, notFav, changeFav] = useToggle(false);
-    const [haveFav, setHaveFav] = useState(false);
-
-    const mark = () => {
-        let maybeFav = localStorage.getItem('favouriteTeam');
-        if (maybeFav && maybeFav !== teamName) setHaveFav(true);
-        if (teamName === maybeFav) {
-            changeFav();
-        }
-    }
+    const [isFavorite, setIsFavorite] = useState(null);
 
     useEffect(() => {
         teamService.details(teamName)
             .then((response) => {
                 setTeamDetails(response.data);
+                setIsFavorite(response.data.id === teamId);
             })
-            .catch((_) => {
+            .catch((err) => {
+                console.log(err.message);
                 setError('Hubo un problema al obtener los detalles. Intente de nuevo.');
                 openSnackBar();
             })
-    }, [teamName, openSnackBar])
+    }, [teamName, openSnackBar, teamId]);
 
     const handleClick = () => {
-        // if (isFav) {
-        //     notFav();
-        //     localStorage.setItem('favouriteTeam', undefined)
-        // } else {
-        //     changeFav();
-        //     localStorage.setItem('favouriteTeam', teamName)
-        // }
+        onChangeTeam(teamDetails.id);
     }
 
     return (
@@ -63,16 +50,18 @@ export default function TeamDetails({ open, handleClose, teamName }) {
                 aria-labelledby="customized-dialog-title"
                 open={open}
             >
+            {
+                teamDetails &&
                 <BootstrapDialogTitle style={{ color: 'white' }} onClose={handleClose}>
-                    {teamName}
+                    {teamDetails.name}
                     {isUser() && <Checkbox
-                        checked={isFav}
-                        disabled={haveFav}
+                        checked={isFavorite}
                         style={{ display: 'inline-flex', position: 'absolute', right: 0, paddingRight: '3vh' }}
                         icon={<FavoriteBorder />}
                         checkedIcon={<Favorite sx={{ color: '#c0392b' }} />}
                         onClick={handleClick} />}
                 </BootstrapDialogTitle>
+            }
                 <DialogContent dividers>
                     {teamDetails && <TeamDetailsContent teamDetails={teamDetails} />}
                 </DialogContent>
