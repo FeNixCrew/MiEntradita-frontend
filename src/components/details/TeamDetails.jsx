@@ -21,7 +21,6 @@ export default function TeamDetails({ open, handleClose, teamName, teamId, markA
     const [error, setError] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
     const [isOpen, closeConfirmation, openConfirmation] = useToggle();
-    const [favTeamId, setFavTeamId] = useState(null);
 
     useEffect(() => {
         teamService.details(teamName)

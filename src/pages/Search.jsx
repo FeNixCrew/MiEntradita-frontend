@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import SearchBar from "../components/search/search_bar/SearchBar";
 import SearchResults from '../components/search/SearchResults';
@@ -9,9 +9,7 @@ import { Paper } from "@mui/material";
 import BurgerMenu from "../components/navigation/BurgerMenu";
 import SnackBar from '../components/feedback/SnackBar';
 import { useSnackbar } from '../helpers/hooks/useSnackbar';
-import { isUser } from '../helpers/usedFunctions';
 import { makeStyles } from "@material-ui/core";
-import spectatorService from '../services/SpectatorService'
 
 const useStyle = makeStyles((theme) => ({
     root: {
