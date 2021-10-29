@@ -37,23 +37,7 @@ function Searcher() {
     const [matchs, setMatchs] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const { setError, isOpenSnack, closeSnackBar, severity, message } = useSnackbar();
-    const [teamId, setTeamId] = useState(null);
     const classes = useStyle();
-
-    useEffect(()=> {
-        if(isUser()){
-            const savedTeamId = parseInt(localStorage.favouriteTeamId) || null;
-            setTeamId(savedTeamId);
-        }
-    }, []);
-
-    const onChangeTeam = (newTeamId) => {
-        const newValue = teamId === newTeamId ? undefined : newTeamId;
-        localStorage.favouriteTeamId = newValue;
-        setTeamId(newValue);
-        spectatorService.markAsFavourite(newTeamId);
-        
-    }
 
     const onChange = data => {
         const partialSearch = data.textSearched;
@@ -88,7 +72,7 @@ function Searcher() {
             </div>
             {
                 matchs ?
-                    <SearchResults results={matchs} teamId={teamId} onChangeTeam={onChangeTeam} />
+                    <SearchResults results={matchs} />
                     :
                     <CoustomTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
             }

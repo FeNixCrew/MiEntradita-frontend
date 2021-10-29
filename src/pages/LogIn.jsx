@@ -46,6 +46,7 @@ function LogIn() {
     const getFavouriteTeam = () => {
         spectatorService.getFavouriteTeam()
             .then((response) => {
+                localStorage.setItem('favouriteTeamId', null);
                 if(response.data) {
                     localStorage.setItem('favouriteTeamId', response.data.id);
                 }

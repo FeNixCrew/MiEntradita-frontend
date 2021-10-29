@@ -46,7 +46,7 @@ const useStyle = makeStyles((theme) => ({
     }
 }))
 
-function SearchResult({ match, teamId, onChangeTeam }) {
+function SearchResult({ match, teamId, markAsFavourite, haveFavouriteTeam }) {
     const [openMatchDetails, handleCloseMDetails, handleToggleMDetails] = useToggle();
     const [openTeamDetails, handleCloseTDetails, handleToggleTDetails] = useToggle();
     const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
@@ -95,7 +95,7 @@ function SearchResult({ match, teamId, onChangeTeam }) {
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
             {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} />}
-            {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={teamName} teamId={teamId} onChangeTeam={onChangeTeam}/>}
+            {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={teamName} teamId={teamId} markAsFavourite={markAsFavourite} haveFavouriteTeam={haveFavouriteTeam} />}
             <Grid item xs={12} className={classes.root}>
                 <Card className={classes.cardComp}>
                     <CardContent style={{ flexGrow: 1 }}>

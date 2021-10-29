@@ -15,12 +15,13 @@ import Favorite from '@mui/icons-material/Favorite';
 import Confirmation from '../Confirmation';
 
 
-export default function TeamDetails({ open, handleClose, teamName, teamId, onChangeTeam }) {
+export default function TeamDetails({ open, handleClose, teamName, teamId, markAsFavourite, haveFavouriteTeam }) {
     const [teamDetails, setTeamDetails] = useState(undefined);
     const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
     const [error, setError] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
     const [isOpen, closeConfirmation, openConfirmation] = useToggle();
+    const [favTeamId, setFavTeamId] = useState(null);
 
     useEffect(() => {
         teamService.details(teamName)
@@ -35,24 +36,20 @@ export default function TeamDetails({ open, handleClose, teamName, teamId, onCha
             })
     }, [teamName, openSnackBar, teamId]);
 
-    const haveFavouriteTeam = () => {
-        return localStorage.favouriteTeamId;
-    }
-
-    const handleClick = () => {
-        if (!isFavorite && haveFavouriteTeam()) {
+    const handleClick = (ev) => {
+        if(!isFavorite && haveFavouriteTeam()) {
             openConfirmation();
         } else {
-            setIsFavorite(false);
-            onChangeTeam(teamDetails.id);
+            setIsFavorite(!isFavorite)
+            markAsFavourite(teamDetails.id);
         }
-
+        
     }
 
     const handleConfirmation = () => {
         closeConfirmation();
-        setIsFavorite(false);
-        onChangeTeam(teamDetails.id);
+        setIsFavorite(!isFavorite);
+        markAsFavourite(teamDetails.id);
     }
 
     return (
