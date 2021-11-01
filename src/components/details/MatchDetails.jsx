@@ -35,7 +35,13 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
 
   return (
     <div>
-      <Confirmation open={isOpen} handleClose={closeConfirmation} confirm={confirm} title={title} />
+      <Confirmation
+        open={isOpen}
+        handleClose={closeConfirmation}
+        confirm={confirm}
+        title={title}
+        text="Esta seguro que desea reservar una entrada para este partido?"
+      />
       <SnackBar
         openSnackBar={isOpenSnack}
         severityState="error"
@@ -55,11 +61,11 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
           {matchDetails && <MatchDetailsContent matchDetails={matchDetails} />}
         </DialogContent>
         <DialogActions>
-          {isAvailable !== null && <Button  sx={{ color: '#2e86c1' }} autoFocus onClick={openConfirmation} disabled={isAvailable}>
+          {isAvailable !== null && <Button sx={{ color: '#2e86c1' }} autoFocus onClick={openConfirmation} disabled={isAvailable}>
             Reservar Entrada
           </Button>
           }
-          <Button  sx={{ color: '#2e86c1' }} autoFocus onClick={handleClose}>
+          <Button sx={{ color: '#2e86c1' }} autoFocus onClick={handleClose}>
             Volver
           </Button>
         </DialogActions>

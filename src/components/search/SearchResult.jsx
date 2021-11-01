@@ -46,13 +46,13 @@ const useStyle = makeStyles((theme) => ({
     }
 }))
 
-function SearchResult({ match }) {
+function SearchResult({ match, teamId, markAsFavourite, haveFavouriteTeam }) {
     const [openMatchDetails, handleCloseMDetails, handleToggleMDetails] = useToggle();
     const [openTeamDetails, handleCloseTDetails, handleToggleTDetails] = useToggle();
     const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [reserved, setReserved] = useState(match.isReserved);
+    const [teamName, setTeamName] = useState('');
     const classes = useStyle();
-    const [team, setTeam] = useState('');
     const matchTitle = `${match.home} vs ${match.away}`;
     const horarioFormateado = formatDateAndTime(match.matchStartTime);
 
@@ -62,7 +62,7 @@ function SearchResult({ match }) {
     }, [match.isReserved])
 
     const handleOpenTeamDetails = (team) => {
-        setTeam(team);
+        setTeamName(team);
         handleToggleTDetails();
     }
 
@@ -95,7 +95,7 @@ function SearchResult({ match }) {
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
             {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} />}
-            {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={team} />}
+            {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={teamName} teamId={teamId} markAsFavourite={markAsFavourite} haveFavouriteTeam={haveFavouriteTeam} />}
             <Grid item xs={12} className={classes.root}>
                 <Card className={classes.cardComp}>
                     <CardContent style={{ flexGrow: 1 }}>
