@@ -5,7 +5,7 @@ import AbstractAdminForm from '../components/layout/AbstractAdminForm';
 
 function CreateTeam() {
     const promise = (data) => {
-        return teamService.create(data.name, data.knowName, data.stadium)
+        return teamService.create(data.name, data.knowName, data.stadium, parseInt(data.stadiumCapacity))
     }
 
     return <AbstractAdminForm Children={CreateTeamForm} promise={promise} entityName={"Equipo"} />

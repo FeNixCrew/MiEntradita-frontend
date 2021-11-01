@@ -4,6 +4,7 @@ import { Box, makeStyles } from '@material-ui/core';
 import Typography from '@mui/material/Typography';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { label } from '../../helpers/usedFunctions';
+import AttributionIcon from '@mui/icons-material/Attribution';
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -25,7 +26,7 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 export default function TeamDetailsContent({ teamDetails }) {
-    const { name, knowName, stadium } = teamDetails;
+    const { name, knowName, stadium, stadiumCapacity } = teamDetails;
     const classes = useStyle();
 
     return (
@@ -33,6 +34,8 @@ export default function TeamDetailsContent({ teamDetails }) {
             <Typography className={classes.typ}><ShieldIcon /><span className={classes.span}> {name}</span></Typography>
             <Typography className={classes.typ}><AccessibilityIcon />{label("Popularmente llamado: ")}<span className={classes.span}>{knowName}</span></Typography>
             <Typography className={classes.typ}><LocationOnIcon /><span className={classes.span}> {stadium} </span> </Typography>
+            <Typography className={classes.typ}><AttributionIcon /><span className={classes.span}> Capacidad del estadio: {stadiumCapacity} </span> </Typography>
+
         </Box>
     )
 

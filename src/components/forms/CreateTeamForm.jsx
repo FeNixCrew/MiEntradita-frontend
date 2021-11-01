@@ -43,13 +43,14 @@ function CreateTeamForm({ onSubmit }) {
             name: '',
             knowName: '',
             stadium: '',
-            maximuCapacity: 20000
+            stadiumCapacity: 20000
         }
     });
 
     register('name', { required: true });
     register('knowName', { required: true });
     register('stadium', { required: true });
+    register('stadiumCapacity', { required: true });
 
     const classes = useStyle();
 
@@ -101,6 +102,16 @@ function CreateTeamForm({ onSubmit }) {
                         type="text"
                         id="stadium-id"
                         givenLabel="Estadio"
+                        xs={12}
+                    />
+                     <GridItem
+                        register={register}
+                        showError={showError('stadiumCapacity')}
+                        helperText={getError('stadiumCapacity', 'Capacidad de Estadio')}
+                        name="stadiumCapacity"
+                        type="number"
+                        id="stadiumCapacity-id"
+                        givenLabel="Capacidad de Estadio"
                         xs={12}
                     />
                 </Grid>

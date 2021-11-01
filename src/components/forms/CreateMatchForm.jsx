@@ -49,6 +49,7 @@ function CreateMatchForm({ onSubmit }) {
             price: 500,
             home: '',
             away: '',
+            admittedPercentage: 50
         }
     });
     const [teams, setTeams] = useState(null);
@@ -57,6 +58,7 @@ function CreateMatchForm({ onSubmit }) {
     register('time', { required: true });
     register('date', { required: true });
     register('price', { required: true, min: 500 });
+    register('admittedPercentage', { required: true, min: 1, max: 100});
 
     useEffect(() => {
         teamService.teams()
@@ -158,7 +160,16 @@ function CreateMatchForm({ onSubmit }) {
                                 givenLabel="Precio de entrada"
                                 xs={12}
                             />
-
+                             <GridItem
+                                register={register}
+                                showError={showError('admittedPercentage')}
+                                helperText={getError('admittedPercentage', 'Porcentaje de aforo') || ( (errors['admittedPercentage']?.type === 'min' || errors['admittedPercentage']?.type === 'max')  && 'El porcentaje debe estar entre 0 y 100')} 
+                                name="admittedPercentage"
+                                type="number"
+                                id="admittedPercentage-id"
+                                givenLabel="Porcentaje de aforo"
+                                xs={12}
+                            />
                         </Grid>
                         <Box className={classes.buttonContainer}>
                             <Button

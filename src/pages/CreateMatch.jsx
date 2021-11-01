@@ -7,7 +7,7 @@ function CreateMatch() {
 
     const promise = (data) => {
         let matchStartTime = (data.date + "T" + data.time);
-        return matchService.create(data.home, data.away, parseInt(data.price), matchStartTime)
+        return matchService.create(data.home, data.away, parseInt(data.price), matchStartTime, data.admittedPercentage)
     }
 
     return <AbstractAdminForm Children={CreateMatchForm} promise={promise} entityName={"Partido"} />

@@ -38,7 +38,7 @@ const useStyle = makeStyles((theme) => ({
         },
         fontWeight: 500
     },
-    matchTime: {
+    data: {
         fontFamily: 'Quicksand',
         fontStyle: 'italic',
         paddingBottom: '1vh',
@@ -50,7 +50,7 @@ function SearchResult({ match, teamId, markAsFavourite, haveFavouriteTeam }) {
     const [openMatchDetails, handleCloseMDetails, handleToggleMDetails] = useToggle();
     const [openTeamDetails, handleCloseTDetails, handleToggleTDetails] = useToggle();
     const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
-    const [reserved, setReserved] = useState(match.isReserved);
+    const [reserved, setReserved] = useState(false);
     const [teamName, setTeamName] = useState('');
     const classes = useStyle();
     const matchTitle = `${match.home} vs ${match.away}`;
@@ -58,8 +58,10 @@ function SearchResult({ match, teamId, markAsFavourite, haveFavouriteTeam }) {
 
 
     useEffect(() => {
-        setReserved(match.isReserved);
-    }, [match.isReserved])
+        const available = (match.availableTickets > 0) ? match.isReserved : false;
+        setReserved(available)
+
+    }, [match.isReserved, match.availableTickets])
 
     const handleOpenTeamDetails = (team) => {
         setTeamName(team);
@@ -103,12 +105,20 @@ function SearchResult({ match, teamId, markAsFavourite, haveFavouriteTeam }) {
                             {titleElement(match.home)} vs {titleElement(match.away)}
                         </Typography>
                         <Typography
-                            className={classes.matchTime}
+                            className={classes.data}
                             gutterBottom
                             variant="div"
                             component="p"
                         >
                             {horarioFormateado}
+                        </Typography>
+                        <Typography
+                            className={classes.data}
+                            gutterBottom
+                            variant="div"
+                            component="p"
+                        >
+                            Cantidad de entradas disponibles: {match.availableTickets}
                         </Typography>
                         {reserved && <Typography gutterBottom variant="div" component="p" className={classes.reserved}>
                             {label("Reservado")}

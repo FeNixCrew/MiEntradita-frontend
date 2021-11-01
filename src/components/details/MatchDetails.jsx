@@ -7,7 +7,7 @@ import { useToggle } from '../../helpers/hooks/useToggle'
 import matchService from '../../services/MatchService.js';
 import { BootstrapDialog } from './modal/BoostrapDialog';
 import { BootstrapDialogTitle } from './modal/BoostrapDialogTitle';
-import MatchDetailsContent from './MatchDetailsConten';
+import MatchDetailsContent from './MatchDetailsContent';
 import Confirmation from '../Confirmation';
 import { label } from '../../helpers/usedFunctions';
 
