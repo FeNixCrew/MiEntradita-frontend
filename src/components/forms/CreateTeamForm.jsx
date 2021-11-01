@@ -20,16 +20,20 @@ const useStyle = makeStyles((theme) => ({
         display: 'flex'
     },
     buttonContainer: {
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center', 
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         paddingTop: '2vh'
     },
     button: {
-        marginTop: 3, 
-        marginBottom: 2, 
-        maxWidth: '50%', 
-        backgroundColor: '#2e86c1'
+        marginTop: 3,
+        marginBottom: 2,
+        color: 'black',
+        maxWidth: '40%',
+        backgroundColor: '#2e86c1',
+        '&:hover': {
+            backgroundColor: 'white'
+        }
     }
 }))
 
@@ -38,7 +42,8 @@ function CreateTeamForm({ onSubmit }) {
         defaultValues: {
             name: '',
             knowName: '',
-            stadium: ''
+            stadium: '',
+            maximuCapacity: 20000
         }
     });
 
@@ -59,13 +64,13 @@ function CreateTeamForm({ onSubmit }) {
     return (
         <>
             <div className={classes.root} />
-            <CoustomTypography text={label("Nuevo Equipo")} />
+            <CoustomTypography text={label("Nuevo Equipo")} sx={{ textAlign: 'center' }} />
             <Paper
                 component="form"
                 noValidate
                 onSubmit={handleSubmit(onSubmit)}
                 className={classes.container}
-                elevation={6}
+                elevation={3}
             >
                 <Grid container spacing={1} className={classes.formContainer}>
                     <GridItem

@@ -22,15 +22,19 @@ const useStyle = makeStyles((theme) => ({
         marginBottom: '1vh'
     },
     buttonContainer: {
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center', 
-        paddingTop: '1vh' 
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingTop: '2vh'
     },
     button: {
         marginBottom: '1vh',
-        maxWidth: '50%',
-        backgroundColor: '#2e86c1'
+        maxWidth: '40%',
+        color: 'black',
+        backgroundColor: '#2e86c1',
+        '&:hover': {
+            backgroundColor: 'white'
+        }
     }
 }))
 
@@ -77,15 +81,15 @@ function CreateMatchForm({ onSubmit }) {
             <div className={classes.root} />
             {teams !== null ?
                 <>
-                    <CoustomTypography text="Nuevo partido" />
+                    <CoustomTypography text="Nuevo partido" sx={{ textAlign: 'center' }}/>
                     <Paper
                         component="form"
                         noValidate
                         onSubmit={handleSubmit(onSubmit)}
                         className={classes.formContainer}
-                        elevation={6}
+                        elevation={3}
                     >
-                        <Grid container spacing={1} style={{ display: 'flex' }}>
+                        <Grid container spacing={1} style={{ }}>
                             <Grid item xs={12} >
                                 <InputLabel style={{ paddingBottom: '1vh' }}>{label("Local")}</InputLabel>
                                 <ControlledAutocomplete
