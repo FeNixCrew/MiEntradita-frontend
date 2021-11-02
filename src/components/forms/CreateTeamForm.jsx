@@ -50,7 +50,7 @@ function CreateTeamForm({ onSubmit }) {
     register('name', { required: true });
     register('knowName', { required: true });
     register('stadium', { required: true });
-    register('stadiumCapacity', { required: true });
+    register('stadiumCapacity', { required: true, min: 1 });
 
     const classes = useStyle();
 
@@ -107,7 +107,7 @@ function CreateTeamForm({ onSubmit }) {
                      <GridItem
                         register={register}
                         showError={showError('stadiumCapacity')}
-                        helperText={getError('stadiumCapacity', 'Capacidad de Estadio')}
+                        helperText={getError('stadiumCapacity', 'Capacidad de Estadio') || (errors['stadiumCapacity']?.type === 'min' && 'La capacidad del estadio no puede ser 0') }
                         name="stadiumCapacity"
                         type="number"
                         id="stadiumCapacity-id"
