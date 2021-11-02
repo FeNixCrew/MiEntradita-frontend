@@ -16,11 +16,15 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
   const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
   const [isOpen, closeConfirmation, openConfirmation] = useToggle();
   const [error, setError] = useState(null);
+  const [isDisabled, setIsDisabled] = useState(isAvailable);
 
   useEffect(() => {
     matchService.getMatchDetails(matchId)
       .then((response) => {
         setMatchDetails(response.data);
+        if (response.data.availableTickets === 0) {
+          setIsDisabled(true);
+        }
       })
       .catch((_) => {
         setError('Hubo un problema al obtener los detalles. Intente de nuevo.');
@@ -61,7 +65,7 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
           {matchDetails && <MatchDetailsContent matchDetails={matchDetails} />}
         </DialogContent>
         <DialogActions>
-          {isAvailable !== null && <Button sx={{ color: '#2e86c1' }} autoFocus onClick={openConfirmation} disabled={isAvailable}>
+          {isAvailable !== null && <Button sx={{ color: '#2e86c1' }} autoFocus onClick={openConfirmation} disabled={isDisabled}>
             Reservar Entrada
           </Button>
           }
