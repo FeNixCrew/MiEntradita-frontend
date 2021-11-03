@@ -4,7 +4,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { label } from '../helpers/usedFunctions';
+import { label } from '../../helpers/usedFunctions';
 
 export default function Confirmation({ open, handleClose, confirm, title, text }) {
     return (

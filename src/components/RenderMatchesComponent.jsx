@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import spectatorService from '../services/SpectatorService'
 import { isUser } from "../helpers/usedFunctions";
-import SearchResult from "./search/SearchResult";
+import MatchCard from "./MatchCard";
 
 function RenderMatchesComponent({ ComponentToRenderWhenReturn, matches }) {
     const [teamId, setTeamId] = useState(null);
@@ -31,7 +31,7 @@ function RenderMatchesComponent({ ComponentToRenderWhenReturn, matches }) {
 
     const renderMatches = () => {
         return matches.map((match, i) =>
-            <SearchResult
+            <MatchCard
                 key={i}
                 match={match}
                 teamId={teamId}

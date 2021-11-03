@@ -21,7 +21,7 @@ const Root = styled('div')(({ theme }) => ({
 
 const useStyle = makeStyles((theme) => ({
     divider: {
-        marginTop: '5vh'
+        marginTop: '4vh'
     },
     text: {
         fontFamily: 'Quicksand',
@@ -65,6 +65,7 @@ function Spectator() {
                     <Tickets tickets={tickets} />
 
             }
+            <span style={{ margin: '4vh' }} />
             <Divider className={classes.divider} />
             <Typography
                 className={classes.text}

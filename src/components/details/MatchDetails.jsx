@@ -8,7 +8,7 @@ import matchService from '../../services/MatchService.js';
 import { BootstrapDialog } from './modal/BoostrapDialog';
 import { BootstrapDialogTitle } from './modal/BoostrapDialogTitle';
 import MatchDetailsContent from './MatchDetailsContent';
-import Confirmation from '../Confirmation';
+import Confirmation from '../feedback/Confirmation';
 import { label } from '../../helpers/usedFunctions';
 
 export default function MatchDetails({ open, handleClose, matchId, title, reserveTicket, isAvailable }) {

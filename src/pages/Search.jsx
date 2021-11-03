@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-import SearchBar from "../components/search/search_bar/SearchBar";
-import SearchResults from '../components/search/SearchResults';
+import SearchBar from "../components/search/SearchBar";
 import BackdropInherit from "../components/feedback/Backdrop";
 import CoustomTypography from "../components/CoustomTypography";
 import matchService from "../services/MatchService";
@@ -10,6 +9,9 @@ import BurgerMenu from "../components/navigation/BurgerMenu";
 import SnackBar from '../components/feedback/SnackBar';
 import { useSnackbar } from '../helpers/hooks/useSnackbar';
 import { makeStyles } from "@material-ui/core";
+import { Grid } from "@mui/material";
+
+import RenderMatchesComponent from "../components/RenderMatchesComponent";
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -30,6 +32,23 @@ const useStyle = makeStyles((theme) => ({
         marginRight: 'auto'
     },
 }))
+
+
+export const ComponentToRenderWhenReturn = ({ matches, render }) => {
+
+    return (
+        <Grid container style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, auto-fit)', justifyContent: 'center' }}>
+            {matches.length > 0 ?
+                <div>
+                    <CoustomTypography text='Resultados:' />
+                    {render()}
+                </div>
+                :
+                <CoustomTypography text='No se han encontrado partidos :(' />
+            }
+        </Grid>
+    );
+}
 
 function Searcher() {
     const [matchs, setMatchs] = useState(null);
@@ -70,7 +89,7 @@ function Searcher() {
             </div>
             {
                 matchs ?
-                    <SearchResults results={matchs} />
+                    <RenderMatchesComponent matches={matchs} ComponentToRenderWhenReturn={ComponentToRenderWhenReturn} />
                     :
                     <CoustomTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
             }

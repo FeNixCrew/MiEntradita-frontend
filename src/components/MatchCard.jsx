@@ -5,14 +5,14 @@ import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import { useToggle } from '../../helpers/hooks/useToggle';
-import { useSnackbar } from '../../helpers/hooks/useSnackbar';
-import MatchDetails from '../details/MatchDetails';
-import spectatorService from '../../services/SpectatorService';
-import SnackBar from '../feedback/SnackBar';
+import { useToggle } from '../helpers/hooks/useToggle';
+import { useSnackbar } from '../helpers/hooks/useSnackbar';
+import MatchDetails from './details/MatchDetails';
+import spectatorService from '../services/SpectatorService';
+import SnackBar from './feedback/SnackBar';
 import { makeStyles } from '@material-ui/core';
-import TeamDetails from '../details/TeamDetails';
-import { label, formatDateAndTime } from '../../helpers/usedFunctions';
+import TeamDetails from './details/TeamDetails';
+import { label, formatDateAndTime } from '../helpers/usedFunctions';
 
 const useStyle = makeStyles((theme) => ({
     root: {
@@ -52,7 +52,7 @@ const useStyle = makeStyles((theme) => ({
     }
 }))
 
-function SearchResult({ match, teamId, markAsFavourite, haveFavouriteTeam }) {
+function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam }) {
     const [openMatchDetails, handleCloseMDetails, handleToggleMDetails] = useToggle();
     const [openTeamDetails, handleCloseTDetails, handleToggleTDetails] = useToggle();
     const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
@@ -89,7 +89,7 @@ function SearchResult({ match, teamId, markAsFavourite, haveFavouriteTeam }) {
     }
 
     const titleElement = (teamName) => {
-        return <span className={classes.clickeable} onClick={() => handleOpenTeamDetails(teamName)}>{teamName}</span>
+        return <div className={classes.clickeable} onClick={() => handleOpenTeamDetails(teamName)}>{teamName}</div>
     }
 
     const reserveTicket = (matchId) => {
@@ -121,7 +121,7 @@ function SearchResult({ match, teamId, markAsFavourite, haveFavouriteTeam }) {
             <Grid item xs={12} className={classes.root}>
                 <Card className={classes.cardComp}>
                     <CardContent>
-                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', maxWidth: '36vw', minWidth: '5vw'}}>
+                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', maxWidth: '37vw', minWidth: '5vw'}}>
                             <Typography style={{ fontFamily: 'Quicksand', marginRight: '2vh' }} gutterBottom variant="h5" component="h2">
                                 {titleElement(match.home)} vs {titleElement(match.away)}
                             </Typography>
@@ -155,4 +155,4 @@ function SearchResult({ match, teamId, markAsFavourite, haveFavouriteTeam }) {
     );
 };
 
-export default SearchResult;
+export default MatchCard;

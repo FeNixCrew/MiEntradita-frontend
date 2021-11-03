@@ -37,7 +37,7 @@ export default function Tickets({ tickets }) {
 
     return (
         <>
-            <div style={{ marginTop: '7vh' }} />
+            <div style={{ marginTop: '2vh' }} />
             <div className={classes.container}>
                 {
                     tickets.length > 0 ?
