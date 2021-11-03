@@ -121,7 +121,7 @@ function SearchResult({ match, teamId, markAsFavourite, haveFavouriteTeam }) {
             <Grid item xs={12} className={classes.root}>
                 <Card className={classes.cardComp}>
                     <CardContent>
-                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', maxWidth: '36vw', minWidth: '5vw'}}>
                             <Typography style={{ fontFamily: 'Quicksand', marginRight: '2vh' }} gutterBottom variant="h5" component="h2">
                                 {titleElement(match.home)} vs {titleElement(match.away)}
                             </Typography>
