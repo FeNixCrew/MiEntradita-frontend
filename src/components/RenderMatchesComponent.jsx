@@ -3,7 +3,12 @@ import spectatorService from '../services/SpectatorService'
 import { isUser } from "../helpers/usedFunctions";
 import MatchCard from "./MatchCard";
 
-function RenderMatchesComponent({ ComponentToRenderWhenReturn, matches }) {
+function RenderMatchesComponent({ 
+    ComponentToRenderWhenReturn, 
+    matches,
+    changeTeamId = null,
+    findTickets = null
+}) {
     const [teamId, setTeamId] = useState(null);
 
     useEffect(() => {
@@ -14,6 +19,7 @@ function RenderMatchesComponent({ ComponentToRenderWhenReturn, matches }) {
     }, []);
 
     const markAsFavourite = (newTeamId) => {
+        const tempTeamId = newTeamId === teamId ? null : newTeamId;
         if (newTeamId === teamId) {
             spectatorService.markAsFavourite(teamId);
             localStorage.favouriteTeamId = null;
@@ -23,6 +29,8 @@ function RenderMatchesComponent({ ComponentToRenderWhenReturn, matches }) {
             setTeamId(newTeamId);
             spectatorService.markAsFavourite(newTeamId);
         }
+
+        if(changeTeamId) changeTeamId(tempTeamId);
     }
 
     const haveFavouriteTeam = () => {
@@ -37,6 +45,7 @@ function RenderMatchesComponent({ ComponentToRenderWhenReturn, matches }) {
                 teamId={teamId}
                 markAsFavourite={markAsFavourite}
                 haveFavouriteTeam={haveFavouriteTeam}
+                findTickets={findTickets}
             />
         )
     }

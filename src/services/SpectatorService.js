@@ -36,7 +36,7 @@ class SpectatorService extends AbstractService {
 
     async nextMatches() {
         const endpoint = '/next-matches'
-        const params = new URLSearchParams([['spectatorId', localStorage.spectatorId]]);
+        const params = new URLSearchParams([['spectatorId', parseInt(localStorage.spectatorId)]]);
         
         return this.axios.get(this.path + endpoint, params)
     }
