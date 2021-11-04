@@ -52,7 +52,7 @@ const useStyle = makeStyles((theme) => ({
     }
 }))
 
-function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam }) {
+function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, findTickets = null }) {
     const [openMatchDetails, handleCloseMDetails, handleToggleMDetails] = useToggle();
     const [openTeamDetails, handleCloseTDetails, handleToggleTDetails] = useToggle();
     const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
@@ -99,6 +99,7 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam }) {
                 match.isReserved = true;
                 setReserved(true);
                 setSuccess("Entrada reservada");
+                if (findTickets) findTickets();
             })
             .catch((error) => {
                 const response = error.response;

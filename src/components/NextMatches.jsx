@@ -1,67 +1,59 @@
 import { Container, Grid } from "@mui/material";
-import { useEffect, useState } from "react";
-import spectatorService from '../services/SpectatorService';
-import { useSnackbar } from '../helpers/hooks/useSnackbar';
-import SnackBar from '../components/feedback/SnackBar';
-import RenderMatchesComponent from "./RenderMatchesComponent";
 import React from 'react';
 import CoustomTypography from './CoustomTypography';
+import MatchCard from "./MatchCard";
 
 const ComponentToRenderWhenReturn = ({ matches, render }) => {
     return (
-        <>
+        <div>
             {
-                matches === null ?
+            matches.length > 0 ?
+                <Container sx={{ py: '7vh' }} maxWidth="lg">
+                    <Grid container spacing={1}>
+                        {render()}
+                    </Grid>
+                </Container>
+                :
+                <CoustomTypography
+                    text='!Tu equipo aún no tiene nuevos partidos programados!'
+                    sx={{ textAlign: 'center' }}
+                />
+            }
+        </div>
+    )
+}
+
+function NextMatches({ markAsFavourite, haveFavourite, teamId, nextMatches, findTickets }) {
+
+    const renderMatches = () => {
+        return nextMatches.map((match, i) =>
+            <MatchCard
+                key={i}
+                match={match}
+                teamId={teamId}
+                markAsFavourite={markAsFavourite}
+                haveFavouriteTeam={haveFavourite}
+                findTickets={findTickets}
+            />
+        )
+    }
+
+    return (
+        <div>
+            {
+                teamId === null || nextMatches === null ?
                     <CoustomTypography
                         text='!Aun no tienes equipo favorito!'
                         sx={{ textAlign: 'center' }}
                     />
                     :
-                    (matches.length > 0 ?
-                        <Container sx={{ py: '7vh' }} maxWidth="lg">
-                            <Grid container spacing={1}>
-                                {render()}
-                            </Grid>
-                        </Container>
-                        :
-                        <CoustomTypography
-                            text='!Tu equipo favorito no tiene proximos partidos!'
-                            sx={{ textAlign: 'center' }}
-                        />
-                    )
+                    <ComponentToRenderWhenReturn 
+                    render={renderMatches} 
+                    matches={nextMatches} 
+                    />
             }
-        </>
-    )
-}
 
-function NextMatches({ closeBackdrop }) {
-    const [nextMatches, setNextMatches] = useState(null);
-    const { setError, isOpenSnack, closeSnackBar, severity, message } = useSnackbar();
-
-    useEffect(() => {
-        spectatorService.nextMatches()
-            .then((response) => {
-                if (response.data) setNextMatches(response.data);
-                
-                closeBackdrop();
-            })
-            .catch((error) => {
-                setError('Hubo un error al obtener los proximos partidos de tu equipo favorito, por favor, intente de nuevo.');
-                closeBackdrop();
-            })
-    }, [])
-
-    return (
-        <>
-            <SnackBar
-                openSnackBar={isOpenSnack}
-                severityState={severity}
-                message={message}
-                closeSnackBar={closeSnackBar}
-                position={{ vertical: 'bottom', horizontal: 'left' }}
-            />
-            <RenderMatchesComponent matches={nextMatches} ComponentToRenderWhenReturn={ComponentToRenderWhenReturn} />
-        </>
+        </div>
     );
 }
 
