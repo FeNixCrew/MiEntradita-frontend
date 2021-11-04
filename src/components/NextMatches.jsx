@@ -7,7 +7,7 @@ import SnackBar from '../components/feedback/SnackBar';
 import { useSnackbar } from '../helpers/hooks/useSnackbar';
 import spectatorService from '../services/SpectatorService';
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((_) => ({
     text: {
         fontFamily: 'Quicksand',
         textAlign: 'center',
@@ -23,28 +23,28 @@ const ComponentToRenderWhenReturn = ({ matches, render }) => {
     return (
         <div>
             {
-            matches?.length > 0 ?
-                <Container sx={{ py: '7vh' }} maxWidth="lg">
-                    <Typography
-                        className={classes.text}
-                        variant="h5"
-                    >
-                        ¡Próximos encuentros de tu equipo favorito!
-                    </Typography>
-                    <Grid container spacing={1}>
-                        {render()}
-                    </Grid>
-                </Container>
-                : matches?.length === 0 ?
-                    <CoustomTypography
-                        text='!Tu equipo aún no tiene nuevos partidos programados!'
-                        sx={{ textAlign: 'center' }}
-                    />
-                    :
-                    <CoustomTypography
-                        text='!No tienes un equipo favorito!'
-                        sx={{ textAlign: 'center' }}
-                    />
+                matches?.length > 0 ?
+                    <Container sx={{ py: '7vh' }} maxWidth="lg">
+                        <Typography
+                            className={classes.text}
+                            variant="h5"
+                        >
+                            ¡Próximos encuentros de tu equipo favorito!
+                        </Typography>
+                        <Grid container spacing={1}>
+                            {render()}
+                        </Grid>
+                    </Container>
+                    : matches?.length === 0 ?
+                        <CoustomTypography
+                            text='!Tu equipo aún no tiene nuevos partidos programados!'
+                            sx={{ textAlign: 'center' }}
+                        />
+                        :
+                        <CoustomTypography
+                            text='!No tienes un equipo favorito!'
+                            sx={{ textAlign: 'center' }}
+                        />
 
             }
         </div>
@@ -52,7 +52,7 @@ const ComponentToRenderWhenReturn = ({ matches, render }) => {
 }
 
 function NextMatches({ handleClose, findTickets }) {
-    const { setError, isOpenSnack, closeSnackBar, severity, message } = useSnackbar();
+    const [_ , setError, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [nextMatches, setNextMatches] = useState(null);
     const [teamId, setTeamId] = useState(null);
 
@@ -71,7 +71,7 @@ function NextMatches({ handleClose, findTickets }) {
     }, [teamId, setError, handleClose]);
 
     const changeTeamId = (newTeamId) => {
-        if(newTeamId) {
+        if (newTeamId) {
             setTeamId(newTeamId);
         } else {
             setTeamId(null);
@@ -88,9 +88,9 @@ function NextMatches({ handleClose, findTickets }) {
                 closeSnackBar={closeSnackBar}
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
-            <RenderMatchesComponent 
-                matches={nextMatches} 
-                ComponentToRenderWhenReturn={ComponentToRenderWhenReturn} 
+            <RenderMatchesComponent
+                matches={nextMatches}
+                ComponentToRenderWhenReturn={ComponentToRenderWhenReturn}
                 findTickets={findTickets}
                 changeTeamId={changeTeamId}
             />

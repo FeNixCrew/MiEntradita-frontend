@@ -32,7 +32,7 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 function Spectator() {
-    const { setError, isOpenSnack, closeSnackBar, severity, message } = useSnackbar();
+    const [_ ,setError, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [isLoading, handleClose, handleToggle] = useToggle();
     const [tickets, setTickets] = useState(null);
     const history = useHistory();

@@ -13,12 +13,13 @@ import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 import Confirmation from '../feedback/Confirmation';
+import { useSnackbar } from '../../helpers/hooks/useSnackbar'
+
 
 
 export default function TeamDetails({ open, handleClose, teamName, teamId, markAsFavourite, haveFavouriteTeam }) {
     const [teamDetails, setTeamDetails] = useState(undefined);
-    const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
-    const [error, setError] = useState(null);
+    const [_ , setError, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [isFavorite, setIsFavorite] = useState(false);
     const [isOpen, closeConfirmation, openConfirmation] = useToggle();
 
@@ -31,19 +32,18 @@ export default function TeamDetails({ open, handleClose, teamName, teamId, markA
             .catch((err) => {
                 console.log(err.message);
                 setError('Hubo un problema al obtener los detalles. Intente de nuevo.');
-                openSnackBar();
             })
-    }, [teamName, openSnackBar, teamId]);
+    }, [teamName, setError, teamId]);
 
     const handleClick = (ev) => {
-        if(!isFavorite && haveFavouriteTeam()) {
+        if (!isFavorite && haveFavouriteTeam()) {
             openConfirmation();
         } else {
             setIsFavorite(!isFavorite)
             markAsFavourite(teamDetails.id);
             handleClose();
         }
-        
+
     }
 
     const handleConfirmation = () => {
@@ -64,8 +64,8 @@ export default function TeamDetails({ open, handleClose, teamName, teamId, markA
             />
             <SnackBar
                 openSnackBar={isOpenSnack}
-                severityState="error"
-                message={error}
+                severityState={severity}
+                message={message}
                 closeSnackBar={closeSnackBar}
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />

@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core';
 import TeamDetails from './details/TeamDetails';
 import { label, formatDateAndTime } from '../helpers/usedFunctions';
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((_) => ({
     root: {
         marginTop: '2vh',
         padding: '2vh',
