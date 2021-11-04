@@ -12,7 +12,8 @@ const useStyle = makeStyles((theme) => ({
         fontFamily: 'Quicksand',
         textAlign: 'center',
         fontWeight: 'bolder',
-        letterSpacing: 3
+        letterSpacing: 3,
+        marginBottom: '5vh'
     }
 }))
 
@@ -67,7 +68,7 @@ function NextMatches({ handleClose, findTickets }) {
                 setError('Hubo un error al obtener los proximos partidos de tu equipo favorito, por favor, intente de nuevo.');
                 handleClose();
             })
-    }, [teamId]);
+    }, [teamId, setError, handleClose]);
 
     const changeTeamId = (newTeamId) => {
         if(newTeamId) {

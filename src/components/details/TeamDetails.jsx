@@ -41,6 +41,7 @@ export default function TeamDetails({ open, handleClose, teamName, teamId, markA
         } else {
             setIsFavorite(!isFavorite)
             markAsFavourite(teamDetails.id);
+            handleClose();
         }
         
     }
@@ -49,6 +50,7 @@ export default function TeamDetails({ open, handleClose, teamName, teamId, markA
         closeConfirmation();
         setIsFavorite(!isFavorite);
         markAsFavourite(teamDetails.id);
+        handleClose();
     }
 
     return (

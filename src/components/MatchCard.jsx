@@ -74,7 +74,7 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, findTick
         } else if (( (match.capacitySupported * 10) / 100) > match.availableTickets) {
             setAmountSeverity('brown');
             setMessageOfAmount('¡Quedan pocas entradas!');
-        } else if ((match.capacitySupported / 2) < match.availableTickets) {
+        } else {
             setAmountSeverity('green');
             setMessageOfAmount('¡Hay entradas!');
         }

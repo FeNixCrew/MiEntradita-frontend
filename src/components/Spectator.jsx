@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import Tickets from './ticket/TicketsCarousel';
 import BackdropInherit from './feedback/Backdrop';
@@ -15,13 +15,13 @@ const Root = styled('div')(({ theme }) => ({
     width: '100%',
     ...theme.typography.body2,
     '& > :not(style) + :not(style)': {
-        marginTop: theme.spacing(1),
+        marginTop: theme.spacing(2),
     },
 }));
 
 const useStyle = makeStyles((theme) => ({
     divider: {
-        marginTop: '4vh'
+        marginTop: '4vh',
     },
     text: {
         fontFamily: 'Quicksand',
@@ -38,20 +38,19 @@ function Spectator() {
     const history = useHistory();
     const classes = useStyle();
 
+    const findPendingTickets = useCallback( async () => {
+        try {
+            const response = await spectatorService.pendingTickets();
+            setTickets(response.data);
+        } catch (_) {
+            setError('Hubo un error al obtener sus entradas, por favor, intente de nuevo.');
+        }
+    }, [setTickets, setError])
+
     useEffect(() => {
         handleToggle();
         findPendingTickets();
-    }, [history]);
-
-    const findPendingTickets = () => {
-        return spectatorService.pendingTickets()
-        .then(response => {
-            setTickets(response.data);
-        })
-        .catch((_) => {
-            setError('Hubo un error al obtener sus entradas, por favor, intente de nuevo.');
-        });    
-    }
+    }, [history, findPendingTickets, handleToggle]);
 
     return (
         <Root>
