@@ -1,5 +1,5 @@
 import { Container, Grid } from "@mui/material";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import CoustomTypography from './CoustomTypography';
 import RenderMatchesComponent from "./RenderMatchesComponent";
 import { Typography, makeStyles } from '@material-ui/core';
@@ -37,12 +37,12 @@ const ComponentToRenderWhenReturn = ({ matches, render }) => {
                     </Container>
                     : matches?.length === 0 ?
                         <CoustomTypography
-                            text='!Tu equipo aún no tiene nuevos partidos programados!'
+                            text='¡Tu equipo aún no tiene nuevos partidos programados!'
                             sx={{ textAlign: 'center' }}
                         />
                         :
                         <CoustomTypography
-                            text='!No tienes un equipo favorito!'
+                            text='¡No tienes un equipo favorito!'
                             sx={{ textAlign: 'center' }}
                         />
 
@@ -51,25 +51,25 @@ const ComponentToRenderWhenReturn = ({ matches, render }) => {
     )
 }
 
-function NextMatches({ handleClose, findTickets }) {
-    const [_ , setError, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
+function NextMatches({ handleClose, callbackFindTickets }) {
+    const [_, setError, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [nextMatches, setNextMatches] = useState(null);
+
+    const findMatches = useCallback(async () => {
+        spectatorService.nextMatches()
+            .then((response) => {
+                if (response.data) setNextMatches(response.data);
+                handleClose();
+            })
+            .catch((_) => {
+                setError('Hubo un error al obtener los proximos partidos de tu equipo favorito, por favor, intente de nuevo.');
+                handleClose();
+            });
+    }, [setNextMatches, handleClose, setError])
 
     useEffect(() => {
         findMatches();
-    }, []);
-
-    const findMatches = () => {
-        spectatorService.nextMatches()
-        .then((response) => {
-            if (response.data) setNextMatches(response.data);
-            handleClose();
-        })
-        .catch((_) => {
-            setError('Hubo un error al obtener los proximos partidos de tu equipo favorito, por favor, intente de nuevo.');
-            handleClose();
-        });
-    }
+    }, [findMatches]);
 
     return (
         <div>
@@ -82,9 +82,9 @@ function NextMatches({ handleClose, findTickets }) {
             />
             <RenderMatchesComponent
                 ComponentToRenderWhenReturn={ComponentToRenderWhenReturn}
-                findTickets={findTickets}
+                callbackToComponent={callbackFindTickets}
                 matches={nextMatches}
-                findMatches={findMatches}
+                callbackFindMatches={findMatches}
             />
         </div>
     );
