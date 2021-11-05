@@ -53,11 +53,12 @@ export const ComponentToRenderWhenReturn = ({ matches, render }) => {
 function Searcher() {
     const [matchs, setMatchs] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const [ _, setError, isOpenSnack, closeSnackBar, severity, message ] = useSnackbar();
+    const [_, setError, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
+    const [partialSearch, setPartialSearch] = useState('');
     const classes = useStyle();
 
     const onChange = data => {
-        const partialSearch = data.textSearched;
+        setPartialSearch(data.textSearched);
         if (partialSearch.length > 0) {
             setIsLoading(true);
             matchService.search(partialSearch)
@@ -89,7 +90,7 @@ function Searcher() {
             </div>
             {
                 matchs ?
-                    <RenderMatchesComponent matches={matchs} ComponentToRenderWhenReturn={ComponentToRenderWhenReturn} />
+                    <RenderMatchesComponent matches={matchs} ComponentToRenderWhenReturn={ComponentToRenderWhenReturn} callbackToComponent={() => onChange({ textSearched: partialSearch })} />
                     :
                     <CoustomTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
             }

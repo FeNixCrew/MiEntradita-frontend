@@ -52,7 +52,7 @@ const useStyle = makeStyles((_) => ({
     }
 }))
 
-function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, findTickets = null }) {
+function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callbackToComponent = null }) {
     const [openMatchDetails, handleCloseMDetails, handleToggleMDetails] = useToggle();
     const [openTeamDetails, handleCloseTDetails, handleToggleTDetails] = useToggle();
     const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
@@ -67,11 +67,11 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, findTick
     const horarioFormateado = formatDateAndTime(match.matchStartTime);
 
     useEffect(() => {
-            
+
         if (match.availableTickets === 0) {
             setAmountSeverity('red');
             setMessageOfAmount('¡Entradas agotadas!');
-        } else if (( (match.capacitySupported * 10) / 100) > match.availableTickets) {
+        } else if (match.availableTickets <= ((match.capacitySupported * 10) / 100)) {
             setAmountSeverity('brown');
             setMessageOfAmount('¡Quedan pocas entradas!');
         } else {
@@ -80,7 +80,7 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, findTick
         }
 
         setReserved(match.isReserved);
-        
+
     }, [match.isReserved, match.availableTickets, match.capacitySupported])
 
     const handleOpenTeamDetails = (team) => {
@@ -99,7 +99,7 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, findTick
                 match.isReserved = true;
                 setReserved(true);
                 setSuccess("Entrada reservada");
-                if (findTickets) findTickets();
+                if (callbackToComponent) callbackToComponent();
             })
             .catch((error) => {
                 const response = error.response;
@@ -122,7 +122,7 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, findTick
             <Grid item xs={12} className={classes.root}>
                 <Card className={classes.cardComp}>
                     <CardContent>
-                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', maxWidth: '37vw', minWidth: '5vw'}}>
+                        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', maxWidth: '37vw', minWidth: '5vw' }}>
                             <Typography style={{ fontFamily: 'Quicksand', marginRight: '2vh' }} gutterBottom variant="h5" component="h2">
                                 {titleElement(match.home)} vs {titleElement(match.away)}
                             </Typography>

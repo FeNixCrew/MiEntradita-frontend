@@ -8,8 +8,9 @@ import { useSnackbar } from '../helpers/hooks/useSnackbar'
 function RenderMatchesComponent({
     ComponentToRenderWhenReturn,
     matches,
-    findTickets = null,
-    findMatches = null
+    callbackToComponent = null,
+    callbackFindMatches = null,
+
 }) {
     const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [teamId, setTeamId] = useState(null);
@@ -17,28 +18,28 @@ function RenderMatchesComponent({
     useEffect(() => {
         if (isUser()) {
             spectatorService.getFavouriteTeam()
-            .then(response => {
-                setTeamId(response.data.id || null);
-            })
-            .catch((_) => {
-                setError('Hubo un error al obtener tu equipo favorito, intente de nuevo.');
-            });
+                .then(response => {
+                    setTeamId(response.data.id || null);
+                })
+                .catch((_) => {
+                    setError('Hubo un error al obtener tu equipo favorito, intente de nuevo.');
+                });
         }
-    }, [teamId, setError]);
+    }, [teamId, setError, setTeamId]);
 
     const markAsFavourite = async (newTeamId) => {
         spectatorService.markAsFavourite(newTeamId)
             .then((response) => response.data ? response.data : null)
             .then((maybeTeam) => {
-                if (maybeTeam) setSuccess(`¡Has marcado a ${maybeTeam.name} como favorito!`); 
+                if (maybeTeam) setSuccess(`¡Has marcado a ${maybeTeam.name} como favorito!`);
                 else setSuccess('¡Ya no tienes equipo favorito!');
 
                 setTeamId(maybeTeam?.id || null);
-                if(findMatches) findMatches();
+                if (callbackFindMatches) callbackFindMatches();
             })
             .catch((_) => {
                 setError("Algo ha fallado al marcar o desmarcar al equipo.")
-            }); 
+            });
     }
 
     const haveFavouriteTeam = () => {
@@ -53,7 +54,7 @@ function RenderMatchesComponent({
                 teamId={teamId}
                 markAsFavourite={markAsFavourite}
                 haveFavouriteTeam={haveFavouriteTeam}
-                findTickets={findTickets}
+                callbackToComponent={callbackToComponent}
             />
         )
     }

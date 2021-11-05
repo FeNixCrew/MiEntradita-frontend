@@ -32,20 +32,20 @@ const useStyle = makeStyles((_) => ({
 }))
 
 function Spectator() {
-    const [_ ,setError, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
+    const [_, setError, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [isLoading, handleClose, handleToggle] = useToggle();
     const [tickets, setTickets] = useState(null);
     const history = useHistory();
     const classes = useStyle();
 
-    const findPendingTickets = useCallback( async () => {
+    const findPendingTickets = useCallback(async () => {
         try {
             const response = await spectatorService.pendingTickets();
             setTickets(response.data);
         } catch (_) {
             setError('Hubo un error al obtener sus entradas, por favor, intente de nuevo.');
         }
-    }, [setTickets, setError])
+    }, [setTickets, setError]);
 
     useEffect(() => {
         handleToggle();
@@ -71,7 +71,7 @@ function Spectator() {
                         <Divider className={classes.divider} />
                         <NextMatches
                             handleClose={handleClose}
-                            findTickets={findPendingTickets}
+                            callbackFindTickets={findPendingTickets}
                         />
                     </div>
 

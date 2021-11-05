@@ -58,7 +58,7 @@ function CreateMatchForm({ onSubmit }) {
     register('time', { required: true });
     register('date', { required: true });
     register('price', { required: true, min: 500 });
-    register('admittedPercentage', { required: true, min: 1, max: 100});
+    register('admittedPercentage', { required: true, min: 0, max: 100});
 
     useEffect(() => {
         teamService.teams()
