@@ -35,7 +35,7 @@ export default function TeamDetails({ open, handleClose, teamName, teamId, markA
             })
     }, [teamName, setError, teamId]);
 
-    const handleClick = (ev) => {
+    const handleClick = (_) => {
         if (!isFavorite && haveFavouriteTeam()) {
             openConfirmation();
         } else {

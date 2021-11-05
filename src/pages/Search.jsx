@@ -13,7 +13,7 @@ import { Grid } from "@mui/material";
 
 import RenderMatchesComponent from "../components/RenderMatchesComponent";
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((_) => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
@@ -53,7 +53,7 @@ export const ComponentToRenderWhenReturn = ({ matches, render }) => {
 function Searcher() {
     const [matchs, setMatchs] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    const { setError, isOpenSnack, closeSnackBar, severity, message } = useSnackbar();
+    const [ _, setError, isOpenSnack, closeSnackBar, severity, message ] = useSnackbar();
     const classes = useStyle();
 
     const onChange = data => {

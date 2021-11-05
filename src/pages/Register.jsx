@@ -16,7 +16,7 @@ import authService from '../services/AuthService';
 import { makeStyles } from '@material-ui/core';
 
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((_) => ({
     boxContainer: {
         marginTop: 0.5,
         display: 'flex',

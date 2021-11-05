@@ -4,7 +4,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core';
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((_) => ({
     root: {
         display: 'grid',
         justifyContent: 'center',

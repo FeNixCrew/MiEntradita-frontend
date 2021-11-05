@@ -7,7 +7,7 @@ import { useStylesDesktop, useStylesMobile } from './ticketCard/styles';
 import { isMobile } from 'react-device-detect';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((_) => ({
     container: {
         display: 'flex',
         flexDirection: 'column',

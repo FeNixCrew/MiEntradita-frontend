@@ -11,7 +11,7 @@ import ControlledAutocomplete from '../layout/ControlledAutocomplete';
 import { label } from '../../helpers/usedFunctions'
 import { makeStyles } from '@material-ui/core';
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((_) => ({
     root: {
         paddingTop: '1vh'
     },

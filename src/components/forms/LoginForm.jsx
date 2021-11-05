@@ -8,7 +8,7 @@ import Link from '@mui/material/Link';
 import { makeStyles } from "@material-ui/core";
 import { label } from '../../helpers/usedFunctions'
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((_) => ({
     root: {
         marginTop: '5vh',
         display: 'grid',

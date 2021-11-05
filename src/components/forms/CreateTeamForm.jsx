@@ -6,7 +6,7 @@ import CoustomTypography from "../CoustomTypography";
 import { label } from '../../helpers/usedFunctions'
 import { makeStyles } from "@material-ui/core";
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((_) => ({
     root: {
         paddingTop: '3vh'
     },

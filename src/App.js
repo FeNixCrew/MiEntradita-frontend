@@ -29,7 +29,7 @@ const PrivateRoute = ({ isAuth, component: Component, ...rest }) => {
 
 const ErrorRoute = ({ statusCode, errorMessage, ...rest }) => {
   return (
-    <Route {...rest} render={props => (
+    <Route {...rest} render={_ => (
       <Error statusCode={statusCode} errorMessage={errorMessage} />
     )} />
   );

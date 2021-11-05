@@ -6,7 +6,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { label } from '../../helpers/usedFunctions';
 import AttributionIcon from '@mui/icons-material/Attribution';
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((_) => ({
     root: {
         display: 'flex', 
         flexDirection: 'column', 

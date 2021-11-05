@@ -52,7 +52,7 @@ export const useStylesDesktop = makeStyles({
   },
 });
 
-export const useStylesMobile = makeStyles((theme) => ({
+export const useStylesMobile = makeStyles((_) => ({
   root: {
     minWidth: 275,
   },

@@ -19,7 +19,7 @@ const Root = styled('div')(({ theme }) => ({
     },
 }));
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((_) => ({
     divider: {
         marginTop: '4vh',
     },

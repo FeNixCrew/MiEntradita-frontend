@@ -9,7 +9,7 @@ import AttributionIcon from '@mui/icons-material/Attribution';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((_) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
