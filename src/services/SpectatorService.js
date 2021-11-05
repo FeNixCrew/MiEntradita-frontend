@@ -27,10 +27,10 @@ class SpectatorService extends AbstractService {
         return this.axios.get(this.path + endpoint, params)
     }
 
-    async markAsFavourite() {
-        const endpoint = '/favourite'
-        const params = new URLSearchParams([['spectatorId', localStorage.spectatorId], ['teamId', localStorage.favouriteTeamId]]);
-        
+    async markAsFavourite(teamId) {
+        const endpoint = '/favourite';
+        const params = new URLSearchParams([['spectatorId', localStorage.spectatorId], ['teamId', teamId]]);
+
         return this.axios.post(this.path + endpoint, params)
     }
 

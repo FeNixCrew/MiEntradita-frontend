@@ -1,5 +1,5 @@
 import { Container, Grid } from "@mui/material";
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import CoustomTypography from './CoustomTypography';
 import RenderMatchesComponent from "./RenderMatchesComponent";
 import { Typography, makeStyles } from '@material-ui/core';
@@ -54,29 +54,21 @@ const ComponentToRenderWhenReturn = ({ matches, render }) => {
 function NextMatches({ handleClose, findTickets }) {
     const [_ , setError, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [nextMatches, setNextMatches] = useState(null);
-    const [teamId, setTeamId] = useState(null);
 
     useEffect(() => {
-        const savedTeamId = parseInt(localStorage.favouriteTeamId) || null;
-        setTeamId(savedTeamId);
-        spectatorService.nextMatches()
-            .then((response) => {
-                if (response.data) setNextMatches(response.data);
-                handleClose();
-            })
-            .catch((_) => {
-                setError('Hubo un error al obtener los proximos partidos de tu equipo favorito, por favor, intente de nuevo.');
-                handleClose();
-            })
-    }, [teamId, setError, handleClose]);
+        findMatches();
+    }, []);
 
-    const changeTeamId = (newTeamId) => {
-        if (newTeamId) {
-            setTeamId(newTeamId);
-        } else {
-            setTeamId(null);
-            setNextMatches(null);
-        }
+    const findMatches = () => {
+        spectatorService.nextMatches()
+        .then((response) => {
+            if (response.data) setNextMatches(response.data);
+            handleClose();
+        })
+        .catch((_) => {
+            setError('Hubo un error al obtener los proximos partidos de tu equipo favorito, por favor, intente de nuevo.');
+            handleClose();
+        });
     }
 
     return (
@@ -89,10 +81,10 @@ function NextMatches({ handleClose, findTickets }) {
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
             <RenderMatchesComponent
-                matches={nextMatches}
                 ComponentToRenderWhenReturn={ComponentToRenderWhenReturn}
                 findTickets={findTickets}
-                changeTeamId={changeTeamId}
+                matches={nextMatches}
+                findMatches={findMatches}
             />
         </div>
     );

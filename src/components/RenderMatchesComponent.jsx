@@ -8,38 +8,37 @@ import { useSnackbar } from '../helpers/hooks/useSnackbar'
 function RenderMatchesComponent({
     ComponentToRenderWhenReturn,
     matches,
-    changeTeamId = null,
-    findTickets = null
+    findTickets = null,
+    findMatches = null
 }) {
-    const [teamId, setTeamId] = useState(null);
     const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
+    const [teamId, setTeamId] = useState(null);
 
     useEffect(() => {
         if (isUser()) {
-            const savedTeamId = parseInt(localStorage.favouriteTeamId) || null;
-            setTeamId(savedTeamId);
+            spectatorService.getFavouriteTeam()
+            .then(response => {
+                setTeamId(response.data.id || null);
+            })
+            .catch((_) => {
+                setError('Hubo un error al obtener tu equipo favorito, intente de nuevo.');
+            });
         }
-    }, []);
+    }, [teamId, setError]);
 
     const markAsFavourite = async (newTeamId) => {
-        const tempTeamId = newTeamId === teamId ? null : newTeamId;
-        if (newTeamId === teamId) {
-            spectatorService.markAsFavourite(teamId)
-                .then((_) => setSuccess(`¡Ya no tienes equipo favorito!`))
-                .catch((_) => setError("Algo ha fallado al marcar a tu equipo como favorito"));
+        spectatorService.markAsFavourite(newTeamId)
+            .then((response) => response.data ? response.data : null)
+            .then((maybeTeam) => {
+                if (maybeTeam) setSuccess(`¡Has marcado a ${maybeTeam.name} como favorito!`); 
+                else setSuccess('¡Ya no tienes equipo favorito!');
 
-            localStorage.favouriteTeamId = null;
-            setTeamId(null);
-        } else {
-            localStorage.favouriteTeamId = newTeamId;
-            setTeamId(newTeamId);
-            spectatorService.markAsFavourite(newTeamId)
-                .then((response) => setSuccess(`¡Has marcado a ${response.data.name} como favorito!`))
-                .catch((_) => setError("Algo ha fallado al marcar a tu equipo como favorito"));
-
-        }
-
-        if (changeTeamId) changeTeamId(tempTeamId);
+                setTeamId(maybeTeam?.id || null);
+                if(findMatches) findMatches();
+            })
+            .catch((_) => {
+                setError("Algo ha fallado al marcar o desmarcar al equipo.")
+            }); 
     }
 
     const haveFavouriteTeam = () => {
