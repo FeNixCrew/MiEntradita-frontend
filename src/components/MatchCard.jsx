@@ -12,7 +12,8 @@ import spectatorService from '../services/SpectatorService';
 import SnackBar from './feedback/SnackBar';
 import { makeStyles } from '@material-ui/core';
 import TeamDetails from './details/TeamDetails';
-import { label, formatDateAndTime } from '../helpers/usedFunctions';
+import { label, formatDateAndTime, isAdmin } from '../helpers/usedFunctions';
+import { useHistory } from 'react-router-dom'
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -65,6 +66,11 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
     const classes = useStyle();
     const matchTitle = `${match.home} vs ${match.away}`;
     const horarioFormateado = formatDateAndTime(match.matchStartTime);
+    const history = useHistory();
+
+    const pushToAttendanceData = () => {
+        history.push("/admin/match/attendance", { match: match })
+    }
 
     useEffect(() => {
 
@@ -109,13 +115,13 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
     }
 
     return (
-        <div data-testid='search-item'>
+        <div data-testid='search-item' style={{ display: 'flex', flexDirection: 'row', alignItems: 'space-between' }}>
             <SnackBar
                 openSnackBar={isOpenSnack}
                 severityState={severity}
                 message={message}
                 closeSnackBar={closeSnackBar}
-                position={{ vertical: 'bottom', horizontal: 'left' }}
+                position={{ vertical: 'bottom', horizontal: 'flex-end' }}
             />
             {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} />}
             {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={teamName} teamId={teamId} markAsFavourite={markAsFavourite} haveFavouriteTeam={haveFavouriteTeam} />}
@@ -149,6 +155,7 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
                     </CardContent>
                     <CardActions>
                         <Button size="small" sx={{ color: '#2e86c1' }} onClick={handleToggleMDetails}>Detalles de partido</Button>
+                        {isAdmin() && <Button size="small" sx={{ color: '#2e86c1' }} onClick={pushToAttendanceData}>Datos de asistencia</Button>}
                     </CardActions>
                 </Card>
             </Grid>
