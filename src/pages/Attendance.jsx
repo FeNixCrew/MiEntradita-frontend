@@ -41,16 +41,14 @@ function AttendanceComponent({ match }) {
             })
     }, [match, setAttendanceInfo])
 
-    useEffect(() => {
-        getMatchAttendanceCallback();
-    }, [getMatchAttendanceCallback]);
+    useEffect(() => getMatchAttendanceCallback(), [getMatchAttendanceCallback]);
 
     return (
         <div className={classes.root}>
             <Grid component={Paper} xs={12} className={classes.paper} square elevation={4}>
                 <AttendanceTable match={match} attendanceInfo={attendanceInfo} itemsPerPage={5} />
             </Grid>
-            <Button variant="contained" className={classes.button} sx={{ margin: '2vh', padding: '2vh' }} onClick={goBack}> Volver </Button>
+            <Button variant="contained" className={classes.button} sx={{ margin: '2vh', backgroundColor: '#2e86c1' }} onClick={goBack}> Volver </Button>
         </div>
     )
 }

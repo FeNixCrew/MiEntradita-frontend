@@ -6,6 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Typography } from '@mui/material';
 import TablePagination from "@material-ui/core/TablePagination";
+import { isMobile } from 'react-device-detect';
 
 const Title = (props) => {
     return (
@@ -48,6 +49,8 @@ function AttendanceTable({ match, attendanceInfo, itemsPerPage }) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(itemsPerPage);
 
+    const rowsPerPageOptions = isMobile ? -1 : [5,10,25];
+
     const handleChangePage = (_, newPage) => {
         setPage(newPage);
     };
@@ -79,7 +82,8 @@ function AttendanceTable({ match, attendanceInfo, itemsPerPage }) {
                 </TableBody>
             </Table>
             <TablePagination
-                rowsPerPageOptions={-1}
+            labelRowsPerPage="Espectadores por pagina"
+                rowsPerPageOptions={rowsPerPageOptions}
                 component="div"
                 count={attendanceInfo.length}
                 rowsPerPage={rowsPerPage}
