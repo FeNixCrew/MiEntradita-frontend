@@ -1,3 +1,4 @@
+
 export const exit = (history) => {
   localStorage.clear();
   history.push('/');
@@ -52,5 +53,22 @@ export const NotFoundMessage = "Recurso no encontrado"
 export const ServerErrorMessage = "Error de servidor"
 
 export const label = (text, bolder = false) => {
-  return <span style={{fontFamily: 'Quicksand', fontWeight:  bolder && 'bold' }}>{text}</span>
+  return <span style={{ fontFamily: 'Quicksand', fontWeight: bolder && 'bold' }}>{text}</span>
+}
+
+
+export const downloadFile = ({ data, fileName, fileType }) => {
+  const blob = new Blob([data], { type: fileType })
+
+  const a = document.createElement('a')
+  a.download = fileName
+  a.href = window.URL.createObjectURL(blob)
+  const clickEvt = new MouseEvent('click', {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+  })
+  a.dispatchEvent(clickEvt)
+  a.remove()
+  return clickEvt
 }
