@@ -4,7 +4,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useToggle } from '../helpers/hooks/useToggle';
 import { useSnackbar } from '../helpers/hooks/useSnackbar';
 import MatchDetails from './details/MatchDetails';
@@ -72,22 +72,44 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
         history.push("/admin/match/attendance", { match: match })
     }
 
-    useEffect(() => {
+    const setMatchStatus = useCallback(() => {
+        const startMatchTime = new Date(match.matchStartTime);
+        const endMatchTime = new Date(startMatchTime.getTime() + 90 * 60000);
+        const now = new Date();
 
+        if (now >= startMatchTime && now < endMatchTime) {
+            setAmountSeverity('#2e7d32');
+            setMessageOfAmount('¡Jugándose!');
+        } else if (now < startMatchTime) {
+            setAmountSeverity('#0288d1');
+            setMessageOfAmount('¡Por jugarse!');
+        } else {
+            setAmountSeverity('#d32f2f');
+            setMessageOfAmount('¡Terminado!');
+        }
+    }, [match.matchStartTime]);
+
+    const setTicketsAvailability = useCallback(() => {
         if (match.availableTickets === 0) {
-            setAmountSeverity('red');
+            setAmountSeverity('#d32f2f');
             setMessageOfAmount('¡Entradas agotadas!');
         } else if (match.availableTickets <= ((match.capacitySupported * 10) / 100)) {
-            setAmountSeverity('brown');
+            setAmountSeverity('#ED6C02');
             setMessageOfAmount('¡Quedan pocas entradas!');
         } else {
-            setAmountSeverity('green');
+            setAmountSeverity('#2e7d32');
             setMessageOfAmount('¡Hay entradas!');
         }
-
         setReserved(match.isReserved);
+    }, [match.availableTickets, match.capacitySupported, match.isReserved]);
 
-    }, [match.isReserved, match.availableTickets, match.capacitySupported])
+    useEffect(() => {
+        if(isAdmin()) {
+            setMatchStatus();
+        } else {
+            setTicketsAvailability();
+        }
+    }, [setMatchStatus, setTicketsAvailability]);
 
     const handleOpenTeamDetails = (team) => {
         setTeamName(team);
@@ -121,7 +143,7 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
                 severityState={severity}
                 message={message}
                 closeSnackBar={closeSnackBar}
-                position={{ vertical: 'bottom', horizontal: 'flex-end' }}
+                position={{ vertical: 'bottom', horizontal: 'left' }}
             />
             {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} />}
             {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={teamName} teamId={teamId} markAsFavourite={markAsFavourite} haveFavouriteTeam={haveFavouriteTeam} />}
