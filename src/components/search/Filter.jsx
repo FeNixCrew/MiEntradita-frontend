@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyle = makeStyles((_) => ({
     label: {
-        fontSize: 17, 
+        fontSize: 17,
         fontFamily: 'Quicksand',
         fontWeightRegular: 550,
         fontWeightBold: 900
@@ -32,7 +32,7 @@ function Filter({ partialSearch, setPartialSearch, setIsFinished }) {
                 setIsFinished('');
                 break;
         }
-        if(partialSearch === null) setPartialSearch('');
+        if (partialSearch === null) setPartialSearch('');
     };
 
     return (
@@ -44,21 +44,13 @@ function Filter({ partialSearch, setPartialSearch, setIsFinished }) {
                 onChange={handleChange}
                 label="Estado"
             >
-                <FormControlLabel 
-                    value='Terminados' 
-                    control={<Radio />} 
-                    label={<Typography className={classes.label}> Terminados </Typography>} 
-                />
-                <FormControlLabel 
-                    value='Pendientes' 
-                    control={<Radio />} 
-                    label={<Typography className={classes.label}> Pendientes </Typography>} 
-                />
-                <FormControlLabel 
-                    value='Ambos' 
-                    control={<Radio />} 
-                    label={<Typography className={classes.label}> Ambos </Typography>} 
-                />
+                {['Terminados', 'Pendientes', 'Ambos'].map((option) =>
+                    <FormControlLabel
+                        value={option}
+                        control={<Radio />}
+                        label={<Typography className={classes.label}> {option} </Typography>}
+                    />
+                )}
             </RadioGroup>
         </FormControl>
     );
