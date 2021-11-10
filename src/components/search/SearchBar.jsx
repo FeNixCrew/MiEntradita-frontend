@@ -6,7 +6,7 @@ import { Search } from './search_bar/SearchComponent';
 import { SearchIconWrapper } from './search_bar/SearchIconWrapper';
 import { StyledInputBase } from './search_bar/StyledInputBase';
 
-function SearchBar({ onChange }) {
+function SearchBar({ onChange, type = 'text' }) {
     const { register, handleSubmit } = useForm();
 
     return (
@@ -19,6 +19,7 @@ function SearchBar({ onChange }) {
                     {...register("textSearched")}
                     style={{ fontFamily: 'Quicksand'}}
                     placeholder="Buscar..."
+                    type={type}
                     inputProps={{ 'aria-label': 'search' }}
                 />
             </Search>

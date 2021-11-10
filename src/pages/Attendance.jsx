@@ -61,10 +61,8 @@ function AttendanceComponent({ match }) {
 
     const search = (data) => {
         setSearchText(data.textSearched);
-        if(searchText?.length >= 1) {
-            const newAttendanceInfo = attendanceInfo.filter((userData) => userData.dni.toString().includes(data.textSearched))
+            const newAttendanceInfo = attendanceInfo.filter((userData) => userData.dni.toString().startsWith(data.textSearched))
             setModificableAttendanceInfo(newAttendanceInfo)
-        }
     }
 
     const rollback = () => {
@@ -131,7 +129,7 @@ function AttendanceComponent({ match }) {
                         </Grid>
                         <div style={{ display: 'inline-flex', flexDirection: 'row', alignItems: 'center', marginTop: '2vh' }}>
                             {searchText?.length > 4 && <IconButton onClick={rollback}><ReplayIcon/></IconButton> }
-                            <SearchBar onChange={search} />
+                            <SearchBar onChange={search} type='number'/>
                             <Button variant="contained" className={classes.button} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={goBack}> Volver </Button>
                             <Button variant="contained" className={classes.button} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={handleToggle}> Exportar... </Button>
                         </div>
