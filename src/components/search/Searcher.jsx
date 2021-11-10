@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core";
 import { Grid } from "@mui/material";
 
 import RenderMatchesComponent from "../RenderMatchesComponent";
+import AdminFilter from '../AdminFilter';
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -49,14 +50,13 @@ export const ComponentToRenderWhenReturn = ({ matches, render }) => {
     );
 }
 
-function Searcher({ AdminFilter = null }) {
-    const [matchs, setMatchs] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
+function Searcher() {
     const [setError, _, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [partialSearch, setPartialSearch] = useState(null);
-    const classes = useStyle();
-
     const [isFinished, setIsFinished] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [matchs, setMatchs] = useState(null);
+    const classes = useStyle();
 
     useEffect(() =>{
         if (partialSearch?.length >= 0) {
@@ -91,7 +91,12 @@ function Searcher({ AdminFilter = null }) {
             />
             <div component={Paper} className={classes.searchBarContainer}>
                 <SearchBar onChange={onChangeSearch} />
-                {isAdmin() && <AdminFilter isFinished={isFinished} setIsFinished={setIsFinished} /> }
+                {isAdmin() && 
+                    <AdminFilter 
+                        setPartialSearch={setPartialSearch}
+                        setIsFinished={setIsFinished}
+                        partialSearch={partialSearch}
+                    /> }
             </div>
             {
                 matchs ?
