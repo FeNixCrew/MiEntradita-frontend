@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Search from '../pages/Search';
 import RenderMatchesComponent from "../components/RenderMatchesComponent";
-import { ComponentToRenderWhenReturn } from '../pages/Search'
+import { ComponentToRenderWhenReturn } from '../components/search/Searcher'
 
 describe('Buscador', () => {
 
