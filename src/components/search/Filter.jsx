@@ -15,7 +15,7 @@ const useStyle = makeStyles((_) => ({
 }))
 
 
-function AdminFilter({ partialSearch, setPartialSearch, setIsFinished }) {
+function Filter({ partialSearch, setPartialSearch, setIsFinished }) {
     const [value, setValue] = useState('');
     const classes = useStyle();
 
@@ -64,4 +64,4 @@ function AdminFilter({ partialSearch, setPartialSearch, setIsFinished }) {
     );
 }
 
-export default AdminFilter;
+export default Filter;

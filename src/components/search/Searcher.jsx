@@ -12,7 +12,7 @@ import { makeStyles } from "@material-ui/core";
 import { Grid } from "@mui/material";
 
 import RenderMatchesComponent from "../RenderMatchesComponent";
-import AdminFilter from '../AdminFilter';
+import Filter from './Filter';
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -92,7 +92,7 @@ function Searcher() {
             <div component={Paper} className={classes.searchBarContainer}>
                 <SearchBar onChange={onChangeSearch} />
                 {isAdmin() && 
-                    <AdminFilter 
+                    <Filter 
                         setPartialSearch={setPartialSearch}
                         setIsFinished={setIsFinished}
                         partialSearch={partialSearch}
