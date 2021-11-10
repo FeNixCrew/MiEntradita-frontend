@@ -20,7 +20,7 @@ const TableItem = ({ userData }) => {
     const [attendanceColor, setAttendanceColor] = useState('');
 
     const getAttendanceColorCallback = useCallback(() => {
-        switch(userData.asistencia) {
+        switch (userData.asistencia) {
             case 'PRESENTE':
                 setAttendanceColor('green');
                 break;
@@ -33,14 +33,15 @@ const TableItem = ({ userData }) => {
         }
     }, [userData, setAttendanceColor])
 
-    useEffect(() => getAttendanceColorCallback(), [getAttendanceColorCallback] )
-    
+    useEffect(() => getAttendanceColorCallback(), [getAttendanceColorCallback])
+
     return (
+
         <TableRow key={userData.id} sx={{ fontStyle: 'italic' }}>
-            <TableCell sx={{ padding: 2 }}>{userData.id}</TableCell>
-            <TableCell>{userData.nombre}</TableCell>
-            <TableCell>{userData.dni}</TableCell>
-            <TableCell sx={{ color: attendanceColor }}>{userData.asistencia}</TableCell>
+            {console.log(userData)}
+            {Object.entries(userData).map(([field, value]) =>
+                <TableCell sx={{ padding: 2, color: (field === "asistencia" && attendanceColor) }}>{value}</TableCell>
+            )}
         </TableRow>
     )
 }
@@ -49,7 +50,7 @@ function AttendanceTable({ match, attendanceInfo, itemsPerPage }) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(itemsPerPage);
 
-    const rowsPerPageOptions = isMobile ? -1 : [5,10,25];
+    const rowsPerPageOptions = isMobile ? -1 : [5, 10, 25];
 
     const handleChangePage = (_, newPage) => {
         setPage(newPage);
@@ -71,10 +72,9 @@ function AttendanceTable({ match, attendanceInfo, itemsPerPage }) {
             <Table size="small">
                 <TableHead>
                     <TableRow sx={{ fontWeight: 'bold' }}>
-                        <TableCell sx={{ fontWeight: 'bold' }}>ID</TableCell>
-                        <TableCell sx={{ fontWeight: 'bold' }}>Nombre</TableCell>
-                        <TableCell sx={{ fontWeight: 'bold' }}>Dni</TableCell>
-                        <TableCell sx={{ fontWeight: 'bold' }}>Estado de asistencia</TableCell>
+                        {["ID", "Nombre", "DNI", "Estado de asistencia"].map((option) =>
+                            <TableCell sx={{ fontWeight: 'bold' }}>{option}</TableCell>
+                        )}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -82,7 +82,7 @@ function AttendanceTable({ match, attendanceInfo, itemsPerPage }) {
                 </TableBody>
             </Table>
             <TablePagination
-            labelRowsPerPage="Espectadores por pagina"
+                labelRowsPerPage="Espectadores por pagina"
                 rowsPerPageOptions={rowsPerPageOptions}
                 component="div"
                 count={attendanceInfo.length}
