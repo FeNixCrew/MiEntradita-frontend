@@ -11,7 +11,7 @@ function SearchBar({ onChange }) {
 
     return (
         <Box component="form" onChange={handleSubmit(onChange)} onSubmit={handleSubmit(onChange)} noValidate>
-            <Search >
+            <Search sx={{ maxWidth: '28vw' }}>
                 <SearchIconWrapper>
                     <SearchIcon />
                 </SearchIconWrapper>

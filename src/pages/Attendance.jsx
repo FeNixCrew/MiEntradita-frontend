@@ -45,7 +45,7 @@ const useStyle = makeStyles((_) => ({
 function AttendanceComponent({ match }) {
     const history = useHistory();
     const [attendanceInfo, setAttendanceInfo] = useState([]);
-    const [modifiCableAttendanceInfo, setModifiCableAttendanceInfo] = useState([]);
+    const [modificableAttendanceInfo, setModificableAttendanceInfo] = useState([]);
     const [setError, _, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [open, close, handleToggle] = useToggle();
     const [isLoading, setIsLoading] = useState(false);
@@ -61,14 +61,14 @@ function AttendanceComponent({ match }) {
 
     const search = (data) => {
         setSearchText(data.textSearched);
-        if(searchText?.length >= 2) {
+        if(searchText?.length >= 1) {
             const newAttendanceInfo = attendanceInfo.filter((userData) => userData.dni.toString().includes(data.textSearched))
-            setModifiCableAttendanceInfo(newAttendanceInfo)
+            setModificableAttendanceInfo(newAttendanceInfo)
         }
     }
 
     const rollback = () => {
-        setModifiCableAttendanceInfo(attendanceInfo);
+        setModificableAttendanceInfo(attendanceInfo);
         setSearchText('');
     }
 
@@ -93,12 +93,12 @@ function AttendanceComponent({ match }) {
         else downloadFile({ fileName: fileNameJson, data: dataJson, fileType: 'text/json' })
     }
 
-    const getMatchAttendanceCallback = useCallback((textSearched = null) => {
+    const getMatchAttendanceCallback = useCallback(() => {
         setIsLoading(true);
-        adminService.getMatchAttendance(match.id, textSearched)
+        adminService.getMatchAttendance(match.id)
             .then((response) => {
                 setAttendanceInfo(response.data)
-                setModifiCableAttendanceInfo(response.data)
+                setModificableAttendanceInfo(response.data)
                 setIsLoading(false);
             })
             .catch((_) => {
@@ -127,13 +127,13 @@ function AttendanceComponent({ match }) {
                         />
                         <ExportDialog open={open} onClose={handleClose} options={['csv', 'json']} close={close} />
                         <Grid component={Paper} xs={12} className={classes.paper} square elevation={4}>
-                            <AttendanceTable match={match} attendanceInfo={modifiCableAttendanceInfo} itemsPerPage={5} />
+                            <AttendanceTable match={match} attendanceInfo={modificableAttendanceInfo} itemsPerPage={5} />
                         </Grid>
-                        <div style={{ display: 'inline-flex', flexDirection: 'row', alignItems: 'center' }}>
+                        <div style={{ display: 'inline-flex', flexDirection: 'row', alignItems: 'center', marginTop: '2vh' }}>
                             {searchText?.length > 4 && <IconButton onClick={rollback}><ReplayIcon/></IconButton> }
                             <SearchBar onChange={search} />
-                            <Button variant="contained" className={classes.button} style={{ margin: '2vh', backgroundColor: '#2e86c1' }} onClick={goBack}> Volver </Button>
-                            <Button variant="contained" className={classes.button} style={{ margin: '2vh', backgroundColor: '#2e86c1' }} onClick={handleToggle}> Exportar... </Button>
+                            <Button variant="contained" className={classes.button} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={goBack}> Volver </Button>
+                            <Button variant="contained" className={classes.button} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={handleToggle}> Exportar... </Button>
                         </div>
                     </div>
             }

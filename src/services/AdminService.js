@@ -6,11 +6,9 @@ class AdminService extends AbstractService {
         super('/admin');
     }
 
-    async getMatchAttendance(matchId, dniFilter = null) {
+    async getMatchAttendance(matchId) {
         const endpoint = '/match-attendance';
-        let params;
-        if(dniFilter !== null) params = new URLSearchParams([['matchId', matchId], ['dni', parseInt(dniFilter)]]);
-        else params = new URLSearchParams([['matchId', matchId]]);
+        const params = new URLSearchParams([['matchId', matchId]]);
 
         return this.axios.get(this.path + endpoint, params);
     }
