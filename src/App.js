@@ -42,9 +42,8 @@ const Routes = () => (
       <Route exact path="/">
         <Redirect to="/login" />
       </Route>
-      <PrivateRoute component={Home} path="/:username/home" isAuth={isLogin} />
+      <PrivateRoute component={Home} path="/:username/home" isAuth={() => isLogin() || isAdmin()} />
       <PrivateRoute component={QrScan} path="/scanner" isAuth={isScanner} />
-      <PrivateRoute component={Home} path="/admin/home" isAuth={isAdmin} />
       <PrivateRoute component={CreateMatch} path="/admin/add-match" isAuth={isAdmin} />
       <PrivateRoute component={CreateTeam} path="/admin/add-team" isAuth={isAdmin} />
       <PrivateRoute component={Search} path="/:username/search" isAuth={() => isAdmin() || isLogin()} />

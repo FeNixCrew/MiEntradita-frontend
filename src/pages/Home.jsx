@@ -1,8 +1,8 @@
 import { useHistory } from 'react-router';
+import Administrator from '../components/Administrator';
 import BurgerMenu from '../components/navigation/BurgerMenu';
 import Spectator from '../components/Spectator';
 import { exit } from '../helpers/usedFunctions';
-import { Searcher } from './Search';
 
 export default function Home() {
     const history = useHistory();
@@ -10,7 +10,7 @@ export default function Home() {
     const handleChildren = () => {
         const role = localStorage.role;
         return role === 'ROLE_ADMIN' ?
-            <Searcher />
+            <Administrator />
             :
             role === 'ROLE_USER' ?
                 <Spectator />

@@ -125,13 +125,7 @@ export default function BurgerMenu({ children }) {
       text: 'Inicio',
       icon: <HomeIcon style={{ color: 'black' }} />,
       onClick: () => history.push(`/${username}/home`),
-      enabled: role && role === 'ROLE_USER'
-    },
-    {
-      text: 'Inicio',
-      icon: <HomeIcon style={{ color: 'black' }} />,
-      onClick: () => history.push(`/${username}/home`),
-      enabled: role && role === 'ROLE_ADMIN'
+      enabled: (role && role === 'ROLE_ADMIN') || (role && role === 'ROLE_USER')
     },
     {
       text: 'Buscar partidos',
