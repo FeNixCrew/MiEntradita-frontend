@@ -1,5 +1,4 @@
 import { FormControl, Typography } from "@mui/material";
-import { useState } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -15,8 +14,13 @@ const useStyle = makeStyles((_) => ({
 }))
 
 
-function Filter({ partialSearch, setPartialSearch, setIsFinished }) {
-    const [value, setValue] = useState('');
+function Filter({ 
+    partialSearch, 
+    setPartialSearch, 
+    setIsFinished,
+    value,
+    setValue
+}) {
     const classes = useStyle();
 
     const handleChange = (event) => {

@@ -54,6 +54,7 @@ function Searcher() {
     const [setError, _, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [partialSearch, setPartialSearch] = useState(null);
     const [isFinished, setIsFinished] = useState('');
+    const [value, setValue] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [matchs, setMatchs] = useState(null);
     const classes = useStyle();
@@ -77,6 +78,8 @@ function Searcher() {
 
     const onChangeSearch = data => {
         setPartialSearch(data.textSearched);
+        
+        if(value === null) setValue('Ambos');
     }
 
     return (
@@ -95,7 +98,9 @@ function Searcher() {
                     <Filter 
                         setPartialSearch={setPartialSearch}
                         setIsFinished={setIsFinished}
+                        setValue={setValue}
                         partialSearch={partialSearch}
+                        value={value}
                     /> }
             </div>
             {
