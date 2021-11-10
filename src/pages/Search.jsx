@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import SearchBar from "../components/search/SearchBar";
 import BackdropInherit from "../components/feedback/Backdrop";
 import CoustomTypography from "../components/CoustomTypography";
 import matchService from "../services/MatchService";
-import { Paper } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Paper, Select } from "@mui/material";
 import BurgerMenu from "../components/navigation/BurgerMenu";
 import SnackBar from '../components/feedback/SnackBar';
 import { useSnackbar } from '../helpers/hooks/useSnackbar';
+import { isAdmin } from '../helpers/usedFunctions';
 import { makeStyles } from "@material-ui/core";
 import { Grid } from "@mui/material";
 
@@ -54,14 +55,14 @@ function Searcher() {
     const [matchs, setMatchs] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [_, setError, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
-    const [partialSearch, setPartialSearch] = useState('');
+    const [partialSearch, setPartialSearch] = useState(null);
     const classes = useStyle();
+    const [isFinished, setIsFinished] = useState('null');
 
-    const onChange = data => {
-        setPartialSearch(data.textSearched);
-        if (partialSearch.length > 0) {
+    useEffect(() =>{
+        if (partialSearch?.length >= 0) {
             setIsLoading(true);
-            matchService.search(partialSearch)
+            matchService.search(partialSearch, isFinished)
                 .then(response => {
                     setMatchs(response.data);
                     setIsLoading(false);
@@ -73,6 +74,14 @@ function Searcher() {
         } else {
             setMatchs(null);
         }
+    },[isFinished, partialSearch, setError]);
+
+    const onChangeSearch = data => {
+        setPartialSearch(data.textSearched);
+    }
+
+    const onChangeIsFinished = (event) => {
+        setIsFinished(event.target.value);
     }
 
     return (
@@ -86,11 +95,25 @@ function Searcher() {
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
             <div component={Paper} className={classes.searchBarContainer}>
-                <SearchBar onChange={onChange} />
+                <SearchBar onChange={onChangeSearch} />
+                { isAdmin() &&
+                    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+                        <InputLabel>Estado</InputLabel>
+                        <Select
+                        value={isFinished}
+                        onChange={onChangeIsFinished}
+                        label="Estado"
+                        >
+                            <MenuItem value={true}>Terminados</MenuItem>
+                            <MenuItem value={false}>Pendientes</MenuItem>
+                            <MenuItem value={'null'}>Ambos</MenuItem>
+                        </Select>
+                    </FormControl>
+                }
             </div>
             {
                 matchs ?
-                    <RenderMatchesComponent matches={matchs} ComponentToRenderWhenReturn={ComponentToRenderWhenReturn} callbackToComponent={() => onChange({ textSearched: partialSearch })} />
+                    <RenderMatchesComponent matches={matchs} ComponentToRenderWhenReturn={ComponentToRenderWhenReturn} callbackToComponent={() => onChangeSearch({ textSearched: partialSearch })} />
                     :
                     <CoustomTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
             }

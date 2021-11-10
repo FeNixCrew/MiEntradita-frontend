@@ -18,9 +18,14 @@ class SpectatorService extends AbstractService {
         return this.axios.post(this.path + endpoint, comeInRequest);
     }
 
-    async search(partialTeamName) {
+    async search(partialTeamName, isFinished) {
         const endpoint = '/search';
-        const params = new URLSearchParams([['partialName', partialTeamName]]);
+        let params;
+        if(isFinished === 'null') {
+            params = new URLSearchParams([['partialName', partialTeamName]]);
+        } else {
+            params = new URLSearchParams([['partialName', partialTeamName], ['isFinished', isFinished.toString()]]);
+        }
         return this.axios.get(this.path + endpoint, params);
     }
 
