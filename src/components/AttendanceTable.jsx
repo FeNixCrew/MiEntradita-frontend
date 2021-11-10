@@ -38,7 +38,6 @@ const TableItem = ({ userData }) => {
     return (
 
         <TableRow key={userData.id} sx={{ fontStyle: 'italic' }}>
-            {console.log(userData)}
             {Object.entries(userData).map(([field, value]) =>
                 <TableCell sx={{ padding: 2, color: (field === "asistencia" && attendanceColor) }}>{value}</TableCell>
             )}
@@ -72,7 +71,7 @@ function AttendanceTable({ match, attendanceInfo, itemsPerPage }) {
             <Table size="small">
                 <TableHead>
                     <TableRow sx={{ fontWeight: 'bold' }}>
-                        {["ID", "Nombre", "DNI", "Estado de asistencia"].map((option) =>
+                        {["ID","DNI","Nombre", "Estado de asistencia"].map((option) =>
                             <TableCell sx={{ fontWeight: 'bold' }}>{option}</TableCell>
                         )}
                     </TableRow>

@@ -1,4 +1,4 @@
-import { Button, Grid, Paper } from "@mui/material";
+import { Button, Grid, IconButton, Paper } from "@mui/material";
 import { useHistory, useLocation } from "react-router";
 import { useCallback, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
@@ -12,6 +12,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import { blue } from '@mui/material/colors';
 import DownloadIcon from '@mui/icons-material/Download';
+import ReplayIcon from '@mui/icons-material/Replay';
 
 import BurgerMenu from "../components/navigation/BurgerMenu";
 import AttendanceTable from "../components/AttendanceTable";
@@ -21,6 +22,7 @@ import { useToggle } from "../helpers/hooks/useToggle";
 import { downloadFile } from '../helpers/usedFunctions'
 import { useSnackbar } from "../helpers/hooks/useSnackbar";
 import adminService from '../services/AdminService'
+import SearchBar from "../components/search/SearchBar";
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -43,10 +45,12 @@ const useStyle = makeStyles((_) => ({
 function AttendanceComponent({ match }) {
     const history = useHistory();
     const [attendanceInfo, setAttendanceInfo] = useState([]);
-    const [_, setError, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
+    const [modifiCableAttendanceInfo, setModifiCableAttendanceInfo] = useState([]);
+    const [setError, _, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [open, close, handleToggle] = useToggle();
     const [isLoading, setIsLoading] = useState(false);
     const classes = useStyle();
+    const [searchText, setSearchText] = useState(null);
 
     const handleClose = (value) => {
         close();
@@ -54,6 +58,19 @@ function AttendanceComponent({ match }) {
     };
 
     const goBack = () => history.goBack();
+
+    const search = (data) => {
+        setSearchText(data.textSearched);
+        if(searchText?.length >= 2) {
+            const newAttendanceInfo = attendanceInfo.filter((userData) => userData.dni.toString().includes(data.textSearched))
+            setModifiCableAttendanceInfo(newAttendanceInfo)
+        }
+    }
+
+    const rollback = () => {
+        setModifiCableAttendanceInfo(attendanceInfo);
+        setSearchText('');
+    }
 
     const parseAndDownload = (type) => {
         const fileName = `${match.home}-vs-${match.away}-Datos de Asistencia`
@@ -76,18 +93,19 @@ function AttendanceComponent({ match }) {
         else downloadFile({ fileName: fileNameJson, data: dataJson, fileType: 'text/json' })
     }
 
-    const getMatchAttendanceCallback = useCallback(() => {
+    const getMatchAttendanceCallback = useCallback((textSearched = null) => {
         setIsLoading(true);
-        adminService.getMatchAttendance(match.id)
+        adminService.getMatchAttendance(match.id, textSearched)
             .then((response) => {
-                setAttendanceInfo(response.data);
+                setAttendanceInfo(response.data)
+                setModifiCableAttendanceInfo(response.data)
                 setIsLoading(false);
             })
             .catch((_) => {
                 setError("Ocurrio un error al buscar los datos de asistencia para este partido")
                 setIsLoading(false);
             })
-    }, [match, setAttendanceInfo, setError,]);
+    }, [match, setAttendanceInfo, setError]);
 
     useEffect(() => {
         getMatchAttendanceCallback()
@@ -96,26 +114,28 @@ function AttendanceComponent({ match }) {
     return (
         <div>
             {
-                isLoading ? 
+                isLoading ?
                     <BackdropInherit open={isLoading} />
-                :
-                <div className={classes.root}>
-                    <SnackBar
-                        openSnackBar={isOpenSnack}
-                        severityState={severity}
-                        message={message}
-                        closeSnackBar={closeSnackBar}
-                        position={{ vertical: 'bottom', horizontal: 'left' }}
-                    />
-                    <ExportDialog open={open} onClose={handleClose} options={['csv', 'json']} close={close} />
-                    <Grid component={Paper} xs={12} className={classes.paper} square elevation={4}>
-                        <AttendanceTable match={match} attendanceInfo={attendanceInfo} itemsPerPage={5} />
-                    </Grid>
-                    <div style={{ display: 'inline-flex', flexDirection: 'row', alignItems: 'center' }}>
-                        <Button variant="contained" className={classes.button} style={{ margin: '2vh', backgroundColor: '#2e86c1' }} onClick={goBack}> Volver </Button>
-                        <Button variant="contained" className={classes.button} style={{ margin: '2vh', backgroundColor: '#2e86c1' }} onClick={handleToggle}> Exportar... </Button>
+                    :
+                    <div className={classes.root}>
+                        <SnackBar
+                            openSnackBar={isOpenSnack}
+                            severityState={severity}
+                            message={message}
+                            closeSnackBar={closeSnackBar}
+                            position={{ vertical: 'bottom', horizontal: 'left' }}
+                        />
+                        <ExportDialog open={open} onClose={handleClose} options={['csv', 'json']} close={close} />
+                        <Grid component={Paper} xs={12} className={classes.paper} square elevation={4}>
+                            <AttendanceTable match={match} attendanceInfo={modifiCableAttendanceInfo} itemsPerPage={5} />
+                        </Grid>
+                        <div style={{ display: 'inline-flex', flexDirection: 'row', alignItems: 'center' }}>
+                            {searchText?.length > 4 && <IconButton onClick={rollback}><ReplayIcon/></IconButton> }
+                            <SearchBar onChange={search} />
+                            <Button variant="contained" className={classes.button} style={{ margin: '2vh', backgroundColor: '#2e86c1' }} onClick={goBack}> Volver </Button>
+                            <Button variant="contained" className={classes.button} style={{ margin: '2vh', backgroundColor: '#2e86c1' }} onClick={handleToggle}> Exportar... </Button>
+                        </div>
                     </div>
-                </div>
             }
         </div>
     )
@@ -125,8 +145,6 @@ export default function Attendance() {
     const match = useLocation().state.match
     return <BurgerMenu children={<AttendanceComponent match={match} />} />
 }
-
-
 
 function ExportDialog(props) {
     const { onClose, open, options, close } = props;

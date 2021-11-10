@@ -10,7 +10,7 @@ function SearchBar({ onChange }) {
     const { register, handleSubmit } = useForm();
 
     return (
-        <Box component="form" onChange={handleSubmit(onChange)} noValidate>
+        <Box component="form" onChange={handleSubmit(onChange)} onSubmit={handleSubmit(onChange)} noValidate>
             <Search >
                 <SearchIconWrapper>
                     <SearchIcon />
