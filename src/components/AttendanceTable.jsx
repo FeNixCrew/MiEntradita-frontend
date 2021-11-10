@@ -66,12 +66,12 @@ function AttendanceTable({ match, attendanceInfo, itemsPerPage }) {
     }
 
     return (
-        <Fragment>
+        <>
             <Title>Datos de asistencias para {match.home} vs {match.away}</Title>
             <Table size="small">
                 <TableHead>
                     <TableRow sx={{ fontWeight: 'bold' }}>
-                        {["ID","DNI","Nombre", "Estado de asistencia"].map((option) =>
+                        {["ID", "DNI", "Nombre", "Estado de asistencia"].map((option) =>
                             <TableCell sx={{ fontWeight: 'bold' }}>{option}</TableCell>
                         )}
                     </TableRow>
@@ -87,10 +87,11 @@ function AttendanceTable({ match, attendanceInfo, itemsPerPage }) {
                 count={attendanceInfo.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
+                labelDisplayedRows={ ({ from, to, count }) => { return `${from}-${to} de ${count !== -1 ? count : `mas de ${to}`}`; }}
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />
-        </Fragment>
+        </>
     );
 }
 
