@@ -16,6 +16,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import BurgerMenu from "../components/navigation/BurgerMenu";
 import AttendanceTable from "../components/AttendanceTable";
 import SnackBar from '../components/feedback/SnackBar'
+import BackdropInherit from "../components/feedback/Backdrop";
 import { useToggle } from "../helpers/hooks/useToggle";
 import { downloadFile } from '../helpers/usedFunctions'
 import { useSnackbar } from "../helpers/hooks/useSnackbar";
@@ -43,7 +44,8 @@ function AttendanceComponent({ match }) {
     const history = useHistory();
     const [attendanceInfo, setAttendanceInfo] = useState([]);
     const [_, setError, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
-    const [open, close, handleToggle] = useToggle()
+    const [open, close, handleToggle] = useToggle();
+    const [isLoading, setIsLoading] = useState(false);
     const classes = useStyle();
 
     const handleClose = (value) => {
@@ -75,34 +77,46 @@ function AttendanceComponent({ match }) {
     }
 
     const getMatchAttendanceCallback = useCallback(() => {
+        setIsLoading(true);
         adminService.getMatchAttendance(match.id)
             .then((response) => {
                 setAttendanceInfo(response.data);
+                setIsLoading(false);
             })
             .catch((_) => {
                 setError("Ocurrio un error al buscar los datos de asistencia para este partido")
+                setIsLoading(false);
             })
-    }, [match, setAttendanceInfo, setError])
+    }, [match, setAttendanceInfo, setError,]);
 
-    useEffect(() => getMatchAttendanceCallback(), [getMatchAttendanceCallback]);
+    useEffect(() => {
+        getMatchAttendanceCallback()
+    }, [getMatchAttendanceCallback]);
 
     return (
-        <div className={classes.root}>
-            <SnackBar
-                openSnackBar={isOpenSnack}
-                severityState={severity}
-                message={message}
-                closeSnackBar={closeSnackBar}
-                position={{ vertical: 'bottom', horizontal: 'left' }}
-            />
-            <ExportDialog open={open} onClose={handleClose} options={['csv', 'json']} close={close} />
-            <Grid component={Paper} xs={12} className={classes.paper} square elevation={4}>
-                <AttendanceTable match={match} attendanceInfo={attendanceInfo} itemsPerPage={5} />
-            </Grid>
-            <div style={{ display: 'inline-flex', flexDirection: 'row', alignItems: 'center' }}>
-                <Button variant="contained" className={classes.button} sx={{ margin: '2vh', backgroundColor: '#2e86c1' }} onClick={goBack}> Volver </Button>
-                <Button variant="contained" className={classes.button} sx={{ margin: '2vh', backgroundColor: '#2e86c1' }} onClick={handleToggle}> Exportar... </Button>
-            </div>
+        <div>
+            {
+                isLoading ? 
+                    <BackdropInherit open={isLoading} />
+                :
+                <div className={classes.root}>
+                    <SnackBar
+                        openSnackBar={isOpenSnack}
+                        severityState={severity}
+                        message={message}
+                        closeSnackBar={closeSnackBar}
+                        position={{ vertical: 'bottom', horizontal: 'left' }}
+                    />
+                    <ExportDialog open={open} onClose={handleClose} options={['csv', 'json']} close={close} />
+                    <Grid component={Paper} xs={12} className={classes.paper} square elevation={4}>
+                        <AttendanceTable match={match} attendanceInfo={attendanceInfo} itemsPerPage={5} />
+                    </Grid>
+                    <div style={{ display: 'inline-flex', flexDirection: 'row', alignItems: 'center' }}>
+                        <Button variant="contained" className={classes.button} style={{ margin: '2vh', backgroundColor: '#2e86c1' }} onClick={goBack}> Volver </Button>
+                        <Button variant="contained" className={classes.button} style={{ margin: '2vh', backgroundColor: '#2e86c1' }} onClick={handleToggle}> Exportar... </Button>
+                    </div>
+                </div>
+            }
         </div>
     )
 }
@@ -143,7 +157,7 @@ function ExportDialog(props) {
 
     return (
         <Dialog onClose={handleClose} open={open}>
-            <DialogTitle>Exportar como...</DialogTitle>
+            <DialogTitle>Exportar...</DialogTitle>
             <List sx={{ pt: 0 }}>
                 {renderOptions()}
             </List>
