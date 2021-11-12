@@ -1,4 +1,4 @@
-import { Button, Grid, IconButton, Paper } from "@mui/material";
+import { Button, Grid, Paper } from "@mui/material";
 import { useHistory, useLocation } from "react-router";
 import { useCallback, useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
@@ -12,7 +12,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import { blue } from '@mui/material/colors';
 import DownloadIcon from '@mui/icons-material/Download';
-import ReplayIcon from '@mui/icons-material/Replay';
 
 import BurgerMenu from "../components/navigation/BurgerMenu";
 import AttendanceTable from "../components/AttendanceTable";
@@ -65,10 +64,10 @@ function AttendanceComponent({ match }) {
             setModificableAttendanceInfo(newAttendanceInfo)
     }
 
-    const rollback = () => {
-        setModificableAttendanceInfo(attendanceInfo);
-        setSearchText('');
-    }
+    // const rollback = () => {
+    //     setModificableAttendanceInfo(attendanceInfo);
+    //     setSearchText('');
+    // }
 
     const parseAndDownload = (type) => {
         const fileName = `${match.home}-vs-${match.away}-Datos de Asistencia`
@@ -128,7 +127,7 @@ function AttendanceComponent({ match }) {
                             <AttendanceTable match={match} attendanceInfo={modificableAttendanceInfo} itemsPerPage={5} />
                         </Grid>
                         <div style={{ display: 'inline-flex', flexDirection: 'row', alignItems: 'center', marginTop: '2vh' }}>
-                            {searchText?.length > 4 && <IconButton onClick={rollback}><ReplayIcon/></IconButton> }
+                            {/* {searchText?.length > 4 && <IconButton onClick={rollback}><ReplayIcon/></IconButton> } */}
                             <SearchBar onChange={search} type='number'/>
                             <Button variant="contained" className={classes.button} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={goBack}> Volver </Button>
                             <Button variant="contained" className={classes.button} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={handleToggle}> Exportar... </Button>

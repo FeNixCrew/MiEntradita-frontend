@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import SearchBar from "./SearchBar";
 import BackdropInherit from "../feedback/Backdrop";
@@ -59,7 +59,7 @@ function Searcher() {
     const [matchs, setMatchs] = useState(null);
     const classes = useStyle();
 
-    useEffect(() =>{
+    const do_search = useCallback(async () => {
         if (partialSearch?.length >= 0) {
             setIsLoading(true);
             matchService.search(partialSearch, isFinished)
@@ -74,12 +74,16 @@ function Searcher() {
         } else {
             setMatchs(null);
         }
-    },[isFinished, partialSearch, setError]);
+    }, [isFinished, partialSearch, setError])
+
+    useEffect(() => {
+        do_search();
+    }, [do_search]);
 
     const onChangeSearch = data => {
         setPartialSearch(data.textSearched);
-        
-        if(value === null) setValue('Ambos');
+
+        if (value === null) setValue('Ambos');
     }
 
     return (
@@ -94,18 +98,18 @@ function Searcher() {
             />
             <div component={Paper} className={classes.searchBarContainer}>
                 <SearchBar onChange={onChangeSearch} />
-                {isAdmin() && 
-                    <Filter 
+                {isAdmin() &&
+                    <Filter
                         setPartialSearch={setPartialSearch}
                         setIsFinished={setIsFinished}
                         setValue={setValue}
                         partialSearch={partialSearch}
                         value={value}
-                    /> }
+                    />}
             </div>
             {
                 matchs ?
-                    <RenderMatchesComponent matches={matchs} ComponentToRenderWhenReturn={ComponentToRenderWhenReturn} callbackToComponent={() => onChangeSearch({ textSearched: '' })} />
+                    <RenderMatchesComponent matches={matchs} ComponentToRenderWhenReturn={ComponentToRenderWhenReturn} callbackToComponent={do_search} />
                     :
                     <CoustomTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
             }
