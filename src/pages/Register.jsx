@@ -5,9 +5,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
-import RegisterForm from '../components/forms/register/RegisterForm';
-import BeginningTypography from '../components/BeginningTypography';
-import BeginningAvatar from '../components/BegginnigAvatar';
+import RegisterForm from '../components/forms/RegisterForm';
+import CoustomTypography from '../components/CoustomTypography';
+import CoustomAvatar from '../components/CoustomAvatar';
 import BackdropInherit from '../components/feedback/Backdrop';
 
 import { useToggle } from '../helpers/hooks/useToggle';
@@ -16,7 +16,7 @@ import authService from '../services/AuthService';
 import { makeStyles } from '@material-ui/core';
 
 
-const useStyle = makeStyles((theme) => ({
+const useStyle = makeStyles((_) => ({
     boxContainer: {
         marginTop: 0.5,
         display: 'flex',
@@ -67,8 +67,8 @@ function Register() {
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
                 <Box className={classes.boxContainer}>
-                    <BeginningAvatar />
-                    <BeginningTypography text="Registrarse" />
+                    <CoustomAvatar />
+                    <CoustomTypography text="Registrarse" />
                     <RegisterForm onSubmit={onSubmit} error={error} resetError={resetError} />
                 </Box>
             </Container>

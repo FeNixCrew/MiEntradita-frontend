@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import LoginForm from '../components/forms/login/LoginForm';
+import LoginForm from '../components/forms/LoginForm';
 import LogIn from '../pages/LogIn';
 
 describe('Inicio de la aplicacion', () => {

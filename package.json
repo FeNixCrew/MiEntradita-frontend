@@ -17,7 +17,9 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.4",
+    "papaparse": "^5.3.1",
     "react": "^17.0.2",
+    "react-device-detect": "^2.1.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.15.3",
     "react-material-ui-carousel": "^2.3.1",
@@ -35,6 +37,16 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
+    "rules": {
+      "no-unused-vars": [
+        1,
+        {
+          "argsIgnorePattern": "^_",
+          "varsIgnorePattern": "^_",
+          "caughtErrorsIgnorePattern": "^_"
+        }
+      ]
+    },
     "extends": [
       "react-app",
       "react-app/jest"

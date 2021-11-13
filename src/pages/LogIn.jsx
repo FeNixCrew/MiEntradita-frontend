@@ -7,11 +7,12 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
 
-import LoginForm from '../components/forms/login/LoginForm';
+import LoginForm from '../components/forms/LoginForm';
 import BackdropInherit from '../components/feedback/Backdrop';
-import BeginningAvatar from '../components/BegginnigAvatar';
+import CoustomAvatar from '../components/CoustomAvatar';
 
 import authService from '../services/AuthService';
+import spectatorService from '../services/SpectatorService'
 import { saveData } from '../helpers/usedFunctions';
 import Background from '../assets/background.png';
 import { makeStyles } from '@material-ui/core';
@@ -42,6 +43,21 @@ function LogIn() {
     const history = useHistory();
     const classes = useStyle();
 
+    const getFavouriteTeam = () => {
+        spectatorService.getFavouriteTeam()
+            .then((response) => {
+                localStorage.setItem('favouriteTeamId', null);
+                if(response.data) {
+                    localStorage.setItem('favouriteTeamId', response.data.id);
+                }
+            })
+            .catch((error) => {
+                const response = error.response;
+                setError(response.data.message);
+                setIsLoading(false);
+            })
+    }
+    
     const onSubmit = data => {
         setIsLoading(true);
         authService.login(data.username, data.password)
@@ -49,6 +65,12 @@ function LogIn() {
                 setIsLoading(false);
                 saveData(response);
                 push(response.data.role, response.data.username);
+                return response.data.role
+            })
+            .then((role) => {
+                if(role === 'ROLE_USER') {
+                    getFavouriteTeam();
+                }
             })
             .catch((aError) => {
                 const response = aError.response;
@@ -84,17 +106,16 @@ function LogIn() {
                 />
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                     <Box className={classes.boxContainer}>
-                        <BeginningAvatar />
+                        <CoustomAvatar />
                         <Typography
                             style={{
-                                fontStyle: 'bold',
-                                fontFamily: 'Monospace',
+                                fontFamily: 'Quicksand',
                             }}
-                            component='h1'
-                            variant='h6'
+                            component='h2'
+                            variant='h5'
                             data-testid='welcome'
                         >
-                            Bienvenido!
+                            ¡Bienvenido!
                         </Typography>
                         <LoginForm onSubmit={onSubmit} resetError={resetError} error={error} />
 

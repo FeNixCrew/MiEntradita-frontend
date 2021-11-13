@@ -6,9 +6,9 @@ class SpectatorService extends AbstractService {
         super('/match');
     }
 
-    async create(home, away, ticketPrice, matchStartTime) {
+    async create(home, away, ticketPrice, matchStartTime, admittedPercentage) {
         const endpoint = '/create'
-        const newMatchRequest = { home, away, ticketPrice, matchStartTime }
+        const newMatchRequest = { home, away, ticketPrice, matchStartTime, admittedPercentage }
         return this.axios.post(this.path + endpoint, newMatchRequest)
     }
     
@@ -18,9 +18,10 @@ class SpectatorService extends AbstractService {
         return this.axios.post(this.path + endpoint, comeInRequest);
     }
 
-    async search(partialTeamName) {
+    async search(partialTeamName, isFinished) {
         const endpoint = '/search';
-        const params = new URLSearchParams([['partialName', partialTeamName]]);
+        const params = new URLSearchParams([['partialName', partialTeamName], ['isFinished', isFinished]]);
+
         return this.axios.get(this.path + endpoint, params);
     }
 

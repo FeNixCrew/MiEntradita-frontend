@@ -18,6 +18,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import HomeIcon from '@mui/icons-material/Home';
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
+import { label } from '../../helpers/usedFunctions';
 
 const drawerWidth = 240;
 
@@ -31,8 +32,15 @@ const useStyles = makeStyles((theme) => ({
       fontWeight: 'bolder',
       '& $icon': {
         color: theme.palette.primary.main,
-      }
-    }
+      },
+    },
+    fontFamily: 'Quicksand',
+    flexGrow: 1,
+    letterSpacing: 5,
+    fontSize: 23,
+    color: 'white',
+    marginLeft: '2vh',
+
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -64,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerOpen: {
     width: drawerWidth,
-    backgroundColor: '#373737',
+    backgroundColor: '#ecf0f1',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -74,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   drawerClose: {
-    backgroundColor: '#373737',
+    backgroundColor: '#ecf0f1',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -115,31 +123,25 @@ export default function BurgerMenu({ children }) {
   const drawerItems = [
     {
       text: 'Inicio',
-      icon: <HomeIcon style={{color:'white'}} />,
+      icon: <HomeIcon style={{ color: 'black' }} />,
       onClick: () => history.push(`/${username}/home`),
-      enabled: role && role === 'ROLE_USER'
-    },
-    {
-      text: 'Inicio',
-      icon: <HomeIcon style={{ color: 'white' }} />,
-      onClick: () => history.push(`/${username}/home`),
-      enabled: role && role === 'ROLE_ADMIN'
+      enabled: (role && role === 'ROLE_ADMIN') || (role && role === 'ROLE_USER')
     },
     {
       text: 'Buscar partidos',
-      icon: <SearchIcon style={{ color: 'white' }} />,
+      icon: <SearchIcon style={{ color: 'black' }} />,
       onClick: () => history.push(`/${username}/search`),
       enabled: role && role === 'ROLE_USER'
     },
     {
       text: 'Agregar partido',
-      icon: <AddIcon style={{ color: 'white' }} />,
+      icon: <AddIcon style={{ color: 'black' }} />,
       onClick: () => history.push(`/${username}/add-match`),
       enabled: role && role === 'ROLE_ADMIN'
     },
     {
       text: 'Agregar equipo',
-      icon: <AddModeratorIcon style={{color:'white'}} />,
+      icon: <AddModeratorIcon style={{ color: 'black' }} />,
       onClick: () => history.push(`/${username}/add-team`),
       enabled: role && role === 'ROLE_ADMIN'
     }
@@ -172,7 +174,7 @@ export default function BurgerMenu({ children }) {
       >
         <div className={classes.toolbar}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon style={{ color: 'white' }} /> : <ChevronLeftIcon style={{ color: 'white' }} />}
+            {theme.direction === 'rtl' ? <ChevronRightIcon style={{ color: 'black' }} /> : <ChevronLeftIcon style={{ color: 'black' }} />}
           </IconButton>
         </div>
         <Divider />
@@ -186,7 +188,7 @@ export default function BurgerMenu({ children }) {
                 onClick={item.onClick}
               >
                 <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText style={{ color: 'white' }} primary={item.text} />
+                <ListItemText style={{ color: 'black' }} primary={label(item.text)} />
               </ListItem>
             </Tooltip>
           ))}
