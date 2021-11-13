@@ -12,6 +12,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import { blue } from '@mui/material/colors';
 import DownloadIcon from '@mui/icons-material/Download';
+import { useForm } from 'react-hook-form';
+
 
 import BurgerMenu from "../components/navigation/BurgerMenu";
 import AttendanceTable from "../components/AttendanceTable";
@@ -22,6 +24,8 @@ import { downloadFile } from '../helpers/usedFunctions'
 import { useSnackbar } from "../helpers/hooks/useSnackbar";
 import adminService from '../services/AdminService'
 import SearchBar from "../components/search/SearchBar";
+import IconButton from '@mui/material/IconButton';
+import ReplayIcon from '@mui/icons-material/Replay';
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -50,6 +54,7 @@ function AttendanceComponent({ match }) {
     const [isLoading, setIsLoading] = useState(false);
     const classes = useStyle();
     const [searchText, setSearchText] = useState(null);
+    const { register, handleSubmit, reset } = useForm();
 
     const handleClose = (value) => {
         close();
@@ -64,10 +69,11 @@ function AttendanceComponent({ match }) {
             setModificableAttendanceInfo(newAttendanceInfo)
     }
 
-    // const rollback = () => {
-    //     setModificableAttendanceInfo(attendanceInfo);
-    //     setSearchText('');
-    // }
+    const rollback = () => {
+        setModificableAttendanceInfo(attendanceInfo);
+        reset('');
+        setSearchText('');
+    }
 
     const parseAndDownload = (type) => {
         const fileName = `${match.home}-vs-${match.away}-Datos de Asistencia`
@@ -127,8 +133,8 @@ function AttendanceComponent({ match }) {
                             <AttendanceTable match={match} attendanceInfo={modificableAttendanceInfo} itemsPerPage={5} />
                         </Grid>
                         <div style={{ display: 'inline-flex', flexDirection: 'row', alignItems: 'center', marginTop: '2vh' }}>
-                            {/* {searchText?.length > 4 && <IconButton onClick={rollback}><ReplayIcon/></IconButton> } */}
-                            <SearchBar onChange={search} type='number'/>
+                            {searchText?.length > 4 && <IconButton onClick={rollback}><ReplayIcon/></IconButton> }
+                            <SearchBar onChange={search} type='number' register={register} handleSubmit={handleSubmit} />
                             <Button variant="contained" className={classes.button} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={goBack}> Volver </Button>
                             <Button variant="contained" className={classes.button} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={handleToggle}> Exportar... </Button>
                         </div>

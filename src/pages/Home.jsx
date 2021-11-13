@@ -4,13 +4,14 @@ import Searcher from '../components/search/Searcher';
 import Spectator from '../components/Spectator';
 import { exit } from '../helpers/usedFunctions';
 
+
 export default function Home() {
     const history = useHistory();
 
     const handleChildren = () => {
         const role = localStorage.role;
         return role === 'ROLE_ADMIN' ?
-            <Searcher />
+            <Searcher/>
             :
             role === 'ROLE_USER' ?
                 <Spectator />

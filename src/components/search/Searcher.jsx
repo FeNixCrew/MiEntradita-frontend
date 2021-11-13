@@ -10,6 +10,7 @@ import { useSnackbar } from '../../helpers/hooks/useSnackbar';
 import { isAdmin } from '../../helpers/usedFunctions';
 import { makeStyles } from "@material-ui/core";
 import { Grid } from "@mui/material";
+import { useForm } from 'react-hook-form';
 
 import RenderMatchesComponent from "../RenderMatchesComponent";
 import Filter from './Filter';
@@ -58,6 +59,8 @@ function Searcher() {
     const [isLoading, setIsLoading] = useState(false);
     const [matchs, setMatchs] = useState(null);
     const classes = useStyle();
+    const { register, handleSubmit } = useForm();
+
 
     const do_search = useCallback(async () => {
         if (partialSearch?.length >= 0) {
@@ -97,7 +100,7 @@ function Searcher() {
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
             <div component={Paper} className={classes.searchBarContainer}>
-                <SearchBar onChange={onChangeSearch} />
+                <SearchBar onChange={onChangeSearch} register={register} handleSubmit={handleSubmit} />
                 {isAdmin() &&
                     <Filter
                         setPartialSearch={setPartialSearch}
