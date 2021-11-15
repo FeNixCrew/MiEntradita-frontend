@@ -10,13 +10,16 @@ import { BootstrapDialogTitle } from './modal/BoostrapDialogTitle';
 import MatchDetailsContent from './MatchDetailsContent';
 import Confirmation from '../feedback/Confirmation';
 import { label, isUser } from '../../helpers/usedFunctions';
+import Map from '../Map';
+import { Grid } from '@mui/material';
 
-export default function MatchDetails({ open, handleClose, matchId, title, reserveTicket, isAvailable }) {
+export default function MatchDetails({ open, handleClose, matchId, title, reserveTicket, isAvailable, styleClasses }) {
   const [matchDetails, setMatchDetails] = useState(undefined);
   const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
   const [isOpen, closeConfirmation, openConfirmation] = useToggle();
   const [error, setError] = useState(null);
   const [isDisabled, setIsDisabled] = useState(isAvailable);
+  const classes = styleClasses;
 
   useEffect(() => {
     matchService.getMatchDetails(matchId)
@@ -55,14 +58,20 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
       />
       <BootstrapDialog
         onClose={handleClose}
+        maxWidth='xl'
         aria-labelledby="customized-dialog-title"
         open={open}
       >
         <BootstrapDialogTitle style={{ color: 'white' }} onClose={handleClose}>
           {label(title)}
         </BootstrapDialogTitle>
-        <DialogContent dividers>
-          {matchDetails && <MatchDetailsContent matchDetails={matchDetails} />}
+        <DialogContent className={classes.mainContainer} >
+          <Grid className={classes.cardContent}>
+              {matchDetails && <MatchDetailsContent matchDetails={matchDetails} />}
+            <Grid item xs={6} sx={{ marginTop: '2vh'}}>
+              <Map className={classes.map}/>
+            </Grid>
+          </Grid>
         </DialogContent>
         <DialogActions>
           {isUser() && isAvailable !== null && <Button sx={{ color: '#2e86c1' }} autoFocus onClick={openConfirmation} disabled={isDisabled}>

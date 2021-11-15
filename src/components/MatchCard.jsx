@@ -13,7 +13,9 @@ import SnackBar from './feedback/SnackBar';
 import { makeStyles } from '@material-ui/core';
 import TeamDetails from './details/TeamDetails';
 import { label, formatDateAndTime, isAdmin } from '../helpers/usedFunctions';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import { useStylesMobile, useStylesDesktop } from './details/styles';
+import { isMobile } from 'react-device-detect';
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -64,6 +66,9 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
     const [messageOfAmount, setMessageOfAmount] = useState('');
 
     const classes = useStyle();
+    const desktopClasses = useStylesDesktop();
+    const mobileClasses = useStylesMobile();
+
     const matchTitle = `${match.home} vs ${match.away}`;
     const horarioFormateado = formatDateAndTime(match.matchStartTime);
     const history = useHistory();
@@ -145,7 +150,7 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
                 closeSnackBar={closeSnackBar}
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
-            {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} />}
+            {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} styleClasses={isMobile ? mobileClasses : desktopClasses} />}
             {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={teamName} teamId={teamId} markAsFavourite={markAsFavourite} haveFavouriteTeam={haveFavouriteTeam} />}
             <Grid item xs={12} className={classes.root}>
                 <Card className={classes.cardComp}>
