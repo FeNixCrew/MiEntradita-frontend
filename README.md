@@ -1,4 +1,4 @@
-![Actions Status: test](https://github.com/FeNixCrew/MiEntradita-frontend/workflows/MiEntradita%20CI/badge.svg) 
+![Actions Status: test](https://github.com/FeNixCrew/MiEntradita-frontend/workflows/MiEntradita%20CI/badge.svg)  ![coverage](./badges/coverage/coverage.svg)
 # MiEntradita-frontend
 
 - Wiki y doc: https://github.com/FeNixCrew/MiEntradita-doc/wiki
