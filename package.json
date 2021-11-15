@@ -36,6 +36,22 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "jest": {
+    "coverageReporters": [
+      "html",
+      "text-summary",
+      "json-summary"
+    ],
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/reportWebVitals.js",
+      "!**/index.js",
+      "!**/services/**",
+      "!**/setupTests.js",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ]
+  },
   "eslintConfig": {
     "rules": {
       "no-unused-vars": [
