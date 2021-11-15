@@ -13,7 +13,7 @@ import { label, isUser } from '../../helpers/usedFunctions';
 import Map from '../Map';
 import { Grid } from '@mui/material';
 
-export default function MatchDetails({ open, handleClose, matchId, title, reserveTicket, isAvailable, styleClasses }) {
+export default function MatchDetails({ open, handleClose, matchId, title, reserveTicket, isAvailable, styleClasses, underTesting = false }) {
   const [matchDetails, setMatchDetails] = useState(undefined);
   const [isOpenSnack, closeSnackBar, openSnackBar] = useToggle();
   const [isOpen, closeConfirmation, openConfirmation] = useToggle();
@@ -69,7 +69,7 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
           <Grid className={classes.cardContent}>
               {matchDetails && <MatchDetailsContent matchDetails={matchDetails} />}
             <Grid item xs={6} sx={{ marginTop: '2vh'}}>
-              <Map className={classes.map}/>
+              {!underTesting && <Map className={classes.map}/> }
             </Grid>
           </Grid>
         </DialogContent>
