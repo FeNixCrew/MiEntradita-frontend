@@ -21,4 +21,9 @@ jobs:
     - name: Download dependencies with npm
       run: npm install
     - name: Run tests
-      run: CI=true npm test
+      run: npm test -- --coverage
+    - name: Adding coverage badge
+      uses: demyanets/angular-coverage-badges-action@v1
+      with:
+        coverage-summary-path: ./coverage/coverage-summary.json
+        github_token: ${{ secrets.GITHUB_TOKEN }}
