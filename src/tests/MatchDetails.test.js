@@ -18,7 +18,7 @@ describe('Detalles de partido', () => {
         getMatchDetailsCall.mockImplementation(() => Promise.resolve(result));
 
         act(() => {
-            render(<MatchDetails open={true} handleClose={jest.fn()} matchId={1} title={'un titulo'}/>);
+            render(<MatchDetails open={true} handleClose={jest.fn()} matchId={1} title={'un titulo'} styleClasses={{mainContainer: ''}} underTesting={true}/>);
         });
 
         expect(getMatchDetailsCall).toHaveBeenCalledTimes(1);

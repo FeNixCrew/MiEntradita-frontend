@@ -13,7 +13,11 @@ import SnackBar from './feedback/SnackBar';
 import { makeStyles } from '@material-ui/core';
 import TeamDetails from './details/TeamDetails';
 import { label, formatDateAndTime, isAdmin } from '../helpers/usedFunctions';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import { useStylesMobile, useStylesDesktop } from './details/styles';
+import { isMobile } from 'react-device-detect';
+import teamService from '../services/TeamService'
+
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -62,8 +66,15 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
     const [teamName, setTeamName] = useState('');
     const [amountSeverity, setAmountSeverity] = useState('');
     const [messageOfAmount, setMessageOfAmount] = useState('');
+    const [ubication, setUbication] = useState({
+        latitude: 0,
+        longitude: 0
+      })
 
     const classes = useStyle();
+    const desktopClasses = useStylesDesktop();
+    const mobileClasses = useStylesMobile();
+
     const matchTitle = `${match.home} vs ${match.away}`;
     const horarioFormateado = formatDateAndTime(match.matchStartTime);
     const history = useHistory();
@@ -102,6 +113,19 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
         }
         setReserved(match.isReserved);
     }, [match.availableTickets, match.capacitySupported, match.isReserved]);
+    
+      const getTeamUbication = useCallback((teamName) => {
+        teamService.details(teamName)
+          .then((response) => {
+            setUbication({
+              latitude: response.data.stadiumLatitude,
+              longitude: response.data.stadiumLongitude
+            })
+          })
+          .catch((_) => {
+            setError('Hubo un problema al obtener la ubicacion del partido. Intente de nuevo.');
+          });
+      }, [setError])
 
     useEffect(() => {
         if(isAdmin()) {
@@ -109,7 +133,8 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
         } else {
             setTicketsAvailability();
         }
-    }, [setMatchStatus, setTicketsAvailability]);
+        getTeamUbication(match.home);
+    }, [setMatchStatus, setTicketsAvailability, getTeamUbication, match.home]);
 
     const handleOpenTeamDetails = (team) => {
         setTeamName(team);
@@ -145,7 +170,7 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
                 closeSnackBar={closeSnackBar}
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
-            {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} />}
+            {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} styleClasses={isMobile ? mobileClasses : desktopClasses} ubication={ubication} />}
             {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={teamName} teamId={teamId} markAsFavourite={markAsFavourite} haveFavouriteTeam={haveFavouriteTeam} />}
             <Grid item xs={12} className={classes.root}>
                 <Card className={classes.cardComp}>
