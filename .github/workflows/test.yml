@@ -24,10 +24,11 @@ jobs:
       run: npm install
     
     - name: Run tests
-      run: npm test -- --coverage --watchAll=false
+      run: npm --ignore-engines
+    - run: npm test -- --coverage --watchAll=false
     
     - name: Upload coverage report to Codacy  
       if: success()
       env:
         CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
-      run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/coverage-summary.json
+      run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov.info
