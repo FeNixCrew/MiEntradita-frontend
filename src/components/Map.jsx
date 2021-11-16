@@ -5,7 +5,7 @@ const ACCESS_TOKEN = 'pk.eyJ1Ijoibmljb2xhc21hcnRpbmV6MDUxMCIsImEiOiJja3cwbW84Z2V
 
 mapboxgl.accessToken = ACCESS_TOKEN;
 
-function Map({ className = ''}) {
+function Map({ className = '', latitude = -34.599722, longitude = -58.381944}) {
     const mapContainer = useRef(null);
     const map = useRef(null);
 
@@ -23,18 +23,18 @@ function Map({ className = ''}) {
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11',
-            center: [-58.449444, -34.545278],
+            center: [longitude, latitude],
             zoom: 15,
         })
 
         new mapboxgl.Marker({color: 'red'})
-            .setLngLat([-58.449444, -34.545278])
+            .setLngLat([longitude, latitude])
             .addTo(map.current);
 
         map.current.addControl(geolocate, "top-right");
         map.current.addControl(nav, "top-right");
 
-    }, [map, mapContainer, geolocate, nav]);
+    }, [map, mapContainer, geolocate, nav, latitude, longitude]);
 
     return (<div ref={mapContainer} className={className} />);
 }
