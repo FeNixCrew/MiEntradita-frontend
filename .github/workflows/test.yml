@@ -7,18 +7,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    
     - name: Use Node.js
       uses: actions/setup-node@v1
       with:
         node-version: '14.x'
+    
     - name: Download dependencies with npm
       run: npm install
     
     - name: Run tests
-      run: npm test -- --coverage --watchAll=false
+      run: CI=true npm test -- --env=jsdom --coverage
     
     - name: Upload coverage report to Codacy  
       if: success()
       env:
         CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
-      run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov.info
+      run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/coverage-summary.json
