@@ -21,4 +21,10 @@ jobs:
     - name: Download dependencies with npm
       run: npm install
     - name: Run tests
-      run: CI=true npm test
+      run: npm test --coverage --watchAll=false
+    - name: Upload coverage report to Codacy  
+      if: success()
+      env:
+        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+      run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov.info
+
