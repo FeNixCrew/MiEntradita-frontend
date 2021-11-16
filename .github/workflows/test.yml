@@ -21,7 +21,7 @@ jobs:
     - name: Download dependencies with npm
       run: npm install
     - name: Run tests
-      run: npm test -- --coverage
+      run: npm test -- --coverage --watchAll=false
     - name: Adding coverage badge
       uses: demyanets/angular-coverage-badges-action@v1
       with:
