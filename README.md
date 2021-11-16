@@ -1,4 +1,4 @@
-![Actions Status: test](https://github.com/FeNixCrew/MiEntradita-frontend/workflows/MiEntradita%20CI/badge.svg)  ![coverage](./badges/coverage/coverage.svg)
+![Actions Status: test](https://github.com/FeNixCrew/MiEntradita-frontend/workflows/MiEntradita%20CI/badge.svg)  [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/78f77294171840389248100e96bf5225)](https://www.codacy.com/gh/FeNixCrew/MiEntradita-frontend/dashboard?utm_source=github.com&utm_medium=referral&utm_content=FeNixCrew/MiEntradita-frontend&utm_campaign=Badge_Coverage) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/78f77294171840389248100e96bf5225)](https://www.codacy.com/gh/FeNixCrew/MiEntradita-frontend/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=FeNixCrew/MiEntradita-frontend&amp;utm_campaign=Badge_Grade)
 # MiEntradita-frontend
 
 - Wiki y doc: https://github.com/FeNixCrew/MiEntradita-doc/wiki
