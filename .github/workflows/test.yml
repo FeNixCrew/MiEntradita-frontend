@@ -7,23 +7,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js 15.x
+    
+    - name: Use Node.js
       uses: actions/setup-node@v1
       with:
-        node-version: 15.x
-    - name: Cache node modules
-      uses: actions/cache@v1
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+        node-version: '14.x'
+    
     - name: Download dependencies with npm
       run: npm install
+    
     - name: Run tests
-      run: npm test -- --coverage --watchAll=false
-    - name: Adding coverage badge
-      uses: demyanets/angular-coverage-badges-action@v1
-      with:
-        coverage-summary-path: ./coverage/coverage-summary.json
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+      run: CI=true npm test -- --env=jsdom --coverage
+    
+    - name: Upload coverage report to Codacy  
+      if: success()
+      env:
+        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+      run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r coverage/lcov.info

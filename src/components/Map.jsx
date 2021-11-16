@@ -19,7 +19,7 @@ function Map({ className = '', latitude = -34.599722, longitude = -58.381944}) {
     }), []);
 
     useEffect(() => {
-        if (map.current) return;
+        if (map.current) {return;}
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11',
