@@ -51,7 +51,7 @@ const ComponentToRenderWhenReturn = ({ matches, render }) => {
     )
 }
 
-function NextMatches({ handleClose, callbackFindTickets }) {
+function NextMatches({ handleClose }) {
     const [_, setError, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [nextMatches, setNextMatches] = useState(null);
 
@@ -82,7 +82,6 @@ function NextMatches({ handleClose, callbackFindTickets }) {
             />
             <RenderMatchesComponent
                 ComponentToRenderWhenReturn={ComponentToRenderWhenReturn}
-                callbackToComponent={callbackFindTickets}
                 matches={nextMatches}
                 callbackFindMatches={findMatches}
             />

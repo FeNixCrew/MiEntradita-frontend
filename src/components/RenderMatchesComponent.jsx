@@ -8,7 +8,6 @@ import { useSnackbar } from '../helpers/hooks/useSnackbar'
 function RenderMatchesComponent({
     ComponentToRenderWhenReturn,
     matches,
-    callbackToComponent = null,
     callbackFindMatches = null,
 
 }) {
@@ -54,7 +53,6 @@ function RenderMatchesComponent({
                 teamId={teamId}
                 markAsFavourite={markAsFavourite}
                 haveFavouriteTeam={haveFavouriteTeam}
-                callbackToComponent={callbackToComponent}
             />
         )
     }

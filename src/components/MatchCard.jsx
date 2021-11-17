@@ -7,16 +7,12 @@ import Typography from '@mui/material/Typography';
 import { useCallback, useEffect, useState } from 'react';
 import { useToggle } from '../helpers/hooks/useToggle';
 import { useSnackbar } from '../helpers/hooks/useSnackbar';
-import MatchDetails from './details/MatchDetails';
-import spectatorService from '../services/SpectatorService';
 import SnackBar from './feedback/SnackBar';
 import { makeStyles } from '@material-ui/core';
 import TeamDetails from './details/TeamDetails';
 import { label, formatDateAndTime, isAdmin } from '../helpers/usedFunctions';
 import { useHistory } from 'react-router-dom';
-import { useStylesMobile, useStylesDesktop } from './details/styles';
-import { isMobile } from 'react-device-detect';
-import teamService from '../services/TeamService'
+import teamService from '../services/TeamService';
 
 
 const useStyle = makeStyles((_) => ({
@@ -57,10 +53,9 @@ const useStyle = makeStyles((_) => ({
     }
 }))
 
-function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callbackToComponent = null }) {
-    const [openMatchDetails, handleCloseMDetails, handleToggleMDetails] = useToggle();
+function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam}) {
     const [openTeamDetails, handleCloseTDetails, handleToggleTDetails] = useToggle();
-    const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
+    const [setError, _, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
 
     const [reserved, setReserved] = useState(false);
     const [teamName, setTeamName] = useState('');
@@ -69,11 +64,8 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
     const [ubication, setUbication] = useState({
         latitude: 0,
         longitude: 0
-      })
-
+    })
     const classes = useStyle();
-    const desktopClasses = useStylesDesktop();
-    const mobileClasses = useStylesMobile();
 
     const matchTitle = `${match.home} vs ${match.away}`;
     const horarioFormateado = formatDateAndTime(match.matchStartTime);
@@ -81,6 +73,12 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
 
     const pushToAttendanceData = () => {
         history.push("/admin/match/attendance", { match: match })
+    }
+
+    const pushToMatchDetails = () => {
+        const username = localStorage.getItem('username')
+        history.push(`/${username}/match/${match.id}/details`,
+            { matchId: match.id, ubication: ubication, isAvailable: reserved, matchTitle: matchTitle })
     }
 
     const setMatchStatus = useCallback(() => {
@@ -113,22 +111,22 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
         }
         setReserved(match.isReserved);
     }, [match.availableTickets, match.capacitySupported, match.isReserved]);
-    
-      const getTeamUbication = useCallback((teamName) => {
+
+    const getTeamUbication = useCallback((teamName) => {
         teamService.details(teamName)
-          .then((response) => {
-            setUbication({
-              latitude: response.data.stadiumLatitude,
-              longitude: response.data.stadiumLongitude
+            .then((response) => {
+                setUbication({
+                    latitude: response.data.stadiumLatitude,
+                    longitude: response.data.stadiumLongitude
+                })
             })
-          })
-          .catch((_) => {
-            setError('Hubo un problema al obtener la ubicacion del partido. Intente de nuevo.');
-          });
-      }, [setError])
+            .catch((_) => {
+                setError('Hubo un problema al obtener la ubicacion del partido. Intente de nuevo.');
+            });
+    }, [setError])
 
     useEffect(() => {
-        if(isAdmin()) {
+        if (isAdmin()) {
             setMatchStatus();
         } else {
             setTicketsAvailability();
@@ -145,22 +143,6 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
         return <div className={classes.clickeable} onClick={() => handleOpenTeamDetails(teamName)}>{teamName}</div>
     }
 
-    const reserveTicket = (matchId) => {
-        spectatorService.reserveTicket(matchId)
-            .then((_) => {
-                handleCloseMDetails();
-                match.isReserved = true;
-                setReserved(true);
-                setSuccess("Entrada reservada");
-                if (callbackToComponent) callbackToComponent();
-            })
-            .catch((error) => {
-                const response = error.response;
-                handleCloseMDetails();
-                setError(response.data.message);
-            })
-    }
-
     return (
         <div data-testid='search-item' style={{ display: 'flex', flexDirection: 'row', alignItems: 'space-between' }}>
             <SnackBar
@@ -170,7 +152,6 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
                 closeSnackBar={closeSnackBar}
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
-            {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} styleClasses={isMobile ? mobileClasses : desktopClasses} ubication={ubication} />}
             {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={teamName} teamId={teamId} markAsFavourite={markAsFavourite} haveFavouriteTeam={haveFavouriteTeam} />}
             <Grid item xs={12} className={classes.root}>
                 <Card className={classes.cardComp}>
@@ -201,7 +182,7 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
                         </Typography>}
                     </CardContent>
                     <CardActions>
-                        <Button size="small" sx={{ color: '#2e86c1' }} onClick={handleToggleMDetails}>Detalles de partido</Button>
+                        <Button size="small" sx={{ color: '#2e86c1' }} onClick={pushToMatchDetails}>Detalles de partido</Button>
                         {isAdmin() && <Button size="small" sx={{ color: '#2e86c1' }} onClick={pushToAttendanceData}>Datos de asistencia</Button>}
                     </CardActions>
                 </Card>

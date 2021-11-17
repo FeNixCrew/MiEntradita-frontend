@@ -17,6 +17,7 @@ import { theme } from './style/style';
 import { isScanner, isLogin, isAdmin, NotFoundMessage, ServerErrorMessage } from "./helpers/usedFunctions";
 import CreateTeam from "./pages/CreateTeam";
 import Attendance from "./pages/Attendance";
+import MatchDetails2 from "./components/details/MatchDetailsComponent";
 
 const PrivateRoute = ({ isAuth, component: Component, ...rest }) => {
   return (
@@ -48,6 +49,7 @@ const Routes = () => (
       <PrivateRoute component={CreateTeam} path="/admin/add-team" isAuth={isAdmin} />
       <PrivateRoute component={Search} path="/:username/search" isAuth={() => isAdmin() || isLogin()} />
       <PrivateRoute component={Attendance} path="/admin/match/attendance" isAuth={isAdmin} />
+      <PrivateRoute component={MatchDetails2} path="/:username/match/:matchId/details" isAuth={() => isLogin() || isAdmin()} />
       <Route path="/login" component={LogIn} />
       <Route path="/register" component={Register} />
       <ErrorRoute statusCode={503} errorMessage={ServerErrorMessage} path="/error" />

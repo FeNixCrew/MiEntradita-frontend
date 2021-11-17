@@ -112,7 +112,7 @@ function Searcher() {
             </div>
             {
                 matchs ?
-                    <RenderMatchesComponent matches={matchs} ComponentToRenderWhenReturn={ComponentToRenderWhenReturn} callbackToComponent={do_search} />
+                    <RenderMatchesComponent matches={matchs} ComponentToRenderWhenReturn={ComponentToRenderWhenReturn} />
                     :
                     <CoustomTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
             }
