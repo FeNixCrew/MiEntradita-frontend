@@ -5,9 +5,9 @@ class TeamService extends AbstractService{
         super('/team')
     }
 
-    async create(name, knowName, stadium, stadiumCapacity) {
+    async create(name, knowName, stadiumName, stadiumCapacity, stadiumLatitude, stadiumLongitude) {
         const endpoint = '/create'
-        const newTeamRequest = { name, knowName, stadium, stadiumCapacity }
+        const newTeamRequest = { name, knowName, stadiumName, stadiumCapacity, stadiumLatitude, stadiumLongitude }
         return this.axios.post(this.path + endpoint, newTeamRequest)
 
     }
