@@ -50,7 +50,7 @@ function CreateTeamForm({ onSubmit }) {
         defaultValues: {
             name: '',
             knowName: '',
-            stadium: '',
+            stadiumName: '',
             stadiumCapacity: 20000,
             stadiumLatitude: 10.0000,
             stadiumLongitude: 10.0000,
@@ -84,11 +84,17 @@ function CreateTeamForm({ onSubmit }) {
         return errors[entity] !== undefined;
     }
 
-    const expandAll = () => {
-        if (Object.values(errors).some((field) => field !== undefined)) {
-            handleChangePanel2();
-            handleChangePanel1()
-        }
+    const errorsPanel1 = [errors.name, errors.knowName];
+    const errorsPanel2 = [errors.stadiumName, errors.stadiumCapacity, errors.stadiumLatitude, errors.stadiumLongitude];
+    
+    const errorsPanel = (array, change) => {
+        // eslint-disable-next-line array-callback-return
+        return array.some((field) => {
+            if(field !== undefined){
+                change();
+                return field
+            }
+        })
     }
 
     const getError = (field, fieldName) => {
@@ -106,7 +112,7 @@ function CreateTeamForm({ onSubmit }) {
                 className={classes.container}
                 elevation={3}
             >
-                <Accordion sx={{ padding: '1vh' }} expanded={expandedPanel1} onChange={handleChange('panel1')}>
+                <Accordion sx={{ padding: '1vh' }} expanded={expandedPanel1 || errorsPanel(errorsPanel1, handleChangePanel1)} onChange={handleChange('panel1')}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                     >
@@ -137,7 +143,7 @@ function CreateTeamForm({ onSubmit }) {
                         </Grid>
                     </AccordionDetails>
                 </Accordion>
-                <Accordion sx={{ padding: '1vh' }} expanded={expandedPanel2} onChange={handleChange('panel2')}>
+                <Accordion sx={{ padding: '1vh' }} expanded={expandedPanel2 || errorsPanel(errorsPanel2, handleChangePanel2)} onChange={handleChange('panel2')}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                     >
@@ -192,7 +198,7 @@ function CreateTeamForm({ onSubmit }) {
                         fullWidth
                         variant="contained"
                         className={classes.button}
-                        onClick={expandAll}
+                        // onClick={expandAll}
                     >
                         <AddModeratorIcon style={{ marginRight: '1vw' }} /> {label("Crear equipo")}
                     </Button>
