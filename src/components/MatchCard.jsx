@@ -78,7 +78,7 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam}) {
     const pushToMatchDetails = () => {
         const username = localStorage.getItem('username')
         history.push(`/${username}/match/${match.id}/details`,
-            { matchId: match.id, ubication: ubication, isAvailable: reserved, matchTitle: matchTitle })
+            { matchId: match.id, ubication: ubication, isAvailable: reserved, matchTitle: matchTitle, stadiumName: match.stadium })
     }
 
     const setMatchStatus = useCallback(() => {

@@ -8,6 +8,7 @@ import { formatDateAndTime } from '../../helpers/usedFunctions';
 import AttributionIcon from '@mui/icons-material/Attribution';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import { Paper } from '@mui/material';
 
 const useStyle = makeStyles((_) => ({
   root: {
@@ -15,7 +16,9 @@ const useStyle = makeStyles((_) => ({
     flexDirection: 'column',
     alignItems: 'center',
     paddingTop: '2vh',
-    marginRight: '5vh'
+    marginRight: '5vh',
+    backgroundColor: '#ecf0f1',
+    borderRadius: '5vh'
   },
   typ: {
     paddingBottom: '2vh',
@@ -34,7 +37,7 @@ export default function MatchDetailsContent({ matchDetails }) {
   const classes = useStyle();
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} component={Paper} square>
       <Typography className={classes.typ}><DateRangeIcon /><span className={classes.span}> {date}</span></Typography>
       <Typography className={classes.typ}><AccessTimeIcon /> <span className={classes.span}>{time}</span></Typography>
       <Typography className={classes.typ}><AssignmentIcon /> <span className={classes.span}>Aforo permitido: {percentageOfCapacityAllowed}%</span></Typography>
