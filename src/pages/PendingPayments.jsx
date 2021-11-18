@@ -6,11 +6,11 @@ import { useSnackbar } from "../helpers/hooks/useSnackbar";
 import TicketPaymentCard from "../components/TicketPaymentCard";
 import SnackBar from "../components/feedback/SnackBar";
 import BurgerMenu from "../components/navigation/BurgerMenu";
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 
 import PayIcon from '../assets/pay_icon.png'
-import { Paper } from "@material-ui/core";
+import { CircularProgress, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
 
@@ -79,7 +79,10 @@ function PendingPaymentsPage() {
                             </Grid>
                         </Container>
                     </div>
-                    : <Typography>Cargando...</Typography>
+                    :
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <CircularProgress />
+                    </Box>
             }
         </div>
     )

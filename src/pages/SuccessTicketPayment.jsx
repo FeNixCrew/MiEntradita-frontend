@@ -8,7 +8,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 
-
 const useStyle = makeStyles((_) => ({
     root: {
         display: 'flex',
@@ -77,7 +76,9 @@ function Success({ ticketId, payment_id }) {
                             </Box>
                         </Box>
                     </div>
-                    : <div> Cargando...</div>
+                    : <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                         <CircularProgress />
+                    </Box>
             }
         </div>
     )
