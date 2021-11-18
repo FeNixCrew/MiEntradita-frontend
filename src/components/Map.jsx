@@ -27,8 +27,6 @@ function Map({ className = '', latitude = -34.599722, longitude = -58.381944}) {
             zoom: 15,
         })
 
-        console.log(latitude, longitude)
-
         new mapboxgl.Marker({color: 'red'})
             .setLngLat([longitude, latitude])
             .addTo(map.current);

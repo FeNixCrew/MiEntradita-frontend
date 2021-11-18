@@ -15,6 +15,7 @@ import Header from './Header';
 import { Tooltip } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import SearchIcon from '@mui/icons-material/Search';
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import AddIcon from '@mui/icons-material/Add';
 import HomeIcon from '@mui/icons-material/Home';
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
@@ -131,6 +132,12 @@ export default function BurgerMenu({ children }) {
       text: 'Buscar partidos',
       icon: <SearchIcon style={{ color: 'black' }} />,
       onClick: () => history.push(`/${username}/search`),
+      enabled: role && role === 'ROLE_USER'
+    },
+    {
+      text: 'Pagar entradas',
+      icon: <MonetizationOnIcon style={{ color: 'black' }} />,
+      onClick: () => history.push(`/${username}/payments/pending`),
       enabled: role && role === 'ROLE_USER'
     },
     {
