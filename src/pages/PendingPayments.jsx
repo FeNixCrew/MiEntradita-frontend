@@ -15,7 +15,6 @@ import { Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { useToggle } from "../helpers/hooks/useToggle";
 
-
 const useStyle = makeStyles((_) => ({
     banner: {
         display: 'flex',
@@ -51,8 +50,8 @@ function PendingPaymentsPage() {
         handleToggle();
         spectatorService.pendingPayments()
             .then((res) => {
-                setPendingPayments(res.data);
                 handleClose();
+                setPendingPayments(res.data);
             })
             .catch((_) => {
                 handleClose();
@@ -85,7 +84,7 @@ function PendingPaymentsPage() {
                         </Grid>
                     </Container>
                     : <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10vh' }}>
-                        <Typography variant='h5' component='div' style={{ fontFamily: 'Quicksand', fontStyle: 'italic' }} >¡No tienes entradas para pagar aun!</Typography>
+                        <Typography variant='h5' component='div' style={{ fontFamily: 'Quicksand', fontStyle: 'italic' }} >¡No tienes entradas para pagar aún!</Typography>
                     </Box>
             }
         </div>

@@ -1,12 +1,17 @@
 import React from 'react';
-import {  Button, CardContent, CardMedia } from '@material-ui/core';
+import { CardContent, CardMedia } from '@material-ui/core';
 import DownloadIcon from '@mui/icons-material/Download';
 import QRCode from 'react-qr-code';
-import { formatDateAndTime } from '../../../helpers/usedFunctions';
+import { formatDateAndTime, label, payTicket } from '../../../helpers/usedFunctions';
 import CoustomTypography from '../../CoustomTypography';
+import Typography from '@mui/material/Typography';
+import { Box } from '@mui/system';
+import PayIcon from '../../../assets/pay_icon.png'
+import CustomButton from '../../CoustomButton';
+
 
 export default function Ticket({ ticket, styleClasses }) {
-  const classes = styleClasses();
+  const classes = styleClasses(!ticket.isPaid && { opacity: '0.4', filter: 'alpha(opacity=100)' });
   const horarioFormateado = formatDateAndTime(ticket.matchStartTime);
   const ticketQr = {
     userId: ticket.userId,
@@ -58,26 +63,45 @@ export default function Ticket({ ticket, styleClasses }) {
             textAlign: 'center'
           }}
         />
-        <Button
-          className={classes.downloadButton}
-          variant="contained"
-          onClick={() => onImageCownload()}
-        >
-          <DownloadIcon />
-        </Button>
+        <Typography gutterBottom variant="div" component="p" className={classes.reserved}>
+          {label(ticket.isPaid ? "Pago registrado" : "Pendiente de pago")}
+        </Typography>
+        <Box sx={{ displat: 'flex', marginTop: '2vh' }}>
+          <CustomButton
+            style={{ backgroundColor: '#2e86c1' }}
+            disabled={ticket.isPaid}
+            variant="contained"
+            onClick={() => payTicket(ticket.link)}
+          >
+            <img src={PayIcon} alt="pay icon" className={classes.iconPaid} />
+          </CustomButton>
+          <CustomButton
+            style={{ backgroundColor: '#2e86c1', margin: '1vh' }}
+            disabled={!ticket.isPaid}
+            variant="contained"
+            onClick={() => onImageCownload()}
+          >
+            <DownloadIcon />
+          </CustomButton>
+        </Box>
       </CardContent>
       <CardMedia
         className={classes.cardMedia}
         sx={{ width: 160, display: { xs: 'none', sm: 'block' } }}
       >
+
         <QRCode
           className={classes.qr}
+          style={{}}
           id="QRCodeGen"
           value={JSON.stringify(ticketQr)}
-          onClick={() => onImageCownload()} />
+        />
+
       </CardMedia>
-    </div>
+    </div >
 
 
   )
 }
+
+

@@ -72,3 +72,7 @@ export const downloadFile = ({ data, fileName, fileType }) => {
   a.remove()
   return clickEvt
 }
+
+export const payTicket = (link) => {
+  window.open(link, '_self');
+}

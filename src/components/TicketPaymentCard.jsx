@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { makeStyles } from '@material-ui/core';
 import { CardHeader } from '@mui/material';
 import { Box } from '@mui/system';
-import { formatDateAndTime } from '../helpers/usedFunctions';
+import { formatDateAndTime, payTicket } from '../helpers/usedFunctions';
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -42,11 +42,7 @@ function TicketPaymentCard({ ticket }) {
     const classes = useStyle();
 
     const horarioFormateado = formatDateAndTime(ticket.matchStartTime)
-
-    const payTicket = () => {
-        window.open(ticket.link, '_self');
-    }
-
+    
     return (
         <div>
             {ticket
@@ -68,7 +64,7 @@ function TicketPaymentCard({ ticket }) {
                             </Box>
                         </CardContent>
                         <CardActions>
-                            <Button style={{backgroundColor:'#2e86c1'}} fullWidth variant="contained" onClick={payTicket}>
+                            <Button style={{backgroundColor:'#2e86c1'}} fullWidth variant="contained" onClick={() => payTicket(ticket.link)}>
                                 Pagar
                             </Button>
                         </CardActions>

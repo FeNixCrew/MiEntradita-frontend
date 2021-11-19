@@ -15,15 +15,16 @@ export const useStylesDesktop = makeStyles({
   pos: {
     marginBottom: 12,
   },
-  qr: {
+  qr: (props) => ({
     '&:hover': {
       cursor: 'pointer',
     },
     'margin-top': '4vh',
     'margin-bottom': '1vh',
     'margin-right': '5vh',
-
-  },
+    opacity: props.opacity,
+    filter: props.filter,
+  }),
   cardContent: {
     display: 'flex',
     flexDirection: 'column',
@@ -41,15 +42,24 @@ export const useStylesDesktop = makeStyles({
     display: 'flex',
     flexDirection: 'rows',
     alignItems: 'center',
-    
+
   },
-  downloadButton: {
+  button: {
     backgroundColor: '#2e86c1',
     padding: '1vh',
     'margin': '2.5vh',
     'width': 50,
     'height': 40,
   },
+  reserved: {
+    color: 'grey',
+    fontStyle: 'italic',
+    fontSize: 15
+  },
+  iconPaid: {
+    width: '4vh', 
+    height: '4.2vh'
+  }
 });
 
 export const useStylesMobile = makeStyles((_) => ({
@@ -67,7 +77,7 @@ export const useStylesMobile = makeStyles((_) => ({
   pos: {
     marginBottom: 12,
   },
-  downloadButton: {
+  button: {
     'margin': '2.5vh',
     'width': 80,
     'height': 40,
@@ -79,11 +89,13 @@ export const useStylesMobile = makeStyles((_) => ({
     alignItems: 'center',
     maxHeight: '70vh'
   },
-  qr: {
+  qr: (props) => ({
     'margin-left': '1vh',
     'margin-right': '1vh',
-    'margin-bottom': '1vh'
-  },
+    'margin-bottom': '1vh',
+    opacity: props.opacity,
+    filter: props.filter,
+  }),
   cardMedia: {
     display: 'grid',
     justifyContent: 'center'
@@ -91,5 +103,14 @@ export const useStylesMobile = makeStyles((_) => ({
   mainContainer: {
     'display': 'grid',
     'justify-content': 'center'
+  },
+  reserved: {
+    color: 'grey',
+    fontStyle: 'italic',
+    fontSize: 15
+  },
+  iconPaid: {
+    width: '3.5vh', 
+    height: '3.2vh'
   }
 }))
