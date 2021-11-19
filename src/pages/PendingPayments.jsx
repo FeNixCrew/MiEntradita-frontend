@@ -58,7 +58,7 @@ function PendingPaymentsPage() {
                 handleClose();
                 setError('Fallo al obtener entradas para pagar. Intente de nuevo');
             })
-    }, [setError, handleToggle, handleClose]);
+    }, [setError]);
 
     const showPendingTicketsPayment = () => {
         return pendingPayments.map(ticket => <TicketPaymentCard key={ticket.id} ticket={ticket} />);
@@ -66,7 +66,7 @@ function PendingPaymentsPage() {
 
     return (
         <div>
-            <BackdropInherit  open={open}/>
+            <BackdropInherit open={open} />
             <SnackBar
                 openSnackBar={isOpenSnack}
                 severityState={severity}
