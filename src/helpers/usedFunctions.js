@@ -74,5 +74,5 @@ export const downloadFile = ({ data, fileName, fileType }) => {
 }
 
 export const payTicket = (link) => {
-  window.open(link, '_self');
+  window.location.href = link;
 }

@@ -52,8 +52,8 @@ function CreateTeamForm({ onSubmit }) {
             knowName: '',
             stadiumName: '',
             stadiumCapacity: 20000,
-            stadiumLatitude: 10.0000,
-            stadiumLongitude: 10.0000,
+            stadiumLatitude: -34.6037389,
+            stadiumLongitude: -58.3815704,
 
         }
     });

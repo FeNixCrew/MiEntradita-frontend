@@ -16,9 +16,6 @@ export const useStylesDesktop = makeStyles({
     marginBottom: 12,
   },
   qr: (props) => ({
-    '&:hover': {
-      cursor: 'pointer',
-    },
     'margin-top': '4vh',
     'margin-bottom': '1vh',
     'margin-right': '5vh',
