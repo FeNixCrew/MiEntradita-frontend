@@ -6,12 +6,14 @@ import { useSnackbar } from "../helpers/hooks/useSnackbar";
 import TicketPaymentCard from "../components/TicketPaymentCard";
 import SnackBar from "../components/feedback/SnackBar";
 import BurgerMenu from "../components/navigation/BurgerMenu";
+import PayIcon from '../assets/pay_icon.png'
+import BackdropInherit from '../components/feedback/Backdrop'
+
 import { Container, Grid } from "@mui/material";
 import { Box } from "@mui/system";
-
-import PayIcon from '../assets/pay_icon.png'
-import { CircularProgress, Paper } from "@material-ui/core";
+import { Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
+import { useToggle } from "../helpers/hooks/useToggle";
 
 
 const useStyle = makeStyles((_) => ({
@@ -42,17 +44,21 @@ const useStyle = makeStyles((_) => ({
 function PendingPaymentsPage() {
     const [setError, _, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [pendingPayments, setPendingPayments] = useState(null);
+    const [open, handleClose, handleToggle] = useToggle();
     const classes = useStyle();
 
     useEffect(() => {
+        handleToggle();
         spectatorService.pendingPayments()
             .then((res) => {
                 setPendingPayments(res.data);
+                handleClose();
             })
             .catch((_) => {
+                handleClose();
                 setError('Fallo al obtener entradas para pagar. Intente de nuevo');
             })
-    }, [setError]);
+    }, [setError, handleToggle, handleClose]);
 
     const showPendingTicketsPayment = () => {
         return pendingPayments.map(ticket => <TicketPaymentCard key={ticket.id} ticket={ticket} />);
@@ -60,6 +66,7 @@ function PendingPaymentsPage() {
 
     return (
         <div>
+            <BackdropInherit  open={open}/>
             <SnackBar
                 openSnackBar={isOpenSnack}
                 severityState={severity}
@@ -67,20 +74,18 @@ function PendingPaymentsPage() {
                 closeSnackBar={closeSnackBar}
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
+            <Box component={Paper} className={classes.banner}>
+                <img className={classes.bannerLogo} src={PayIcon} alt="pay icon" />
+            </Box>
             {
-                pendingPayments
-                    ? <div>
-                        <Box component={Paper} className={classes.banner}>
-                            <img className={classes.bannerLogo} src={PayIcon} alt="pay icon" />
-                        </Box>
-                        <Container className={classes.container} >
-                            <Grid container>
-                                {showPendingTicketsPayment()}
-                            </Grid>
-                        </Container>
-                    </div>
-                    : <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <CircularProgress />
+                pendingPayments && !(pendingPayments.length === 0)
+                    ? <Container className={classes.container} >
+                        <Grid container>
+                            {showPendingTicketsPayment()}
+                        </Grid>
+                    </Container>
+                    : <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10vh' }}>
+                        <Typography variant='h5' component='div' style={{ fontFamily: 'Quicksand', fontStyle: 'italic' }} >¡No tienes entradas para pagar aun!</Typography>
                     </Box>
             }
         </div>
