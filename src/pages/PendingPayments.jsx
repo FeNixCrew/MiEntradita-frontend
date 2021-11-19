@@ -9,6 +9,7 @@ import BurgerMenu from "../components/navigation/BurgerMenu";
 import { Container, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 
+import CoustomTypography from '../components/CoustomTypography';
 import PayIcon from '../assets/pay_icon.png'
 import { CircularProgress, Paper } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
@@ -68,14 +69,20 @@ function PendingPaymentsPage() {
                 position={{ vertical: 'bottom', horizontal: 'left' }}
             />
             {
-                pendingPayments
-                    ? <div>
+                pendingPayments? 
+                    <div>
                         <Box component={Paper} className={classes.banner}>
                             <img className={classes.bannerLogo} src={PayIcon} alt="pay icon" />
                         </Box>
                         <Container className={classes.container} >
                             <Grid container>
-                                {showPendingTicketsPayment()}
+                            { pendingPayments.length > 0 ?
+                                showPendingTicketsPayment()
+                                :
+                                <CoustomTypography
+                                    text='¡No posees entradas pendientes de pago!'
+                                />
+                            }
                             </Grid>
                         </Container>
                     </div>

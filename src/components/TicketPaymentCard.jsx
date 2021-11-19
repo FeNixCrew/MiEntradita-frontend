@@ -68,7 +68,7 @@ function TicketPaymentCard({ ticket }) {
                             </Box>
                         </CardContent>
                         <CardActions>
-                            <Button fullWidth variant="contained" onClick={payTicket}>
+                            <Button style={{backgroundColor:'#2e86c1'}} fullWidth variant="contained" onClick={payTicket}>
                                 Pagar
                             </Button>
                         </CardActions>
