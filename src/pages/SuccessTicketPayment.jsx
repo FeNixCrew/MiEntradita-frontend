@@ -7,6 +7,8 @@ import { Typography } from "@material-ui/core";
 import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
+import { Avatar } from "@material-ui/core";
+import Logo from '../assets/logo1.png';
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -35,6 +37,22 @@ const useStyle = makeStyles((_) => ({
         fontSize: 17,
         marginTop: '1vh',
         fontFamily: 'Quicksand'
+    },
+    thanksContainer: {
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        marginTop: '18vh'
+    },
+    logoContainer: {
+        display: 'flex', 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        marginTop: '2vh'
+    },
+    logoMessage: {
+        fontFamily: 'Quicksand', 
+        marginLeft: '1vh'
     }
 }))
 
@@ -65,19 +83,26 @@ function Success({ ticketId, payment_id }) {
             {
                 ticketId && payment_id
                     ? <div className={classes.root}>
-                        <Box sx={{ marginTop: '5vh' }}>
+                        <Box>
                             <Box className={classes.checkContainer}>
                                 <img src={Check} alt="check mark" className={classes.check} />
-                                <Typography component='h2' variant='h4' className={classes.message1}>¡Compra exitosa!</Typography>
+                                <Typography component='h2' variant='h4' className={classes.message1}>¡Compra registrada exitosamente!</Typography>
                                 <Typography className={classes.message2}>
-                                    Te estamos redirigiendo al inicio... {progress / 2 * 0.1}
+                                    Te redigiremos al inicio en... {progress / 2 * 0.1}
                                 </Typography>
                                 <CircularProgress variant="determinate" value={progress} color='success' sx={{ marginTop: '4vh' }} size={50} />
+                                <Box className={classes.thanksContainer}>
+                                    <Typography variant='h5' component='h2' style={{ fontFamily: 'Quicksand' }}>¡Gracias por elegirnos!</Typography>
+                                    <Box className={classes.logoContainer}>
+                                        <Avatar src={Logo} />
+                                        <Typography variant='p' className={classes.logoMessage}>Mi Entradita©</Typography>
+                                    </Box>
+                                </Box>
                             </Box>
                         </Box>
                     </div>
                     : <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                         <CircularProgress />
+                        <CircularProgress />
                     </Box>
             }
         </div>

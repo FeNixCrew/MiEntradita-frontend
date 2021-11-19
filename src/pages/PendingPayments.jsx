@@ -79,8 +79,7 @@ function PendingPaymentsPage() {
                             </Grid>
                         </Container>
                     </div>
-                    :
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    : <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <CircularProgress />
                     </Box>
             }
