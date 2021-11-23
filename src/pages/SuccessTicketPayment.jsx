@@ -61,7 +61,6 @@ const useStyle = makeStyles((_) => ({
 function Success({ ticketId, payment_id }) {
     const [setError, _, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const [progress, setProgress] = useState(100);
-    const [loadValue, setLoadValue] = useState(0);
     const [isSaved, setIsSaved] = useState(false);
     const history = useHistory()
     const classes = useStyle();
@@ -77,8 +76,7 @@ function Success({ ticketId, payment_id }) {
                 });
         }
         const timer = setInterval(() => {
-            setProgress((prevProgress) => (prevProgress > 100 ? 0 : prevProgress - 20));
-            setLoadValue((prevValue) => (prevValue >= 100 ? 0 : prevValue + 20));
+            setProgress((prevProgress) => (prevProgress === 0 ? 0 : prevProgress - 20));
             if (progress === 0) {
                 const username = localStorage.getItem('username');
                 history.push(`/${username}/home`);
@@ -109,7 +107,7 @@ function Success({ ticketId, payment_id }) {
                                 <Typography className={classes.message2}>
                                     Te redigiremos al inicio en... {progress / 2 * 0.1}
                                 </Typography>
-                                <CircularProgress variant="determinate" value={loadValue} color='success' sx={{ marginTop: '4vh' }} size={50} />
+                                <CircularProgress variant="determinate" value={progress} color='success' sx={{ marginTop: '4vh' }} size={50} />
                                 <Box className={classes.thanksContainer}>
                                     <Typography variant='h5' component='h2' style={{ fontFamily: 'Quicksand' }}>¡Gracias por elegirnos!</Typography>
                                     <Box className={classes.logoContainer}>

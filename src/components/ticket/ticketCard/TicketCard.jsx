@@ -11,7 +11,7 @@ import CustomButton from '../../CoustomButton';
 
 
 export default function Ticket({ ticket, styleClasses }) {
-  const classes = styleClasses(!ticket.isPaid && { opacity: '0.4', filter: 'alpha(opacity=100)' });
+  const classes = styleClasses(!ticket.isPaid && { opacity: '0.1', filter: 'alpha(opacity=100)' });
   const horarioFormateado = formatDateAndTime(ticket.matchStartTime);
   const ticketQr = {
     userId: ticket.userId,
