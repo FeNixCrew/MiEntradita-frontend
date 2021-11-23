@@ -65,8 +65,13 @@ function AttendanceComponent({ match }) {
 
     const search = (data) => {
         setSearchText(data.textSearched);
-            const newAttendanceInfo = attendanceInfo.filter((userData) => userData.dni.toString().startsWith(data.textSearched))
-            setModificableAttendanceInfo(newAttendanceInfo)
+        console.log(attendanceInfo)
+        const newAttendanceInfo = attendanceInfo.filter((userData) => {
+            return userData.dni.toString().startsWith(data.textSearched) ||
+                userData.nombre.includes(data.textSearched);
+        })
+
+        setModificableAttendanceInfo(newAttendanceInfo)
     }
 
     const rollback = () => {
@@ -133,8 +138,8 @@ function AttendanceComponent({ match }) {
                             <AttendanceTable match={match} attendanceInfo={modificableAttendanceInfo} itemsPerPage={5} />
                         </Grid>
                         <div style={{ display: 'inline-flex', flexDirection: 'row', alignItems: 'center', marginTop: '2vh' }}>
-                            {searchText?.length > 4 && <IconButton onClick={rollback}><ReplayIcon/></IconButton> }
-                            <SearchBar onChange={search} type='number' register={register} handleSubmit={handleSubmit} />
+                            {searchText?.length > 4 && <IconButton onClick={rollback}><ReplayIcon /></IconButton>}
+                            <SearchBar onChange={search} register={register} handleSubmit={handleSubmit} />
                             <Button variant="contained" className={classes.button} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={goBack}> Volver </Button>
                             <Button variant="contained" className={classes.button} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={handleToggle}> Exportar... </Button>
                         </div>
