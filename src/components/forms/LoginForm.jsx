@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
 import { Alert } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import { makeStyles } from "@material-ui/core";
 import { label } from '../../helpers/usedFunctions'
+import LoadingButton from '@mui/lab/LoadingButton';
+import LoginIcon from '@mui/icons-material/Login';
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -27,7 +28,7 @@ const useStyle = makeStyles((_) => ({
     }
 }))
 
-function LoginForm({ onSubmit, error, resetError }) {
+function LoginForm({ onSubmit, error, resetError, isLoading }) {
     const { register, handleSubmit, getValues, formState: { errors } } = useForm();
     const username = register('username', { required: true });
     const password = register('password', { required: true });
@@ -77,8 +78,12 @@ function LoginForm({ onSubmit, error, resetError }) {
                 {error && <Alert data-testid='error' severity="error">{error}</Alert>}
             </div>
             <div className={classes.button}>
-                <Button
+                <LoadingButton
+                    loading={isLoading}
+                    endIcon={<LoginIcon />}
+                    loadingPosition="end"
                     type="submit"
+                    size="small"
                     fullWidth
                     data-testid='login-button'
                     onClick={() => {
@@ -88,7 +93,7 @@ function LoginForm({ onSubmit, error, resetError }) {
                     variant="contained"
                 >
                     {label("Ingresar")}
-                </Button>
+                </LoadingButton>
             </div>
             <Grid item>
                 <Link href="/register" variant="body2">

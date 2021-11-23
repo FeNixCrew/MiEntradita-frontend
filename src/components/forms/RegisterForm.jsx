@@ -1,14 +1,15 @@
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { useForm } from "react-hook-form";
 import { Alert } from '@mui/material';
 import { label } from '../../helpers/usedFunctions'
+import AddReactionIcon from '@mui/icons-material/AddReaction';
 
 
-function RegisterForm({ onSubmit, error, resetError }) {
+function RegisterForm({ onSubmit, error, resetError, isLoading }) {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
     const name = register('name', { required: true });
@@ -170,14 +171,17 @@ function RegisterForm({ onSubmit, error, resetError }) {
             <div>
                 {error && <Alert severity="error">{error.message}</Alert>}
             </div>
-            <Button
+            <LoadingButton
+                loading={isLoading}
+                endIcon={<AddReactionIcon />}
+                loadingPosition="end"
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
             >
                 {label("Registrarse")}
-            </Button>
+            </LoadingButton>
             <Grid container justifyContent="flex-end">
                 <Grid item sx={{ mb: 2 }}>
                     <Link href="/login" variant="body2">
