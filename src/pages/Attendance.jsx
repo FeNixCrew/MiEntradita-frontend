@@ -42,6 +42,12 @@ const useStyle = makeStyles((_) => ({
     button: {
         fontSize: 14,
         maxWidth: '22vw'
+    },
+    container: {
+        display: 'inline-flex', 
+        flexDirection: 'row', 
+        alignItems: 'center', 
+        marginTop: '2vh'
     }
 }))
 
@@ -137,7 +143,7 @@ function AttendanceComponent({ match }) {
                         <Grid component={Paper} xs={12} className={classes.paper} square elevation={4}>
                             <AttendanceTable match={match} attendanceInfo={modificableAttendanceInfo} itemsPerPage={5} />
                         </Grid>
-                        <div style={{ display: 'inline-flex', flexDirection: 'row', alignItems: 'center', marginTop: '2vh' }}>
+                        <div className={classes.container}>
                             {searchText?.length > 4 && <IconButton onClick={rollback}><ReplayIcon /></IconButton>}
                             <SearchBar onChange={search} register={register} handleSubmit={handleSubmit} />
                             <Button variant="contained" className={classes.button} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={goBack}> Volver </Button>
