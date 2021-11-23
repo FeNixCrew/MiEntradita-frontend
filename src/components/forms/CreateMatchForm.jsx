@@ -1,5 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Button, Grid, Paper, InputLabel } from '@mui/material';
+import { Box, Grid, Paper, InputLabel } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import GridItem from '../layout/GridItem';
 import CoustomTypography from "../CoustomTypography";
@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 import ControlledAutocomplete from '../layout/ControlledAutocomplete';
 import { label } from '../../helpers/usedFunctions'
 import { makeStyles } from '@material-ui/core';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -39,7 +40,7 @@ const useStyle = makeStyles((_) => ({
 }))
 
 
-function CreateMatchForm({ onSubmit }) {
+function CreateMatchForm({ onSubmit, isLoading }) {
     const today = new Date();
     const nextWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7, today.getHours(), today.getMinutes());
     const { register, handleSubmit, control, formState: { errors } } = useForm({
@@ -58,7 +59,7 @@ function CreateMatchForm({ onSubmit }) {
     register('time', { required: true });
     register('date', { required: true });
     register('price', { required: true, min: 500 });
-    register('admittedPercentage', { required: true, min: 0, max: 100});
+    register('admittedPercentage', { required: true, min: 0, max: 100 });
 
     useEffect(() => {
         teamService.teams()
@@ -83,7 +84,7 @@ function CreateMatchForm({ onSubmit }) {
             <div className={classes.root} />
             {teams !== null ?
                 <>
-                    <CoustomTypography text="Nuevo partido" sx={{ textAlign: 'center' }}/>
+                    <CoustomTypography text="Nuevo partido" sx={{ textAlign: 'center' }} />
                     <Paper
                         component="form"
                         noValidate
@@ -91,7 +92,7 @@ function CreateMatchForm({ onSubmit }) {
                         className={classes.formContainer}
                         elevation={3}
                     >
-                        <Grid container spacing={1} style={{ }}>
+                        <Grid container spacing={1} style={{}}>
                             <Grid item xs={12} >
                                 <InputLabel style={{ paddingBottom: '1vh' }}>{label("Local")}</InputLabel>
                                 <ControlledAutocomplete
@@ -160,10 +161,10 @@ function CreateMatchForm({ onSubmit }) {
                                 givenLabel="Precio de entrada"
                                 xs={12}
                             />
-                             <GridItem
+                            <GridItem
                                 register={register}
                                 showError={showError('admittedPercentage')}
-                                helperText={getError('admittedPercentage', 'Porcentaje de aforo') || ( (errors['admittedPercentage']?.type === 'min' || errors['admittedPercentage']?.type === 'max')  && 'El porcentaje debe estar entre 0 y 100')} 
+                                helperText={getError('admittedPercentage', 'Porcentaje de aforo') || ((errors['admittedPercentage']?.type === 'min' || errors['admittedPercentage']?.type === 'max') && 'El porcentaje debe estar entre 0 y 100')}
                                 name="admittedPercentage"
                                 type="number"
                                 id="admittedPercentage-id"
@@ -172,14 +173,17 @@ function CreateMatchForm({ onSubmit }) {
                             />
                         </Grid>
                         <Box className={classes.buttonContainer}>
-                            <Button
+                            <LoadingButton
+                                loading={isLoading}
+                                startIcon={<AddIcon />}
+                                loadingPosition="start"
                                 type="submit"
                                 fullWidth
                                 variant="contained"
                                 className={classes.button}
                             >
-                                <AddIcon style={{ marginRight: '1vw' }} /> {label("Crear partido")}
-                            </Button>
+                                {label("Crear partido")}
+                            </LoadingButton>
                         </Box>
                     </Paper>
                 </>

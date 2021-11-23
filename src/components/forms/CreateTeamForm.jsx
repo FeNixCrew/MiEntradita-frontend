@@ -1,5 +1,5 @@
 import GridItem from "../layout/GridItem";
-import { Box, Button, Grid, Paper } from '@mui/material';
+import { Box, Grid, Paper } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
 import CoustomTypography from "../CoustomTypography";
@@ -13,6 +13,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import RoomIcon from '@mui/icons-material/Room';
 import ShieldIcon from '@mui/icons-material/Shield';
 import { useToggle } from "../../helpers/hooks/useToggle";
+import LoadingButton from '@mui/lab/LoadingButton';
+
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -45,7 +47,7 @@ const useStyle = makeStyles((_) => ({
     }
 }))
 
-function CreateTeamForm({ onSubmit }) {
+function CreateTeamForm({ onSubmit, isLoading }) {
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             name: '',
@@ -86,11 +88,11 @@ function CreateTeamForm({ onSubmit }) {
 
     const errorsPanel1 = [errors.name, errors.knowName];
     const errorsPanel2 = [errors.stadiumName, errors.stadiumCapacity, errors.stadiumLatitude, errors.stadiumLongitude];
-    
+
     const errorsPanel = (array, change) => {
         // eslint-disable-next-line array-callback-return
         return array.some((field) => {
-            if(field !== undefined){
+            if (field !== undefined) {
                 change();
                 return field
             }
@@ -193,15 +195,17 @@ function CreateTeamForm({ onSubmit }) {
                     </AccordionDetails>
                 </Accordion>
                 <Box className={classes.buttonContainer}>
-                    <Button
+                    <LoadingButton
+                        loading={isLoading}
                         type="submit"
+                        startIcon={<AddModeratorIcon />}
+                        loadingPosition="start"
                         fullWidth
                         variant="contained"
                         className={classes.button}
-                        // onClick={expandAll}
                     >
-                        <AddModeratorIcon style={{ marginRight: '1vw' }} /> {label("Crear equipo")}
-                    </Button>
+                        {label("Crear equipo")}
+                    </LoadingButton>
                 </Box>
             </Paper>
         </>

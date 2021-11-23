@@ -1,7 +1,5 @@
 import { CssBaseline, Container } from '@mui/material';
 
-import BackdropInherit from '../feedback/Backdrop';
-
 import { useToggle } from '../../helpers/hooks/useToggle';
 import { useSnackbar } from '../../helpers/hooks/useSnackbar';
 import SnackBar from '../feedback/SnackBar';
@@ -27,7 +25,6 @@ function AbstractAdminFormComponent({ Children, promise, entityName }) {
 
     return (
         <>
-            <BackdropInherit open={open} />
             <SnackBar
                 openSnackBar={isOpenSnack}
                 closeSnackBar={closeSnackBar}
@@ -37,7 +34,7 @@ function AbstractAdminFormComponent({ Children, promise, entityName }) {
             />
             <Container component="main" maxWidth="md">
                 <CssBaseline />
-                <Children onSubmit={onSubmit} />
+                <Children onSubmit={onSubmit} isLoading={open} />
             </Container >
         </>
     );
