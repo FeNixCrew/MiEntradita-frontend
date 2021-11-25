@@ -20,7 +20,7 @@ const request = (method, endpoint, data, params) =>
 
 const containStatus = (actualStatus, listStatus) => listStatus.some(statusCode => statusCode === actualStatus);
 const isUnauthorized = (status) => containStatus(status, [401, 403]);
-const isControlledError = (status) => containStatus(status, [400, 404, 409]);
+const isControlledError = (status) => containStatus(status, [400, 402, 404, 409]);
 
 axios_api.interceptors.response.use(
   (response) => Promise.resolve(response),
