@@ -18,24 +18,24 @@ const request = (method, endpoint, data, params) =>
     params
   });
 
-const isUnauthorized = (status) => status === 403 || status === 401;
-
+const containStatus = (actualStatus, listStatus) => listStatus.some(statusCode => statusCode === actualStatus);
+const isUnauthorized = (status) => containStatus(status, [401, 403]);
+const isControlledError = (status) => containStatus(status, [400, 404, 409]);
 
 axios_api.interceptors.response.use(
   (response) => Promise.resolve(response),
   (error) => {
     if (!error.response) {
-      window.location = "/error"
+      window.location = "/error";
     } else {
       const status = error.response.status;
-
       if (isUnauthorized(status)) {
         localStorage.clear();
         window.location = '/';
-      } else if (status === 400) {
+      } else if (isControlledError(status)) {
         return Promise.reject(error);
       } else {
-        window.location = '/error';
+        window.location = `/error?status=${status}&msg=Error de servidor inesperado`;
       }
     }
   }

@@ -18,7 +18,7 @@ import Attendance from "./pages/Attendance";
 import PendingPayments from "./pages/PendingPayments";
 import SuccessTicketPayment from "./pages/SuccessTicketPayment";
 
-import { isScanner, isLogin, isAdmin, isUser, NotFoundMessage, ServerErrorMessage } from "./helpers/usedFunctions";
+import { isScanner, isLogin, isAdmin, isUser, NotFoundMessage } from "./helpers/usedFunctions";
 import { theme } from './style/style';
 
 const PrivateRoute = ({ isAuth, component: Component, ...rest }) => {
@@ -55,7 +55,7 @@ const Routes = () => (
       <PrivateRoute component={SuccessTicketPayment} path="/:username/payments/success/:ticketId" isAuth={() => isUser()} />
       <Route path="/login" component={LogIn} />
       <Route path="/register" component={Register} />
-      <ErrorRoute statusCode={503} errorMessage={ServerErrorMessage} path="/error" />
+      <ErrorRoute path="/error" />
       <ErrorRoute statusCode={404} errorMessage={NotFoundMessage} path="*" />
     </Switch>
   </Router>
