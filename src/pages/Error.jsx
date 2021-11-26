@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import HomeIcon from '@mui/icons-material/Home';
 import { useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core';
+import { useEffect, useState } from 'react';
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -48,15 +49,23 @@ const useStyle = makeStyles((_) => ({
 function Error({ statusCode, errorMessage }) {
     const classes = useStyle();
     const history = useHistory();
+    const [internalStatus, setInternalStatus] = useState(503);
+    const [msg, setMsg] = useState('Servidor no disponible');
+
+    useEffect(() => {
+        const params = new URLSearchParams(history.location.search);
+        setInternalStatus(params.get('status') || internalStatus);
+        setMsg(params.get('msg') || msg);
+    }, [history.location.search, internalStatus, msg]);
 
     return (
         <Grid className={classes.root}>
             <Typography variant='h1' className={classes.statusCode}>
-                {statusCode}
+                {statusCode || internalStatus}
             </Typography>
             <Divider className={classes.divider} />
             <Typography variant='h3' className={classes.errorMessage}>
-                {errorMessage}
+                {errorMessage || msg}
             </Typography>
             <Box className={classes.iconContainer}>
                 <IconButton>

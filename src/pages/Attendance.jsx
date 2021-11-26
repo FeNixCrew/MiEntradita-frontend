@@ -71,7 +71,6 @@ function AttendanceComponent({ match }) {
 
     const search = (data) => {
         setSearchText(data.textSearched);
-        console.log(attendanceInfo)
         const newAttendanceInfo = attendanceInfo.filter((userData) => {
             return userData.dni.toString().startsWith(data.textSearched) ||
                 userData.nombre.includes(data.textSearched);
