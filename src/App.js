@@ -20,6 +20,7 @@ import SuccessTicketPayment from "./pages/SuccessTicketPayment";
 
 import { isScanner, isLogin, isAdmin, isUser, NotFoundMessage, ServerErrorMessage } from "./helpers/usedFunctions";
 import { theme } from './style/style';
+import Calendar from "./pages/Calendar";
 
 const PrivateRoute = ({ isAuth, component: Component, ...rest }) => {
   return (
@@ -53,6 +54,7 @@ const Routes = () => (
       <PrivateRoute component={Attendance} path="/admin/match/attendance" isAuth={isAdmin} />
       <PrivateRoute component={PendingPayments} path="/:username/payments/pending" isAuth={() => isUser()} />
       <PrivateRoute component={SuccessTicketPayment} path="/:username/payments/success/:ticketId" isAuth={() => isUser()} />
+      <PrivateRoute component={Calendar} path="/:username/calendar" isAuth={() => isAdmin() || isLogin()} />
       <Route path="/login" component={LogIn} />
       <Route path="/register" component={Register} />
       <ErrorRoute statusCode={503} errorMessage={ServerErrorMessage} path="/error" />

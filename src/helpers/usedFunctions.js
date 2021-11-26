@@ -76,3 +76,9 @@ export const downloadFile = ({ data, fileName, fileType }) => {
 export const payTicket = (link) => {
   window.location.href = link;
 }
+
+// eslint-disable-next-line no-extend-native
+Date.prototype.addHours = function (h) {
+  this.setTime(this.getTime() + (h * 60 * 60 * 1000));
+  return this;
+}
