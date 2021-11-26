@@ -41,15 +41,15 @@ const useStyle = makeStyles((_) => ({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'flex-start',
-        maxWidth: '37vw',
-        minWidth: '5vw'
+        maxWidth: '65vw',
+        minWidth: '20vw'
     },
     cardComp: {
         padding: '1vh',
         width: 'auto',
         height: 'auto',
         backgroundColor: '#ecf0f1',
-        maxWidth: '70vw',
+        maxWidth: '80vw',
         minWidth: '40vw'
     },
     clickeable: {

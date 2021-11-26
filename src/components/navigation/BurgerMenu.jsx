@@ -19,7 +19,11 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import AddIcon from '@mui/icons-material/Add';
 import HomeIcon from '@mui/icons-material/Home';
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
+import EventIcon from '@mui/icons-material/Event';
 import { label } from '../../helpers/usedFunctions';
+import { useToggle } from '../../helpers/hooks/useToggle';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 const drawerWidth = 240;
 
@@ -120,12 +124,19 @@ export default function BurgerMenu({ children }) {
   const history = useHistory();
   const username = localStorage.username;
   const role = localStorage.role;
+  const [show, _, handleShow] = useToggle(true);
 
   const drawerItems = [
     {
       text: 'Inicio',
       icon: <HomeIcon style={{ color: 'black' }} />,
       onClick: () => history.push(`/${username}/home`),
+      enabled: (role && role === 'ROLE_ADMIN') || (role && role === 'ROLE_USER')
+    },
+    {
+      text: 'Calendario',
+      icon: <EventIcon style={{ color: 'black' }} />,
+      onClick: () => history.push(`/${username}/calendar`),
       enabled: (role && role === 'ROLE_ADMIN') || (role && role === 'ROLE_USER')
     },
     {
@@ -151,7 +162,14 @@ export default function BurgerMenu({ children }) {
       icon: <AddModeratorIcon style={{ color: 'black' }} />,
       onClick: () => history.push(`/${username}/add-team`),
       enabled: role && role === 'ROLE_ADMIN'
+    },
+    {
+      text: 'Esconder menu ',
+      icon: <ArrowBackIcon style={{ color: 'black' }} />,
+      onClick: () => { handleShow(); setOpen(false) },
+      enabled: (role && role === 'ROLE_ADMIN') || (role && role === 'ROLE_USER')
     }
+  
   ];
 
   const handleDrawerOpen = () => {
@@ -165,8 +183,8 @@ export default function BurgerMenu({ children }) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Header styleClasses={classes} open={open} handleDrawerOpen={handleDrawerOpen} />
-      <Drawer
+      <Header styleClasses={classes} open={open} handleDrawerOpen={handleDrawerOpen} hideBurgerMenu={handleShow} hided={show} />
+      {show && <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
@@ -200,7 +218,7 @@ export default function BurgerMenu({ children }) {
             </Tooltip>
           ))}
         </List>
-      </Drawer>
+      </Drawer> }
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {children}

@@ -3,11 +3,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
 import Logo from '../../assets/logo1.png';
 import LogoutIcon from '@mui/icons-material/Logout';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
 
 import { useHistory } from "react-router";
 import { exit } from "../../helpers/usedFunctions";
 
-export default function Header({ styleClasses, open, handleDrawerOpen }) {
+export default function Header({ styleClasses, open, handleDrawerOpen, hideBurgerMenu, hided }) {
   const classes = styleClasses;
   const history = useHistory();
   const goHome = () => {
@@ -24,19 +26,33 @@ export default function Header({ styleClasses, open, handleDrawerOpen }) {
         })}
       >
         <Toolbar>
-          <IconButton
+          {hided &&
+            <IconButton
+              color="inherit"
+              onClick={handleDrawerOpen}
+              className={clsx(classes.menuButton, {
+                [classes.hide]: open,
+              })}
+              aria-label="open drawer"
+              edge="start"
+            >
+              <MenuIcon />
+            </IconButton>
+          }
+
+          {!hided && <IconButton
             color="inherit"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
+            onClick={hideBurgerMenu}
             aria-label="open drawer"
             edge="start"
+            size='small'
           >
-            <MenuIcon />
+            <ArrowForwardIcon />
           </IconButton>
+          }
+
           <IconButton onClick={goHome}>
-          <Avatar style={{ m: 1, mr: 3 }} src={Logo} />
+            <Avatar style={{ m: 1, mr: 3 }} src={Logo} />
           </IconButton>
           <Typography className={classes.logo}>Mi Entradita</Typography>
           <div style={{ marginLeft: "auto" }}>
