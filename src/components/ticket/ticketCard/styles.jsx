@@ -54,8 +54,19 @@ export const useStylesDesktop = makeStyles({
     fontSize: 15
   },
   iconPaid: {
-    width: '4vh', 
+    width: '4vh',
     height: '4.2vh'
+  },
+  notAvailableImg: {
+    width: '50px',
+    height: '50px',
+    marginTop: '8vh',
+    marginLeft: '4.8vh',
+    marginRight: 'auto',
+    backgroundColor: '#ffffff',
+    opacity: '0.3',
+    filter: 'alpha(opacity=100)',
+    position: 'absolute'
   }
 });
 
@@ -107,7 +118,18 @@ export const useStylesMobile = makeStyles((_) => ({
     fontSize: 15
   },
   iconPaid: {
-    width: '3.5vh', 
+    width: '3.5vh',
     height: '3.2vh'
+  },
+  notAvailableImg: {
+    width: '50px',
+    height: '50px',
+    marginTop: '3vh',
+    marginLeft: '4.6vh',
+    marginRight: 'auto',
+    backgroundColor: '#ffffff',
+    opacity: '0.3',
+    filter: 'alpha(opacity=100)',
+    position: 'absolute'
   }
 }))

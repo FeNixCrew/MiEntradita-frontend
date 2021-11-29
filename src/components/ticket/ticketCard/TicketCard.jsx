@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import PayIcon from '../../../assets/pay_icon.png'
 import CustomButton from '../../CoustomButton';
+import NotAvailable from '../../../assets/not-available.png';
 
 
 export default function Ticket({ ticket, styleClasses }) {
@@ -89,14 +90,15 @@ export default function Ticket({ ticket, styleClasses }) {
         className={classes.cardMedia}
         sx={{ width: 160, display: { xs: 'none', sm: 'block' } }}
       >
-
+        {!ticket.isPaid && 
+        <div className={classes.notAvailableImg} >
+          <img style={{ width: '200px', height: '200px' }} src={NotAvailable} alt="foto" />
+        </div>}
         <QRCode
           className={classes.qr}
-          style={{}}
           id="QRCodeGen"
           value={JSON.stringify(ticketQr)}
         />
-
       </CardMedia>
     </div >
 
