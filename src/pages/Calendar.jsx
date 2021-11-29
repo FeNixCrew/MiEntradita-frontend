@@ -16,6 +16,7 @@ import {
     AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { ViewState } from '@devexpress/dx-react-scheduler';
+import { isMobile } from "react-device-detect";
 
 const Appointment = ({
     children, style, ...restProps
@@ -34,7 +35,7 @@ const Appointment = ({
 
 function CalendarComponent() {
     const [matchs, setMatchs] = useState([]);
-    const [currentView, setCurrentView] = useState('month')
+    const [currentView, setCurrentView] = useState(isMobile ? 'day' : 'month')
     const [setError, _, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
     const currentDate = new Date();
 
