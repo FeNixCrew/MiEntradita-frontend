@@ -31,7 +31,8 @@ const useStyle = makeStyles((_) => ({
         marginBottom: '2vh',
         marginTop: '5vh',
         marginLeft: 'auto',
-        marginRight: 'auto'
+        marginRight: 'auto',
+        minWidth: '90vw'
     },
 }))
 
@@ -114,7 +115,7 @@ function Searcher() {
                 matchs ?
                     <RenderMatchesComponent matches={matchs} ComponentToRenderWhenReturn={ComponentToRenderWhenReturn} callbackToComponent={do_search} />
                     :
-                    <CoustomTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
+                    <CoustomTypography text='¡Busque partidos!' sx={{ mt: 4 }} />
             }
         </div>
     );

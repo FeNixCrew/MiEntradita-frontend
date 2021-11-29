@@ -9,7 +9,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useHistory } from "react-router";
 import { exit } from "../../helpers/usedFunctions";
 
-export default function Header({ styleClasses, open, handleDrawerOpen, hideBurgerMenu, hided }) {
+export default function Header({ styleClasses, open, handleDrawerOpen, showBurgerMenu, hided }) {
   const classes = styleClasses;
   const history = useHistory();
   const goHome = () => {
@@ -42,7 +42,7 @@ export default function Header({ styleClasses, open, handleDrawerOpen, hideBurge
 
           {!hided && <IconButton
             color="inherit"
-            onClick={hideBurgerMenu}
+            onClick={showBurgerMenu}
             aria-label="open drawer"
             edge="start"
             size='small'

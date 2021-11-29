@@ -23,6 +23,7 @@ import EventIcon from '@mui/icons-material/Event';
 import { label } from '../../helpers/usedFunctions';
 import { useToggle } from '../../helpers/hooks/useToggle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { isMobile } from 'react-device-detect';
 
 
 const drawerWidth = 240;
@@ -134,12 +135,6 @@ export default function BurgerMenu({ children }) {
       enabled: (role && role === 'ROLE_ADMIN') || (role && role === 'ROLE_USER')
     },
     {
-      text: 'Calendario',
-      icon: <EventIcon style={{ color: 'black' }} />,
-      onClick: () => history.push(`/${username}/calendar`),
-      enabled: (role && role === 'ROLE_ADMIN') || (role && role === 'ROLE_USER')
-    },
-    {
       text: 'Buscar partidos',
       icon: <SearchIcon style={{ color: 'black' }} />,
       onClick: () => history.push(`/${username}/search`),
@@ -150,6 +145,12 @@ export default function BurgerMenu({ children }) {
       icon: <MonetizationOnIcon style={{ color: 'black' }} />,
       onClick: () => history.push(`/${username}/payments/pending`),
       enabled: role && role === 'ROLE_USER'
+    },
+    {
+      text: 'Calendario',
+      icon: <EventIcon style={{ color: 'black' }} />,
+      onClick: () => history.push(`/${username}/calendar`),
+      enabled: (role && role === 'ROLE_ADMIN') || (role && role === 'ROLE_USER')
     },
     {
       text: 'Agregar partido',
@@ -164,12 +165,12 @@ export default function BurgerMenu({ children }) {
       enabled: role && role === 'ROLE_ADMIN'
     },
     {
-      text: 'Esconder menu ',
+      text: 'Esconder menu',
       icon: <ArrowBackIcon style={{ color: 'black' }} />,
       onClick: () => { handleShow(); setOpen(false) },
-      enabled: (role && role === 'ROLE_ADMIN') || (role && role === 'ROLE_USER')
+      enabled: isMobile && ((role && role === 'ROLE_ADMIN') || (role && role === 'ROLE_USER'))
     }
-  
+
   ];
 
   const handleDrawerOpen = () => {
@@ -183,7 +184,7 @@ export default function BurgerMenu({ children }) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Header styleClasses={classes} open={open} handleDrawerOpen={handleDrawerOpen} hideBurgerMenu={handleShow} hided={show} />
+      <Header styleClasses={classes} open={open} handleDrawerOpen={handleDrawerOpen} showBurgerMenu={handleShow} hided={show} />
       {show && <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {

@@ -37,7 +37,7 @@ class SpectatorService extends AbstractService {
     }
 
     async getMatchs() {
-        const endpoint = '/matchs'
+        const endpoint = '/next-matches'
         return this.axios.get(this.path + endpoint)
     }
 }

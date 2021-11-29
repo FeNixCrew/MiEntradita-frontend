@@ -8,7 +8,7 @@ import { StyledInputBase } from './search_bar/StyledInputBase';
 function SearchBar({ onChange, register, handleSubmit, type = 'text'}) {
     return (
         <Box component="form" onChange={handleSubmit(onChange)} onSubmit={handleSubmit(onChange)} noValidate>
-            <Search sx={{ maxWidth: '28vw' }}>
+            <Search sx={{ maxWidth: '75vw' }}>
                 <SearchIconWrapper>
                     <SearchIcon />
                 </SearchIconWrapper>
