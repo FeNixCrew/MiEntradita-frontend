@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useForm } from "react-hook-form";
-import { Alert } from '@mui/material';
+import { Alert, CircularProgress } from '@mui/material';
 import { label } from '../../helpers/usedFunctions'
 import AddReactionIcon from '@mui/icons-material/AddReaction';
 
@@ -177,11 +177,13 @@ function RegisterForm({ onSubmit, error, resetError, isLoading }) {
                 endIcon={<AddReactionIcon />}
                 loadingPosition="end"
                 type="submit"
+                size="medium"
                 fullWidth
                 variant="contained"
+                loadingIndicator={<CircularProgress size={20} color="inherit"/>}
                 sx={{ mt: 3, mb: 2 }}
             >
-                {label("Registrarse")}
+                {!isLoading ? label("Registrarse") : label("Registrandote...", true)}
             </LoadingButton>
             <Grid container justifyContent="flex-end">
                 <Grid item sx={{ mb: 2 }}>

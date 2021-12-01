@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core";
 import { label } from '../../helpers/usedFunctions'
 import LoadingButton from '@mui/lab/LoadingButton';
 import LoginIcon from '@mui/icons-material/Login';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -83,7 +84,7 @@ function LoginForm({ onSubmit, error, resetError, isLoading }) {
                     endIcon={<LoginIcon />}
                     loadingPosition="end"
                     type="submit"
-                    size="small"
+                    size="medium"
                     fullWidth
                     data-testid='login-button'
                     onClick={() => {
@@ -91,8 +92,9 @@ function LoginForm({ onSubmit, error, resetError, isLoading }) {
                         if (username && password) onSubmit({ username, password });
                     }}
                     variant="contained"
+                    loadingIndicator={<CircularProgress size={20} color="inherit"/>}
                 >
-                    {label("Ingresar")}
+                    {!isLoading ? label("Ingresar") : label("Ingresando...", true)}
                 </LoadingButton>
             </div>
             <Grid item>
