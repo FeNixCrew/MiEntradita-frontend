@@ -24,6 +24,7 @@ const useStyle = makeStyles((_) => ({
     searchBarContainer: {
         backgroundColor: '#ecf0f1',
         display: 'flex',
+        minWidth: '40vw',
         borderRadius: 5,
         padding: '3vh',
         flexDirection: 'column',
@@ -32,7 +33,6 @@ const useStyle = makeStyles((_) => ({
         marginTop: '5vh',
         marginLeft: 'auto',
         marginRight: 'auto',
-        minWidth: '90vw'
     },
 }))
 

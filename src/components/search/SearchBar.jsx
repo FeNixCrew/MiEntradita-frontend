@@ -14,7 +14,7 @@ function SearchBar({ onChange, register, handleSubmit, type = 'text'}) {
                 </SearchIconWrapper>
                 <StyledInputBase
                     {...register("textSearched")}
-                    style={{ fontFamily: 'Quicksand', color: 'black', fontWeight: 'bold'}}
+                    style={{ fontFamily: 'Quicksand', color: 'black', fontStyle: 'italic'}}
                     placeholder="Buscar..."
                     type={type} 
                     inputProps={{ 'aria-label': 'search' }}

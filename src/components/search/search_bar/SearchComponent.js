@@ -4,7 +4,7 @@ export const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.black, .1),
-    borderColor: 'black',
+    borderColor: '#808b96',
     borderStyle: 'solid',
     borderWidth: '1px',
     marginRight: theme.spacing(2),
