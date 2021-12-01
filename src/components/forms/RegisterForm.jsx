@@ -12,9 +12,9 @@ import AddReactionIcon from '@mui/icons-material/AddReaction';
 function RegisterForm({ onSubmit, error, resetError, isLoading }) {
     const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
-    const name = register('name', { required: true });
-    const surname = register('surname', { required: true });
-    const username = register('username', { required: true, minLength: 6 });
+    const name = register('name', { required: true, pattern: /^[a-zA-Z0-9_]*$/ });
+    const surname = register('surname', { required: true, pattern: /^[a-zA-Z0-9_]*$/ });
+    const username = register('username', { required: true, minLength: 6, pattern: /^[a-zA-Z0-9_]*$/ });
     const password = register('password', { required: true, minLength: 6 });
 
     password.current = watch("password", "");
@@ -58,7 +58,7 @@ function RegisterForm({ onSubmit, error, resetError, isLoading }) {
                         name="name"
                         {...register("name")}
                         fullWidth
-                        helperText={getError('required', 'name', 'nombre')}
+                        helperText={getError('required', 'name', 'nombre') || getError('pattern', 'name', 'nombre')}
                         id="name"
                         label={label("Nombre", true)}
                         autoFocus
@@ -76,7 +76,7 @@ function RegisterForm({ onSubmit, error, resetError, isLoading }) {
                         id="surname"
                         label={label("Apellido", true)}
                         name="surname"
-                        helperText={getError('required', 'surname', 'apellido')}
+                        helperText={getError('required', 'surname', 'apellido') || getError('pattern', 'surname', 'apellido')}
                         autoComplete="lname"
                         onChange={e => {
                             surname.onChange(e);
@@ -94,7 +94,8 @@ function RegisterForm({ onSubmit, error, resetError, isLoading }) {
                         id="username"
                         helperText={
                             getError('required', 'username', 'usuario') || 
-                            getError('minLength', 'username', 'usuario')
+                            getError('minLength', 'username', 'usuario') ||
+                            getError('pattern', 'username', 'usuario')
                         }
 
                         onChange={e => {
