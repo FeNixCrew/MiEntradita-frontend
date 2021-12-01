@@ -20,6 +20,10 @@ export default function Ticket({ ticket, styleClasses }) {
   };
 
   const onImageCownload = () => {
+    if(!ticket.isPaid) {
+      return;
+    }
+
     const svg = document.getElementById("QRCodeGen");
     const svgData = new XMLSerializer().serializeToString(svg);
     const canvas = document.createElement("canvas");
