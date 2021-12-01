@@ -3,10 +3,10 @@ import { styled, alpha } from '@mui/material/styles';
 export const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.black, 0.26),
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.black, 0.20),
-    },
+    backgroundColor: alpha(theme.palette.common.black, .1),
+    borderColor: 'black',
+    borderStyle: 'solid',
+    borderWidth: '1px',
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',

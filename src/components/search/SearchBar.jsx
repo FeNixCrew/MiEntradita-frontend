@@ -10,13 +10,13 @@ function SearchBar({ onChange, register, handleSubmit, type = 'text'}) {
         <Box component="form" onChange={handleSubmit(onChange)} onSubmit={handleSubmit(onChange)} noValidate>
             <Search sx={{ maxWidth: '75vw' }}>
                 <SearchIconWrapper>
-                    <SearchIcon />
+                    <SearchIcon/>
                 </SearchIconWrapper>
                 <StyledInputBase
                     {...register("textSearched")}
-                    style={{ fontFamily: 'Quicksand'}}
+                    style={{ fontFamily: 'Quicksand', color: 'black', fontWeight: 'bold'}}
                     placeholder="Buscar..."
-                    type={type}
+                    type={type} 
                     inputProps={{ 'aria-label': 'search' }}
                 />
             </Search>
