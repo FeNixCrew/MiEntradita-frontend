@@ -125,7 +125,7 @@ export const useStylesMobile = makeStyles((_) => ({
     width: '50px',
     height: '50px',
     marginTop: '3vh',
-    marginLeft: '4.6vh',
+    marginLeft: '8.5vh',
     marginRight: 'auto',
     backgroundColor: '#ffffff',
     opacity: '0.3',
