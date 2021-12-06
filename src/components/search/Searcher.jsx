@@ -24,6 +24,7 @@ const useStyle = makeStyles((_) => ({
     searchBarContainer: {
         backgroundColor: '#ecf0f1',
         display: 'flex',
+        minWidth: '40vw',
         borderRadius: 5,
         padding: '3vh',
         flexDirection: 'column',
@@ -31,7 +32,7 @@ const useStyle = makeStyles((_) => ({
         marginBottom: '2vh',
         marginTop: '5vh',
         marginLeft: 'auto',
-        marginRight: 'auto'
+        marginRight: 'auto',
     },
 }))
 
@@ -114,7 +115,7 @@ function Searcher() {
                 matchs ?
                     <RenderMatchesComponent matches={matchs} ComponentToRenderWhenReturn={ComponentToRenderWhenReturn} callbackToComponent={do_search} />
                     :
-                    <CoustomTypography text='Busque partidos de un equipo!' sx={{ mt: 4 }} />
+                    <CoustomTypography text='¡Busque partidos!' sx={{ mt: 4 }} />
             }
         </div>
     );

@@ -1,10 +1,20 @@
 import GridItem from "../layout/GridItem";
-import { Box, Button, Grid, Paper } from '@mui/material';
+import { Box, Grid, Paper } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import AddModeratorIcon from '@mui/icons-material/AddModerator';
 import CoustomTypography from "../CoustomTypography";
 import { label } from '../../helpers/usedFunctions'
 import { makeStyles } from "@material-ui/core";
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import RoomIcon from '@mui/icons-material/Room';
+import ShieldIcon from '@mui/icons-material/Shield';
+import { useToggle } from "../../helpers/hooks/useToggle";
+import LoadingButton from '@mui/lab/LoadingButton';
+
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -37,25 +47,56 @@ const useStyle = makeStyles((_) => ({
     }
 }))
 
-function CreateTeamForm({ onSubmit }) {
+function CreateTeamForm({ onSubmit, isLoading }) {
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             name: '',
             knowName: '',
-            stadium: '',
-            stadiumCapacity: 20000
+            stadiumName: '',
+            stadiumCapacity: 20000,
+            stadiumLatitude: -34.6037389,
+            stadiumLongitude: -58.3815704,
+
         }
     });
 
+    const [expandedPanel1, closePanel1, handleChangePanel1] = useToggle()
+    const [expandedPanel2, closePanel2, handleChangePanel2] = useToggle()
+
+    const handleChange = (panel) => (_, __) => {
+        if (panel === 'panel1') {
+            closePanel2();
+            handleChangePanel1()
+        } else {
+            closePanel1()
+            handleChangePanel2()
+        }
+    };
+
     register('name', { required: true });
     register('knowName', { required: true });
-    register('stadium', { required: true });
+    register('stadiumName', { required: true });
     register('stadiumCapacity', { required: true, min: 1 });
+    register('stadiumLongitude', { required: true });
+    register('stadiumLatitude', { required: true });
 
     const classes = useStyle();
 
     const showError = (entity) => {
         return errors[entity] !== undefined;
+    }
+
+    const errorsPanel1 = [errors.name, errors.knowName];
+    const errorsPanel2 = [errors.stadiumName, errors.stadiumCapacity, errors.stadiumLatitude, errors.stadiumLongitude];
+
+    const errorsPanel = (array, change) => {
+        // eslint-disable-next-line array-callback-return
+        return array.some((field) => {
+            if (field !== undefined) {
+                change();
+                return field
+            }
+        })
     }
 
     const getError = (field, fieldName) => {
@@ -73,57 +114,98 @@ function CreateTeamForm({ onSubmit }) {
                 className={classes.container}
                 elevation={3}
             >
-                <Grid container spacing={1} className={classes.formContainer}>
-                    <GridItem
-                        register={register}
-                        showError={showError('name')}
-                        helperText={getError('name', 'Nombre de equipo')}
-                        name="name"
-                        type="text"
-                        id="name-id"
-                        givenLabel="Nombre de equipo"
-                        xs={12}
-                    />
-                    <GridItem
-                        register={register}
-                        showError={showError('knowName')}
-                        helperText={getError('knowName', 'Nombre conocido')}
-                        name="knowName"
-                        type="text"
-                        id="knowName-id"
-                        givenLabel="Nombre conocido"
-                        xs={12}
-                    />
-                    <GridItem
-                        register={register}
-                        showError={showError('stadium')}
-                        helperText={getError('stadium', 'Estadio')}
-                        name="stadium"
-                        type="text"
-                        id="stadium-id"
-                        givenLabel="Estadio"
-                        xs={12}
-                    />
-                     <GridItem
-                        register={register}
-                        showError={showError('stadiumCapacity')}
-                        helperText={getError('stadiumCapacity', 'Capacidad de Estadio') || (errors['stadiumCapacity']?.type === 'min' && 'La capacidad del estadio no puede ser 0') }
-                        name="stadiumCapacity"
-                        type="number"
-                        id="stadiumCapacity-id"
-                        givenLabel="Capacidad de Estadio"
-                        xs={12}
-                    />
-                </Grid>
+                <Accordion sx={{ padding: '1vh' }} expanded={expandedPanel1 || errorsPanel(errorsPanel1, handleChangePanel1)} onChange={handleChange('panel1')}>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                    >
+                        <ShieldIcon /><Typography>Editar informacion de equipo</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Grid container spacing={1} className={classes.formContainer}>
+                            <GridItem
+                                register={register}
+                                showError={showError('name')}
+                                helperText={getError('name', 'Nombre de equipo')}
+                                name="name"
+                                type="text"
+                                id="name-id"
+                                givenLabel="Nombre de equipo"
+                                xs={12}
+                            />
+                            <GridItem
+                                register={register}
+                                showError={showError('knowName')}
+                                helperText={getError('knowName', 'Nombre conocido')}
+                                name="knowName"
+                                type="text"
+                                id="knowName-id"
+                                givenLabel="Nombre conocido"
+                                xs={12}
+                            />
+                        </Grid>
+                    </AccordionDetails>
+                </Accordion>
+                <Accordion sx={{ padding: '1vh' }} expanded={expandedPanel2 || errorsPanel(errorsPanel2, handleChangePanel2)} onChange={handleChange('panel2')}>
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                    >
+                        <RoomIcon /><Typography>Editar informacion de estadio</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <GridItem
+                            register={register}
+                            showError={showError('stadiumName')}
+                            helperText={getError('stadiumName', 'Nombre')}
+                            name="stadiumName"
+                            type="text"
+                            id="stadiumName-id"
+                            givenLabel="Nombre"
+                            xs={12}
+                        />
+                        <GridItem
+                            register={register}
+                            showError={showError('stadiumCapacity')}
+                            helperText={getError('stadiumCapacity', 'Capacidad') || (errors['stadiumCapacity']?.type === 'min' && 'La capacidad del estadio no puede ser 0')}
+                            name="stadiumCapacity"
+                            type="number"
+                            id="stadiumCapacity-id"
+                            givenLabel="Capacidad"
+                            xs={12}
+                        />
+                        <GridItem
+                            register={register}
+                            showError={showError('stadiumLatitude')}
+                            helperText={getError('stadiumLatitude', 'Latitud')}
+                            name="stadiumLatitude"
+                            type="number"
+                            id="stadiumLatitude-id"
+                            givenLabel="Latitud"
+                            xs={12}
+                        />
+                        <GridItem
+                            register={register}
+                            showError={showError('stadiumLongitude')}
+                            helperText={getError('stadiumLongitude', 'Longitud')}
+                            name="stadiumLongitude"
+                            type="number"
+                            id="stadiumLongitude-id"
+                            givenLabel="Longitud"
+                            xs={12}
+                        />
+                    </AccordionDetails>
+                </Accordion>
                 <Box className={classes.buttonContainer}>
-                    <Button
+                    <LoadingButton
+                        loading={isLoading}
                         type="submit"
+                        startIcon={<AddModeratorIcon />}
+                        loadingPosition="start"
                         fullWidth
                         variant="contained"
                         className={classes.button}
                     >
-                        <AddModeratorIcon style={{ marginRight: '1vw' }} /> {label("Crear equipo")}
-                    </Button>
+                        {label("Crear equipo")}
+                    </LoadingButton>
                 </Box>
             </Paper>
         </>

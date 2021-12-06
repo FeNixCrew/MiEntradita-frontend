@@ -8,7 +8,6 @@ import Container from '@mui/material/Container';
 import RegisterForm from '../components/forms/RegisterForm';
 import CoustomTypography from '../components/CoustomTypography';
 import CoustomAvatar from '../components/CoustomAvatar';
-import BackdropInherit from '../components/feedback/Backdrop';
 
 import { useToggle } from '../helpers/hooks/useToggle';
 import { saveData } from '../helpers/usedFunctions';
@@ -63,13 +62,12 @@ function Register() {
 
     return (
         <>
-            <BackdropInherit open={open} />
             <Container component="main" maxWidth="sm">
                 <CssBaseline />
                 <Box className={classes.boxContainer}>
                     <CoustomAvatar />
                     <CoustomTypography text="Registrarse" />
-                    <RegisterForm onSubmit={onSubmit} error={error} resetError={resetError} />
+                    <RegisterForm onSubmit={onSubmit} error={error} resetError={resetError} isLoading={open} />
                 </Box>
             </Container>
         </>

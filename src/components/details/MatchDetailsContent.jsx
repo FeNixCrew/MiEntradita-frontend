@@ -14,7 +14,8 @@ const useStyle = makeStyles((_) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: '2vh'
+    paddingTop: '2vh',
+    marginRight: '5vh'
   },
   typ: {
     paddingBottom: '2vh',
@@ -40,7 +41,7 @@ export default function MatchDetailsContent({ matchDetails }) {
       <Typography className={classes.typ}><LocationOnIcon /> <span className={classes.span}> {stadium} </span> </Typography>
       <Typography className={classes.typ}><AttributionIcon /> <span className={classes.span}>Capacidad permitida:</span> {capacitySupported} personas</Typography>
       <Typography className={classes.typ}><MonetizationOnIcon /> <span className={classes.span}>Precio por entrada:</span> ${ticketPrice}</Typography>
-      <Typography className={classes.typ}><ConfirmationNumberIcon /> <span className={classes.span}>Cantidad de entradas disponibles</span> {availableTickets} entradas</Typography>
+      <Typography className={classes.typ}><ConfirmationNumberIcon /> <span className={classes.span}>Cantidad de entradas disponibles</span> {availableTickets}</Typography>
 
     </Box>
   )

@@ -8,7 +8,6 @@ import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
 
 import LoginForm from '../components/forms/LoginForm';
-import BackdropInherit from '../components/feedback/Backdrop';
 import CoustomAvatar from '../components/CoustomAvatar';
 
 import authService from '../services/AuthService';
@@ -94,7 +93,6 @@ function LogIn() {
 
     return (
         <>
-            <BackdropInherit open={isLoading} />
             <Grid container component="main" className={classes.root}>
                 <CssBaseline />
                 <Grid
@@ -117,7 +115,7 @@ function LogIn() {
                         >
                             ¡Bienvenido!
                         </Typography>
-                        <LoginForm onSubmit={onSubmit} resetError={resetError} error={error} />
+                        <LoginForm onSubmit={onSubmit} resetError={resetError} error={error} isLoading={isLoading}/>
 
                     </Box>
                 </Grid>

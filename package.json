@@ -5,6 +5,9 @@
   "dependencies": {
     "@date-io/date-fns": "^2.11.0",
     "@date-io/dayjs": "^2.11.0",
+    "@devexpress/dx-react-core": "^2.7.6",
+    "@devexpress/dx-react-scheduler": "^2.7.6",
+    "@devexpress/dx-react-scheduler-material-ui": "^2.7.6",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@fontsource/roboto": "^4.5.0",
@@ -17,6 +20,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.4",
+    "mapbox-gl": "^2.6.0",
     "papaparse": "^5.3.1",
     "react": "^17.0.2",
     "react-device-detect": "^2.1.2",
@@ -35,6 +39,23 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "coverageReporters": [
+      "lcov",
+      "html",
+      "text-summary",
+      "json-summary"
+    ],
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/reportWebVitals.js",
+      "!**/index.js",
+      "!**/services/**",
+      "!**/setupTests.js",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ]
   },
   "eslintConfig": {
     "rules": {

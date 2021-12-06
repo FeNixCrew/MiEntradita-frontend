@@ -48,6 +48,7 @@ export default function Tickets({ tickets }) {
                                 autoPlay={false}
                                 IndicatorIcon={<ConfirmationNumberIcon/>}
                                 animation="slide"
+                                navButtonsAlwaysInvisible={isMobile}
                                 navButtonsProps={{
                                     style: {
                                         backgroundColor: '#2e86c1',

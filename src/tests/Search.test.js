@@ -8,7 +8,7 @@ describe('Buscador', () => {
 
     test('Al ingresar al buscador se muestra un titulo "busque partidos de un equipo"', () => {
       render(<Search />);
-      expect(screen.getByText(/busque partidos de un equipo/i)).toBeInTheDocument();
+      expect(screen.getByText(/busque partidos/i)).toBeInTheDocument();
     });
 
     test('Cuando la busqueda no encuentra resultados, se muesta un titulo indicandolo', () => {

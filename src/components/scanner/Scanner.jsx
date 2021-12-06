@@ -51,8 +51,7 @@ export default function Scanner({match, setMatch}) {
             setSuccess('Bienvenido al partido! Esperamos que disfrute del encuentro.');
           })
           .catch((err) => {
-            const msg = err.response.status===400 ? err.response.data.message : 'Hubo al validar su entrada. Intente de nuevo.';
-            setError(msg);
+            setError(err.response.data.message);
           });
           handleClose();
         }

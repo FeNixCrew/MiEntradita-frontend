@@ -48,7 +48,7 @@ function Filter({
                 onChange={handleChange}
                 label="Estado"
             >
-                {['Terminados', 'Pendientes', 'Ambos'].map((option) =>
+                {['Terminados', 'Pendientes', 'Todos'].map((option) =>
                     <FormControlLabel
                         value={option}
                         control={<Radio />}
