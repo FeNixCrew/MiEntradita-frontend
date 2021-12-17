@@ -7,10 +7,20 @@ import TableRow from '@mui/material/TableRow';
 import { Typography } from '@mui/material';
 import TablePagination from "@material-ui/core/TablePagination";
 import { isMobile } from 'react-device-detect';
+import { makeStyles } from '@material-ui/core';
+
+const useStyle = makeStyles((_) => ({
+    title: {
+        fontFamily: 'Quicksand',
+        textAlign: 'center',
+        fontSize: 21
+    }
+}))
 
 const Title = (props) => {
+    const classes = useStyle();
     return (
-        <Typography component="h2" variant="h6" color="primary" gutterBottom sx={{ textAlign: 'center' }}>
+        <Typography component="h2" variant="h6" color="primary" gutterBottom classes={{ root: classes.title }}>
             {props.children}
         </Typography>
     );
@@ -67,7 +77,7 @@ function AttendanceTable({ match, attendanceInfo, itemsPerPage }) {
 
     return (
         <>
-            <Title>Datos de asistencias para {match.home} vs {match.away}</Title>
+            <Title classes={{  }} >Datos de asistencias para {match.home} vs {match.away}</Title>
             <Table size="small">
                 <TableHead>
                     <TableRow sx={{ fontWeight: 'bold' }}>

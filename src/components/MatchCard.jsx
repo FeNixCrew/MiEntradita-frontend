@@ -22,7 +22,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from '../style/style';
 
 
-const useStyle = makeStyles((_) => ({
+const useStyle = makeStyles(() => ({
     root: {
         display: 'flex',
         flexDirection: 'row',
@@ -69,6 +69,11 @@ const useStyle = makeStyles((_) => ({
         fontFamily: 'Quicksand',
         fontWeight: 'bold',
         fontSize: 15
+    },
+    button: {
+        color: '#2e86c1',
+        fontFamily: 'Quicksand',
+        fontSize: 14
     }
 }))
 
@@ -76,6 +81,8 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
     const [openMatchDetails, handleCloseMDetails, handleToggleMDetails] = useToggle();
     const [openTeamDetails, handleCloseTDetails, handleToggleTDetails] = useToggle();
     const [setError, setSuccess, isOpenSnack, closeSnackBar, severity, message] = useSnackbar();
+
+    const classes = useStyle();
 
     const [reserved, setReserved] = useState(false);
     const [teamName, setTeamName] = useState('');
@@ -86,7 +93,6 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
         longitude: 0
     })
 
-    const classes = useStyle();
     const desktopClasses = useStylesDesktop();
     const mobileClasses = useStylesMobile();
 
@@ -188,8 +194,8 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
                 />
                 {openMatchDetails && <MatchDetails open={openMatchDetails} handleClose={handleCloseMDetails} matchId={match.id} title={matchTitle} reserveTicket={reserveTicket} isAvailable={reserved} styleClasses={isMobile ? mobileClasses : desktopClasses} ubication={ubication} />}
                 {openTeamDetails && <TeamDetails open={openTeamDetails} handleClose={handleCloseTDetails} teamName={teamName} teamId={teamId} markAsFavourite={markAsFavourite} haveFavouriteTeam={haveFavouriteTeam} />}
-                <Grid item xs={12} className={classes.container}>
-                    <Card className={classes.cardComp}>
+                <Grid item xs={12} classes={{ root: classes.container }}>
+                    <Card classes={{root: classes.cardComp }}>
                         <CardContent>
                             <div className={classes.textContainer} >
                                 <Typography style={{ fontFamily: 'Quicksand', marginRight: '2vh' }} gutterBottom variant="h5" component="h2">
@@ -199,13 +205,13 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
                                     color={amountSeverity}
                                     variant="outlined"
                                     style={{ marginLeft: 'auto', }}
-                                    className={classes.ticketsMessage}
+                                    classes={{root: classes.ticketsMessage }}
                                 >
                                     {messageOfAmount}
                                 </Typography>
                             </div>
                             <Typography
-                                className={classes.data}
+                                classes={{ root: classes.data }}
                                 gutterBottom
                                 variant="div"
                                 component="p"
@@ -218,8 +224,8 @@ function MatchCard({ match, teamId, markAsFavourite, haveFavouriteTeam, callback
                         </CardContent>
                         <CardActions>
                             <Stack spacing={2} direction="row">
-                                <Button size="small" onClick={handleToggleMDetails}>Detalles de partido</Button>
-                                {isAdmin() && <Button size="small" onClick={pushToAttendanceData}>Datos de asistencia</Button>}
+                                <Button size="small" onClick={handleToggleMDetails} classes={{ root: classes.button }}>Detalles de partido</Button>
+                                {isAdmin() && <Button size="small" classes={{ root: classes.button }} onClick={pushToAttendanceData}>Datos de asistencia</Button>}
                             </Stack>
                         </CardActions>
                     </Card>

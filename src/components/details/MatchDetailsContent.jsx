@@ -20,7 +20,7 @@ const useStyle = makeStyles((_) => ({
   typ: {
     paddingBottom: '2vh',
     fontFamily: 'Quicksand',
-    fontSize: '20px'
+    fontSize: '18px'
   },
   span: {
     fontStyle: 'italic',
@@ -34,14 +34,14 @@ export default function MatchDetailsContent({ matchDetails }) {
   const classes = useStyle();
 
   return (
-    <Box className={classes.root}>
-      <Typography className={classes.typ}><DateRangeIcon /><span className={classes.span}> {date}</span></Typography>
-      <Typography className={classes.typ}><AccessTimeIcon /> <span className={classes.span}>{time}</span></Typography>
-      <Typography className={classes.typ}><AssignmentIcon /> <span className={classes.span}>Aforo permitido: {percentageOfCapacityAllowed}%</span></Typography>
-      <Typography className={classes.typ}><LocationOnIcon /> <span className={classes.span}> {stadium} </span> </Typography>
-      <Typography className={classes.typ}><AttributionIcon /> <span className={classes.span}>Capacidad permitida:</span> {capacitySupported} personas</Typography>
-      <Typography className={classes.typ}><MonetizationOnIcon /> <span className={classes.span}>Precio por entrada:</span> ${ticketPrice}</Typography>
-      <Typography className={classes.typ}><ConfirmationNumberIcon /> <span className={classes.span}>Cantidad de entradas disponibles</span> {availableTickets}</Typography>
+    <Box classes={{ root: classes.root }}>
+      <Typography classes={{ root: classes.typ }}><DateRangeIcon /><span className={classes.span}> {date}</span></Typography>
+      <Typography classes={{ root: classes.typ }}><AccessTimeIcon /> <span className={classes.span}>{time}</span></Typography>
+      <Typography classes={{ root: classes.typ }}><AssignmentIcon /> <span className={classes.span}>Aforo permitido: {percentageOfCapacityAllowed}%</span></Typography>
+      <Typography classes={{ root: classes.typ }}><LocationOnIcon /> <span className={classes.span}> {stadium} </span> </Typography>
+      <Typography classes={{ root: classes.typ }}><AttributionIcon /> <span className={classes.span}>Capacidad permitida:</span> {capacitySupported} personas</Typography>
+      <Typography classes={{ root: classes.typ }}><MonetizationOnIcon /> <span className={classes.span}>Precio por entrada:</span> ${ticketPrice}</Typography>
+      <Typography classes={{ root: classes.typ }}><ConfirmationNumberIcon /> <span className={classes.span}>Cantidad de entradas disponibles</span> {availableTickets}</Typography>
 
     </Box>
   )

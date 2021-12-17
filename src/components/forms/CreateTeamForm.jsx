@@ -18,7 +18,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 
 const useStyle = makeStyles((_) => ({
     root: {
-        paddingTop: '3vh'
+        paddingTop: '5vh'
     },
     container: {
         backgroundColor: '#ecf0f1',
@@ -35,14 +35,20 @@ const useStyle = makeStyles((_) => ({
         alignItems: 'center',
         paddingTop: '2vh'
     },
+    accordionTitle: {
+        fontFamily: 'Quicksand',
+        fontSize: 17,
+        fontWeight: 550
+    },
     button: {
         marginTop: 3,
         marginBottom: 2,
-        color: 'black',
+        color: 'white',
         maxWidth: '40%',
         backgroundColor: '#2e86c1',
         '&:hover': {
-            backgroundColor: 'white'
+            backgroundColor: '#21568a',
+            cursor: 'pointer'
         }
     }
 }))
@@ -118,7 +124,7 @@ function CreateTeamForm({ onSubmit, isLoading }) {
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                     >
-                        <ShieldIcon /><Typography>Editar informacion de equipo</Typography>
+                        <ShieldIcon /> <Typography classes={{ root: classes.accordionTitle }}>  Editar información de equipo</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Grid container spacing={1} className={classes.formContainer}>
@@ -149,7 +155,7 @@ function CreateTeamForm({ onSubmit, isLoading }) {
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                     >
-                        <RoomIcon /><Typography>Editar informacion de estadio</Typography>
+                        <RoomIcon /> <Typography classes={{ root: classes.accordionTitle }}> Editar información de estadio</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                         <GridItem

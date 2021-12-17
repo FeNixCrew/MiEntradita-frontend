@@ -1,4 +1,4 @@
-import { CssBaseline, Container } from '@mui/material';
+import { CssBaseline, Container, Box } from '@mui/material';
 
 import { useToggle } from '../../helpers/hooks/useToggle';
 import { useSnackbar } from '../../helpers/hooks/useSnackbar';
@@ -25,17 +25,25 @@ function AbstractAdminFormComponent({ Children, promise, entityName }) {
 
     return (
         <>
-            <SnackBar
-                openSnackBar={isOpenSnack}
-                closeSnackBar={closeSnackBar}
-                message={message}
-                severityState={severity}
-                position={{ vertical: 'bottom', horizontal: 'left' }}
-            />
-            <Container component="main" maxWidth="md">
-                <CssBaseline />
-                <Children onSubmit={onSubmit} isLoading={open} />
-            </Container >
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    minHeight: '90vh',
+                }}
+            >
+                <SnackBar
+                    openSnackBar={isOpenSnack}
+                    closeSnackBar={closeSnackBar}
+                    message={message}
+                    severityState={severity}
+                    position={{ vertical: 'bottom', horizontal: 'left' }}
+                />
+                <Container component="main" maxWidth="md">
+                    <CssBaseline />
+                    <Children onSubmit={onSubmit} isLoading={open} />
+                </Container >
+            </Box>
         </>
     );
 }

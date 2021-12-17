@@ -5,13 +5,12 @@ import Button from '@mui/material/Button';
 import SnackBar from '../feedback/SnackBar';
 import { useToggle } from '../../helpers/hooks/useToggle'
 import matchService from '../../services/MatchService.js';
-import { BootstrapDialog } from './modal/BoostrapDialog';
 import { BootstrapDialogTitle } from './modal/BoostrapDialogTitle';
 import MatchDetailsContent from './MatchDetailsContent';
 import Confirmation from '../feedback/Confirmation';
 import { label, isUser } from '../../helpers/usedFunctions';
 import Map from '../Map';
-import { Grid } from '@mui/material';
+import { Dialog, Grid } from '@mui/material';
 
 export default function MatchDetails({ open, handleClose, matchId, title, reserveTicket, isAvailable, styleClasses, underTesting = false, ubication }) {
   const [matchDetails, setMatchDetails] = useState(undefined);
@@ -41,7 +40,7 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
   }
 
   return (
-    <div>
+    <>
       <Confirmation
         open={isOpen}
         handleClose={closeConfirmation}
@@ -56,33 +55,32 @@ export default function MatchDetails({ open, handleClose, matchId, title, reserv
         closeSnackBar={closeSnackBar}
         position={{ vertical: 'bottom', horizontal: 'left' }}
       />
-      <BootstrapDialog
+      <Dialog
         onClose={handleClose}
         maxWidth='xl'
-        aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <BootstrapDialogTitle style={{ color: 'white' }} onClose={handleClose}>
+        <BootstrapDialogTitle classes={{ root: classes.title }} onClose={handleClose}>
           {label(title)}
         </BootstrapDialogTitle>
-        <DialogContent className={classes.mainContainer} >
-          <Grid className={classes.cardContent}>
+        <DialogContent classes={{ root: classes.mainContainer }} >
+          <Grid classes={{ root: classes.cardContent }}>
             {matchDetails && <MatchDetailsContent matchDetails={matchDetails} />}
-            <Grid item xs={4} sx={{ marginTop: '2vh' }}>
+          </Grid>
+          <Grid item xs={4} sx={{ marginTop: '1vh' }} >
               {!underTesting && <Map className={classes.map} latitude={ubication.latitude} longitude={ubication.longitude} />}
             </Grid>
-          </Grid>
         </DialogContent>
         <DialogActions>
-          {isUser() && isAvailable !== null && <Button sx={{ color: '#2e86c1' }} autoFocus onClick={openConfirmation} disabled={isDisabled}>
+          {isUser() && isAvailable !== null && <Button classes={{ root: classes.button }} autoFocus onClick={openConfirmation} disabled={isDisabled}>
             Reservar Entrada
           </Button>
           }
-          <Button sx={{ color: '#2e86c1' }} autoFocus onClick={handleClose}>
+          <Button classes={{ root: classes.button }} autoFocus onClick={handleClose}>
             Volver
           </Button>
         </DialogActions>
-      </BootstrapDialog>
-    </div>
+      </Dialog>
+    </>
   );
 }

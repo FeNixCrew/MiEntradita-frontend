@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { makeStyles } from '@material-ui/core';
 import { CardHeader } from '@mui/material';
 import { Box } from '@mui/system';
-import { formatDateAndTime, payTicket } from '../helpers/usedFunctions';
+import { formatDateAndTime, label, payTicket } from '../helpers/usedFunctions';
 
 const useStyle = makeStyles((_) => ({
     root: {
@@ -30,6 +30,10 @@ const useStyle = makeStyles((_) => ({
         paddingBottom: '1vh',
         fontSize: 15,
     },
+    price: {
+        fontFamily: 'Quicksand',
+        color: '#3c3c3c'
+    },
     priceContainer: {
         display: 'flex',
         justifyContent: 'center',
@@ -49,22 +53,23 @@ function TicketPaymentCard({ ticket }) {
                 ? <Grid item className={classes.root}>
                     <Card className={classes.cardComp}>
                         <CardHeader
-                            title={<div style={{ fontSize: 21, textAlign: 'center' }}>{ticket.home} vs {ticket.away}</div>}
-                            subheader={horarioFormateado}
+                            title={<div style={{ fontSize: 21, textAlign: 'center' }}>{label(`${ticket.home} vs ${ticket.away}`)}</div>}
+                            subheader={<div style={{ fontFamily: 'Quicksand', fontStyle: 'italic', fontSize: 18 }}>{ horarioFormateado }</div>}
                             titleTypographyProps={{ align: 'center' }}
                             subheaderTypographyProps={{
-                                align: 'center',
+                                align: 'center'
                             }}
+                            classes={{ root: classes.cardHeader }}
                         />
                         <CardContent>
                             <Box className={classes.priceContainer}>
-                                <Typography component="h2" variant="h3" color="text.primary">
+                                <Typography component="h2" variant="h3" color="text.primary" classes={{ root: classes.price }}>
                                     ${ticket.price}
                                 </Typography>
                             </Box>
                         </CardContent>
                         <CardActions>
-                            <Button style={{backgroundColor:'#2e86c1'}} fullWidth variant="contained" onClick={() => payTicket(ticket.link)}>
+                            <Button style={{backgroundColor:'#2e86c1', fontFamily: 'Quicksand' }} fullWidth variant="contained" onClick={() => payTicket(ticket.link)}>
                                 Pagar
                             </Button>
                         </CardActions>

@@ -41,7 +41,9 @@ const useStyle = makeStyles((_) => ({
     },
     button: {
         fontSize: 14,
-        maxWidth: '22vw'
+        maxWidth: '22vw',
+        backgroundColor: '#2e86c1',
+        margin: '4px',
     },
     container: {
         display: 'inline-flex', 
@@ -145,8 +147,8 @@ function AttendanceComponent({ match }) {
                         <div className={classes.container}>
                             {searchText?.length > 4 && <IconButton onClick={rollback}><ReplayIcon /></IconButton>}
                             <SearchBar onChange={search} register={register} handleSubmit={handleSubmit} />
-                            <Button variant="contained" className={classes.button} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={goBack}> Volver </Button>
-                            <Button variant="contained" className={classes.button} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={handleToggle}> Exportar... </Button>
+                            <Button variant="contained" classes={{ contained: classes.button }} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={goBack}> Volver </Button>
+                            <Button variant="contained" classes={{ contained: classes.button }} style={{ margin: '4px', backgroundColor: '#2e86c1' }} onClick={handleToggle}> Exportar... </Button>
                         </div>
                     </div>
             }
